@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9592238A-EAF2-477D-AB20-F79430D024D7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>GetRate</RootNamespace>
+    <AssemblyName>GetRate</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Migrations\202307302017067_newBegining.cs" />
+    <Compile Include="Migrations\202307302017067_newBegining.designer.cs">
+      <DependentUpon>202307302017067_newBegining.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308051658569_CompaniesAdded.cs" />
+    <Compile Include="Migrations\202308051658569_CompaniesAdded.designer.cs">
+      <DependentUpon>202308051658569_CompaniesAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308061003053_RoutePointsAdded.cs" />
+    <Compile Include="Migrations\202308061003053_RoutePointsAdded.designer.cs">
+      <DependentUpon>202308061003053_RoutePointsAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308061548150_CargoAndUnitTypeAdded.cs" />
+    <Compile Include="Migrations\202308061548150_CargoAndUnitTypeAdded.designer.cs">
+      <DependentUpon>202308061548150_CargoAndUnitTypeAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308071936420_RoutePointsAndTransportModes.cs" />
+    <Compile Include="Migrations\202308071936420_RoutePointsAndTransportModes.designer.cs">
+      <DependentUpon>202308071936420_RoutePointsAndTransportModes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Cargo.cs" />
+    <Compile Include="Model\UnitType.cs" />
+    <Compile Include="Model\Company.cs" />
+    <Compile Include="Model\Data\GetRateContext.cs" />
+    <Compile Include="Model\RelayCommand.cs" />
+    <Compile Include="Model\RoutePoint.cs" />
+    <Compile Include="View\AddCargoWindow.xaml.cs">
+      <DependentUpon>AddCargoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddCompanyWindow.xaml.cs">
+      <DependentUpon>AddCompanyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddRoutePointWindow.xaml.cs">
+      <DependentUpon>AddRoutePointWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddUnitTypeWindow.xaml.cs">
+      <DependentUpon>AddUnitTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CargoesList.xaml.cs">
+      <DependentUpon>CargoesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CompaniesList.xaml.cs">
+      <DependentUpon>CompaniesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditAddressWindow.xaml.cs">
+      <DependentUpon>EditAddressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditCargoWindow.xaml.cs">
+      <DependentUpon>EditCargoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditCityWindow.xaml.cs">
+      <DependentUpon>EditCityWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditCompanyWindow.xaml.cs">
+      <DependentUpon>EditCompanyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditCountryWindow.xaml.cs">
+      <DependentUpon>EditCountryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditUnitTypeWindow.xaml.cs">
+      <DependentUpon>EditUnitTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MessageView.xaml.cs">
+      <DependentUpon>MessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RoutePointsList.xaml.cs">
+      <DependentUpon>RoutePointsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UnitTypesListWindow.xaml.cs">
+      <DependentUpon>UnitTypesListWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\AddAddressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddCargoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddCompanyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddressesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddRoutePointWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddUnitTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CargoesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CitiesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddCityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CompaniesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CountriesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddCountryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditAddressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditCargoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditCityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditCompanyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditCountryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditUnitTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\DataWorker.cs" />
+    <Compile Include="ViewModel\DataManageVM.cs" />
+    <Compile Include="View\AddAddressWindow.xaml.cs">
+      <DependentUpon>AddAddressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddressesList.xaml.cs">
+      <DependentUpon>AddressesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CitiesList.xaml.cs">
+      <DependentUpon>CitiesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddCityWindow.xaml.cs">
+      <DependentUpon>AddCityWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CountriesList.xaml.cs">
+      <DependentUpon>CountriesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddCountryWindow.xaml.cs">
+      <DependentUpon>AddCountryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\MessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RoutePointsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UnitTypesListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\City.cs" />
+    <Compile Include="Model\Country.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Migrations\202307302017067_newBegining.resx">
+      <DependentUpon>202307302017067_newBegining.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308051658569_CompaniesAdded.resx">
+      <DependentUpon>202308051658569_CompaniesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308061003053_RoutePointsAdded.resx">
+      <DependentUpon>202308061003053_RoutePointsAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308061548150_CargoAndUnitTypeAdded.resx">
+      <DependentUpon>202308061548150_CargoAndUnitTypeAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308071936420_RoutePointsAndTransportModes.resx">
+      <DependentUpon>202308071936420_RoutePointsAndTransportModes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

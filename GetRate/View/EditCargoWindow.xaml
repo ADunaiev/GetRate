@@ -1,0 +1,42 @@
+﻿<Window x:Class="GetRate.View.EditCargoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GetRate.View"
+        mc:Ignorable="d"
+        Title="EditCargoWindow" Height="300" Width="350"
+        Name="EditCargoWnd">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Name ENG:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+        <Label Content="Name UKR:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+        <Label Content="Code:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+        <Label Content="Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+        <TextBox x:Name="CargoNameENGTextBox" Text="{Binding CargoNameENG}" Grid.Row="1" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>
+        <Label x:Name="CargoIdLabel" Grid.Row="0" Grid.Column="1" 
+               Margin="10" VerticalContentAlignment="Center"
+               Content="{Binding CargoId}"/>
+        <TextBox x:Name="CargoNameUKRTextBox" Text="{Binding CargoNameUKR}" Grid.Row="2" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="CargoCodeTextBox" Text="{Binding CargoCode}" Grid.Row="3" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="SaveUnitTypeBtn" Content="Save" Command="{Binding EditCargo}" 
+                    CommandParameter="{Binding ElementName=EditCargoWnd}"
+                    Margin="10" Width="60"/>
+            <Button Name="CancelUnitTypeBtn" Content="Cancel" 
+                    Margin="10" Width="60"
+                    Command="{Binding CloseWnd}"
+                    CommandParameter="{Binding ElementName=EditCargoWnd}"/>
+        </StackPanel>
+    </Grid>
+</Window>

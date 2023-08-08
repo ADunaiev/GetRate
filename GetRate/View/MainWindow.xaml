@@ -1,0 +1,30 @@
+﻿<Window x:Class="GetRate.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GetRate.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" FontSize="20"
+        Name="MainWnd">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <WrapPanel>
+            <Button x:Name="CountryBtn" Content="Countries" Margin="10" Command="{Binding OpenCountriesListWnd}"/>
+            <Button x:Name="CityBtn" Content="Cities" Margin="10" Command="{Binding OpenCitiesListWnd}"/>
+            <Button x:Name="AddressBtn" Content="Addresses" Margin="10" Command="{Binding OpenAddressesListWnd}"/>
+            <Button x:Name="CompanyBtn" Content="Companies" Margin="10" Command="{Binding OpenCompaniesListWnd}"/>
+            <Button x:Name="CargoBtn" Content="Cargoes" Margin="10" Command="{Binding OpenCargoesListWnd}"/>
+            <Button x:Name="UnitTypeBtn" Content="Unit types" Margin="10" Command="{Binding OpenUnitTypesListWnd}"/>
+        </WrapPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Quit" VerticalContentAlignment="Center" 
+                    Height="40" Margin="10" 
+                    Command="{Binding CloseWnd}"
+                    CommandParameter="{Binding ElementName=MainWnd}"/>
+        </StackPanel>
+    </Grid>
+</Window>
