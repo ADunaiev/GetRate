@@ -44,7 +44,9 @@
                       ItemsSource="{Binding AllAddresses}"
                       SelectedItem="{Binding CompanyAddress}"
                       DisplayMemberPath="StreetBuildingENG"/>
-            <Button x:Name="AddAddressBtn" Content="Add" Margin="12" Width="50"/>
+            <Button x:Name="AddAddressBtn" Content="Add" 
+                    Margin="12" Width="50"
+                    Command="{Binding OpenAddressesListWnd}"/>
         </StackPanel>
         <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="CompanyCardOkBtn" Content="Ok" Width="70" Margin="10"

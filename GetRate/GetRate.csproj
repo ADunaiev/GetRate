@@ -113,6 +113,12 @@
     <Compile Include="View\AddRoutePointWindow.xaml.cs">
       <DependentUpon>AddRoutePointWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddTransportModeUnitTypeWindow.xaml.cs">
+      <DependentUpon>AddTransportModeUnitTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddTransportModeWindow.xaml.cs">
+      <DependentUpon>AddTransportModeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddUnitTypeWindow.xaml.cs">
       <DependentUpon>AddUnitTypeWindow.xaml</DependentUpon>
     </Compile>
@@ -140,6 +146,9 @@
     <Compile Include="View\EditRoutePointWindow.xaml.cs">
       <DependentUpon>EditRoutePointWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditTransportModeUnitTypeWindow.xaml.cs">
+      <DependentUpon>EditTransportModeUnitTypeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditUnitTypeWindow.xaml.cs">
       <DependentUpon>EditUnitTypeWindow.xaml</DependentUpon>
     </Compile>
@@ -149,8 +158,17 @@
     <Compile Include="View\RoutePointsList.xaml.cs">
       <DependentUpon>RoutePointsList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TransportModesListWindow.xaml.cs">
+      <DependentUpon>TransportModesListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TransportModesUnitTypesListWindow.xaml.cs">
+      <DependentUpon>TransportModesUnitTypesListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UnitTypesListWindow.xaml.cs">
       <DependentUpon>UnitTypesListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditTransportModeWindow.xaml.cs">
+      <DependentUpon>EditTransportModeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="View\AddAddressWindow.xaml">
       <SubType>Designer</SubType>
@@ -169,6 +187,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddRoutePointWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddTransportModeUnitTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddTransportModeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,6 +250,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditTransportModeUnitTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditUnitTypeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -268,7 +298,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\TransportModesListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TransportModesUnitTypesListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UnitTypesListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditTransportModeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

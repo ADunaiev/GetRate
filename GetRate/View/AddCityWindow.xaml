@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GetRate.View"
         mc:Ignorable="d"
-        Title="CityCard" Height="300" Width="350"
+        Title="CityCard" Height="300" Width="380"
         Name="AddNewCityWnd">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -34,7 +34,8 @@
                       DisplayMemberPath="NameENG"/>
             <Button x:Name="AddCountryBtn" Content="Add" 
                     Width="40" Margin="10"
-                    Command="{Binding OpenCountriesListWnd}"/>
+                    Command="{Binding OpenCountriesListWnd}"
+                    CommandParameter="{Binding ElementName=AddNewCityWnd}"/>
         </DockPanel>
         <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Name="SaveCityBtn" Content="Save" Margin="10" Width="60" Command="{Binding AddNewCity}" CommandParameter="{Binding ElementName=AddNewCityWnd}"/>

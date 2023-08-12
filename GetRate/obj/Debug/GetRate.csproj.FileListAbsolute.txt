@@ -70,3 +70,15 @@ C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditRoutePointWindo
 C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditRoutePointWindow.baml
 C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.RoutePoint2.resources
 C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.Revolution1.resources
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\AddTransportModeWindow.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\TransportModesListWindow.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditTransportModeWindow.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\AddTransportModeWindow.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\TransportModesListWindow.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditTransportModeWindow.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\AddTransportModeUnitTypeWindow.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditTransportModeUnitTypeWindow.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\TransportModesUnitTypesListWindow.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\AddTransportModeUnitTypeWindow.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditTransportModeUnitTypeWindow.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\TransportModesUnitTypesListWindow.baml

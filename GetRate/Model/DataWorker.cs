@@ -691,6 +691,188 @@ namespace GetRate.Model
         }
         #endregion
 
-        
+        #region TRANSPORT MODES
+        //Get all Transport Modes
+        public static List<TransportMode> GetAllTransportModes()
+        {
+            using (var db = new GetRateContext())
+            {
+                var query = db.TransportModes.AsQueryable().OrderBy(c => c.NameENG);
+
+                return query.ToList();
+            }
+        }
+
+        //create TransportMode
+        public static string CreateTransportMode(string transportModeNameENG, string transportModeNameUKR)
+        {
+            string result = "TransportMode is exists already!";
+
+            using (var db = new GetRateContext())
+            {
+                var modes = db.TransportModes;
+
+                bool checkIsExist = modes.Any(co => co.NameENG == transportModeNameENG);
+
+                if (!checkIsExist)
+                {
+                    TransportMode newTransportMode = new TransportMode();
+                    newTransportMode.NameENG = transportModeNameENG;
+                    newTransportMode.NameUKR = transportModeNameUKR;
+
+                    modes.Add(newTransportMode);
+                    db.SaveChanges();
+                    result = $"TransportMode {newTransportMode.NameENG} added successfully!";
+                }
+
+                return result;
+            }
+        }
+
+        //edit TransportMode
+        public static string EditTransportMode(TransportMode oldTransportMode, string newNameENG, string newNameUKR)
+        {
+            string result = "There is no such TransportMode!";
+
+            using (var db = new GetRateContext())
+            {
+                TransportMode transportMode = db.TransportModes.FirstOrDefault(c => c.Id == oldTransportMode.Id);
+
+                if (transportMode != null)
+                {
+                    transportMode.NameENG = newNameENG;
+                    transportMode.NameUKR = newNameUKR;
+
+                    db.SaveChanges();
+                    result = "TransportMode is changed!";
+                }
+            }
+            return result;
+        }
+
+        //delete TransportMode
+        public static string DeleteTransportMode(TransportMode transportMode)
+        {
+            string result = "There is no such TransportMode!";
+
+            using (var db = new GetRateContext())
+            {
+                var modes = db.TransportModes;
+
+                var deletedTransportMode = (from c in modes
+                                       where c.Id == transportMode.Id
+                                       select c).FirstOrDefault();
+
+                if (deletedTransportMode != null)
+                {
+                    db.TransportModes.Remove(deletedTransportMode);
+                    db.SaveChanges();
+                    result = $"TransportMode {deletedTransportMode.NameENG} deleted!";
+                }
+            }
+            return result;
+        }
+
+        //get TransportMode by Id
+        public static TransportMode GetTransportModeById(int id)
+        {
+            using (var db = new GetRateContext())
+            {
+                return db.TransportModes.FirstOrDefault(c => c.Id == id);
+            }
+        }
+        #endregion
+
+        #region TRANSPORTMODESUNITTYPES
+        //Get all TransportModesUnitTypes
+        public static List<TransportModeUnitType> GetAllTransportModeUnitTypes()
+        {
+            using (var db = new GetRateContext())
+            {
+                var query = db.TransportModesUnitTypes.AsQueryable().OrderBy(c => c.TransportMode.NameENG);
+
+                return query.ToList();
+            }
+        }
+
+        //create TransportModeUnitType
+        public static string CreateTransportModeUnitType(TransportMode transportMode, UnitType unitType)
+        {
+            string result = "TransportModeUnitType is exists already!";
+
+            using (var db = new GetRateContext())
+            {
+                var tmuTypes = db.TransportModesUnitTypes;
+
+                bool checkIsExist = tmuTypes.Any(co => co.TransportModeId == transportMode.Id && co.UnitTypeId == unitType.Id);
+
+                if (!checkIsExist)
+                {
+                    TransportModeUnitType newTransportModeUnitType = new TransportModeUnitType();
+                    newTransportModeUnitType.TransportModeId = transportMode.Id;
+                    newTransportModeUnitType.UnitTypeId = unitType.Id;
+
+                    tmuTypes.Add(newTransportModeUnitType);
+                    db.SaveChanges();
+                    result = $"TransportModeUnitType {newTransportModeUnitType.NameENG} added successfully!";
+                }
+
+                return result;
+            }
+        }
+
+        //edit TransportModeUnitType
+        public static string EditTransportModeUnitType(TransportModeUnitType oldTransportModeUnitType, TransportMode transportMode, UnitType unitType)
+        {
+            string result = "There is no such TransportModeUnitType!";
+
+            using (var db = new GetRateContext())
+            {
+                TransportModeUnitType transportModeUnitType = db.TransportModesUnitTypes.FirstOrDefault(c => c.Id == oldTransportModeUnitType.Id);
+
+                if (transportModeUnitType != null)
+                {
+                    transportModeUnitType.TransportModeId = transportMode.Id;
+                    transportModeUnitType.UnitTypeId = unitType.Id;
+
+                    db.SaveChanges();
+                    result = "TransportModeUnitType is changed!";
+                }
+            }
+            return result;
+        }
+
+        //delete TransportModeUnitType
+        public static string DeleteTransportModeUnitType(TransportModeUnitType transportModeUnitType)
+        {
+            string result = "There is no such TransportModeUnitType!";
+
+            using (var db = new GetRateContext())
+            {
+                var modes = db.TransportModesUnitTypes;
+
+                var deletedTransportModeUnitType = (from c in modes
+                                            where c.Id == transportModeUnitType.Id
+                                            select c).FirstOrDefault();
+
+                if (deletedTransportModeUnitType != null)
+                {
+                    db.TransportModesUnitTypes.Remove(deletedTransportModeUnitType);
+                    db.SaveChanges();
+                    result = $"TransportMode {deletedTransportModeUnitType.NameENG} deleted!";
+                }
+            }
+            return result;
+        }
+
+        //get TransportModeUnitType by Id
+        public static TransportModeUnitType GetTransportModeUnitTypeById(int id)
+        {
+            using (var db = new GetRateContext())
+            {
+                return db.TransportModesUnitTypes.FirstOrDefault(c => c.Id == id);
+            }
+        }
+        #endregion
     }
 }

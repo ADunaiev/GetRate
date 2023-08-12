@@ -23,4 +23,10 @@ FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\MainWindow.xaml;;
 FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\MessageView.xaml;;
 FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\RoutePointsList.xaml;;
 FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\UnitTypesListWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\AddTransportModeWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\TransportModesListWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\EditTransportModeWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\AddTransportModeUnitTypeWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\EditTransportModeUnitTypeWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\TransportModesUnitTypesListWindow.xaml;;
 

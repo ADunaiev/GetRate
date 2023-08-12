@@ -78,20 +78,34 @@ namespace GetRate.ViewModel
                 return types;
             }
         }
-        public static List<string> AllTransportModes
+
+        //all TransportModes
+
+        private List<TransportMode> allTransportModes = DataWorker.GetAllTransportModes();
+        public List<TransportMode> AllTransportModes
         {
             get
             {
-                List<string> modes = new List<string>();
+                return allTransportModes;
+            }
+            set
+            { 
+                allTransportModes = value;
+                NotifyPropertyChanged("AllTransportModes");
+            }
+        }
 
-                Array iModes = Enum.GetValues(typeof(TransportMode));
+        //all TransportModesUnitTypes
 
-                foreach (int value in iModes)
-                {
-                    //modes.Add(((TransportMode)value).ToString());
-                }
-
-                return modes;
+        private List<TransportModeUnitType> allTransportModesUnitTypes = DataWorker.GetAllTransportModeUnitTypes();
+        public List<TransportModeUnitType> AllTransportModesUnitTypes
+        {
+            get
+            {  return allTransportModesUnitTypes;}
+            set
+            {
+                allTransportModesUnitTypes = value;
+                NotifyPropertyChanged("AllTransportModeUnitTypes");
             }
         }
 
@@ -175,6 +189,16 @@ namespace GetRate.ViewModel
         public static string UnitTypeNameUKR { get; set; }
         public static double UnitTypeMaxGW { get; set; }
 
+        //TransportModes Properties
+        public static int TransportModeId { get; set; }
+        public static string TransportModeNameENG { get; set; }
+        public static string TransportModeNameUKR { get; set; }
+
+        //TransportModesUnitTypes Properties
+        public static int TransportModeUnitTypeId { get; set; }
+        public static TransportMode TMUTMode { get; set; }
+        public static UnitType TMUTType { get; set; }
+
         //Cargoes Properties
         public static int CargoId { get; set; }
         public static string CargoNameENG { get; set; }
@@ -196,6 +220,8 @@ namespace GetRate.ViewModel
         public static Company SelectedCompany { get; set; }
         public static UnitType SelectedUnitType { get; set; }
         public static Cargo SelectedCargo { get; set; }
+        public static TransportMode SelectedTransportMode { get; set; }
+        public static TransportModeUnitType SelectedTMUT { get; set; }
         public static RoutePoint SelectedRoutePoint { get; set; }
         public static ObservableCollection<UnitType> RoutePointSelectedUnitTypes { get; set; }
         #endregion
@@ -371,6 +397,69 @@ namespace GetRate.ViewModel
                     {
                         resultStr = DataWorker.CreateUnitType(UnitTypeNameENG, UnitTypeNameUKR, UnitTypeMaxGW);
                         UpdateUnitTypesView();
+                        SetNullValuesToProperties();
+                        ShowMessageToUser(resultStr);
+                        window.Close();
+                    }
+                });
+            }
+        }
+
+        //TransportModes
+
+        private RelayCommand addNewTransportMode; 
+        public RelayCommand AddNewTransportMode
+        {
+            get
+            {
+                return addNewTransportMode ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = string.Empty;
+
+                    if(string.IsNullOrEmpty(TransportModeNameENG))
+                    {
+                        SetRedBlockControl(window, "TransportModeNameENGBtn");
+                    }
+                    if(string.IsNullOrEmpty(TransportModeNameUKR))
+                    {
+                        SetRedBlockControl(window, "TransportModeNameUKRBtn");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.CreateTransportMode(TransportModeNameENG, TransportModeNameUKR);
+                        UpdateTransportModesView();
+                        SetNullValuesToProperties();
+                        ShowMessageToUser(resultStr);
+                        window.Close();
+                    }
+                });
+            }
+        }
+
+        //TransportModesUnitTypes
+        private RelayCommand addNewTransportModeUnitType;
+        public RelayCommand AddNewTransportModeUnitType
+        {
+            get
+            {
+                return addNewTransportModeUnitType ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = string.Empty;
+
+                    if (TMUTMode == null)
+                    {
+                        ShowMessageToUser("Please choose TransportMode");
+                    }
+                    if (TMUTType == null)
+                    {
+                        ShowMessageToUser("Please choose UnitType");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.CreateTransportModeUnitType(TMUTMode, TMUTType);
+                        UpdateTMUTView();
                         SetNullValuesToProperties();
                         ShowMessageToUser(resultStr);
                         window.Close();
@@ -654,6 +743,87 @@ namespace GetRate.ViewModel
             }
         }
 
+        //transportModes
+        private RelayCommand openAddNewTransportModeWnd;
+        public RelayCommand OpenAddNewTransportModeWnd
+        {
+            get {
+                return openAddNewTransportModeWnd ?? new RelayCommand(obj =>
+                {
+                    OpenAddTransportModeWindowMethod();
+                }
+                );
+                }
+        }
+
+        private RelayCommand openEditTransportModeWnd;
+        public RelayCommand OpenEditTransportModeWnd
+        {
+            get
+            {
+                return openEditTransportModeWnd ?? new RelayCommand(obj =>
+                {
+
+                    OpenEditTransportModeWindowMethod();
+                }
+
+                );
+            }
+        }
+
+        private RelayCommand openTransportModesListWnd;
+        public RelayCommand OpenTransportModesListWnd
+        {
+            get
+            {
+                return openTransportModesListWnd ?? new RelayCommand(obj =>
+                {
+                    OpenTransportModesListWindowMethod();
+                }
+                );
+            }
+        }
+
+        //transportModeUnitTypes
+        private RelayCommand openAddNewTransportModeUnitTypeWnd;
+        public RelayCommand OpenAddNewTransportModeUnitTypeWnd
+        {
+            get
+            {
+                return openAddNewTransportModeUnitTypeWnd ?? new RelayCommand(obj =>
+                {
+                    OpenAddTransportModeUnitTypeWindowMethod();
+                }
+                );
+            }
+        }
+
+        private RelayCommand openEditTransportModeUnitTypeWnd;
+        public RelayCommand OpenEditTransportModeUnitTypeWnd
+        {
+            get
+            {
+                return openEditTransportModeUnitTypeWnd ?? new RelayCommand(obj =>
+                {
+                    OpenEditTransportModeUnitTypeWindowMethod();
+                }
+                );
+            }
+        }
+
+        private RelayCommand openTransportModesUnitTypesListWnd;
+        public RelayCommand OpenTransportModesUnitTypesListWnd
+        {
+            get
+            {
+                return openTransportModesUnitTypesListWnd ?? new RelayCommand(obj =>
+                {
+                    OpenTransportModesUnitTypesListWindowMethod();
+                }
+                );
+            }
+        }
+
         //Cargoes
         private RelayCommand openAddNewCargoWnd;
         public RelayCommand OpenAddNewCargoWnd
@@ -837,6 +1007,45 @@ namespace GetRate.ViewModel
             unitTypesListWindow.ShowDialog();
         }
 
+        //TransportModes
+        private void OpenAddTransportModeWindowMethod()
+        {
+            SetNullValuesToProperties();
+            AddTransportModeWindow addTransportModeWindow = new AddTransportModeWindow();
+            addTransportModeWindow.ShowDialog();
+        }
+        private void OpenEditTransportModeWindowMethod()
+        {     
+            EditTransportModeWindow editTransportModeWindow = new EditTransportModeWindow(SelectedTransportMode);
+            editTransportModeWindow.ShowDialog();
+        }
+        private void OpenTransportModesListWindowMethod()
+        {
+            TransportModesListWindow transportModesListWindow = new TransportModesListWindow();
+            transportModesListWindow.ShowDialog();
+        }
+
+        //TransportModesUnitTypes
+        private void OpenAddTransportModeUnitTypeWindowMethod()
+        {
+            SetNullValuesToProperties();
+            AddTransportModeUnitTypeWindow addTransportModeUnitTypeWindow = new AddTransportModeUnitTypeWindow();
+            addTransportModeUnitTypeWindow.ShowDialog();
+        }
+        private void OpenEditTransportModeUnitTypeWindowMethod()
+        {
+            TMUTMode = DataWorker.GetTransportModeById(SelectedTMUT.TransportModeId);
+            TMUTType = DataWorker.GetUnitTypeById(SelectedTMUT.UnitTypeId);
+            EditTransportModeUnitTypeWindow editTransportModeUnitTypeWindow = new EditTransportModeUnitTypeWindow(SelectedTMUT);
+            editTransportModeUnitTypeWindow.TransportModesComboBox.SelectedIndex = AllTransportModes.FindIndex(tm => tm.Id == TMUTMode.Id);
+            editTransportModeUnitTypeWindow.UnitTypesComboBox.SelectedIndex = AllUnitTypes.FindIndex(tm => tm.Id == TMUTType.Id);
+            editTransportModeUnitTypeWindow.ShowDialog();
+        }
+        private void OpenTransportModesUnitTypesListWindowMethod()
+        {
+            TransportModesUnitTypesListWindow transportModesUnitTypesListWindow = new TransportModesUnitTypesListWindow();
+            transportModesUnitTypesListWindow.ShowDialog();
+        }
         //Cargoes
         private void OpenAddNewCargoWindowMethod()
         {
@@ -1002,6 +1211,53 @@ namespace GetRate.ViewModel
             }
         }
 
+        //TransportModes
+        private RelayCommand deleteTransportMode;
+        public RelayCommand DeleteTransportMode
+        {
+            get
+            {
+                return deleteTransportMode ?? new RelayCommand(obj =>
+                {
+                    string resultStr = "No TransportMode is selected";
+
+                    if ( SelectedTransportMode != null )
+                    {
+                        resultStr = DataWorker.DeleteTransportMode(SelectedTransportMode);
+
+                        UpdateTransportModesView();
+                        SetNullValuesToProperties();
+                    }
+                    ShowMessageToUser(resultStr);
+                }
+
+                );
+            }
+        }
+
+        //TransportModesUnitTypes
+        private RelayCommand deleteTransportModeUnitType;
+        public RelayCommand DeleteTransportModeUnitType
+        {
+            get
+            {
+                return deleteTransportModeUnitType ?? new RelayCommand(obj =>
+                {
+                    string resultStr = "No TransportModeUnitType is selected";
+
+                    if (SelectedTMUT  != null ) 
+                    { 
+                        resultStr = DataWorker.DeleteTransportModeUnitType(SelectedTMUT);
+                        SetNullValuesToProperties();
+                        UpdateTMUTView();
+                    }
+
+                    ShowMessageToUser(resultStr);
+                }
+                );
+            }
+        }
+
         //Cargo
         private RelayCommand deleteCargo;
         public RelayCommand DeleteCargo
@@ -1148,6 +1404,61 @@ namespace GetRate.ViewModel
             }
         }
 
+        //TransportModes
+        private RelayCommand editTransportMode; 
+        public RelayCommand EditTransportMode
+        {
+            get
+            {
+                return editTransportMode ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "No TransportMode is selected!";
+
+                    if (SelectedTransportMode != null )
+                    {
+                        resultStr = DataWorker.EditTransportMode(SelectedTransportMode, TransportModeNameENG, TransportModeNameUKR);
+                        UpdateTransportModesView();
+                        SetNullValuesToProperties();
+                        window.Close ();
+                    }
+                    ShowMessageToUser (resultStr);
+                });
+            }
+        }
+
+        //TransportModesUnitTypes
+        private RelayCommand editTransportModeUnitType;
+        public RelayCommand EditTransportModeUnitType
+        {
+            get
+            {
+                return editTransportModeUnitType ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "No TransportModeUnitType is selected!";
+
+                    if (TMUTMode == null)
+                    {
+                        ShowMessageToUser("Please choose TransportMode");
+                    }
+                    if (TMUTType == null)
+                    {
+                        ShowMessageToUser("Please choose UnitType");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.EditTransportModeUnitType(SelectedTMUT, TMUTMode, TMUTType);
+                        UpdateTMUTView();   
+                        SetNullValuesToProperties();
+                        window.Close();
+                    }
+                    ShowMessageToUser(resultStr);
+                }
+                );
+            }
+        }
+
         //Cargoes
         private RelayCommand editCargo;
         public RelayCommand EditCargo
@@ -1183,6 +1494,23 @@ namespace GetRate.ViewModel
                 return closeWnd ?? new RelayCommand(obj =>
                 {
                     Window window = obj as Window;
+                    
+                    //ShowMessageToUser(window.GetType().FullName + " " +
+                    //    window.Name);
+
+                    if (window.Name == "CountriesListWnd") 
+                    {
+                        UpdateCountriesInAddNewCityWnd();
+                    }
+                    if(window.Name == "CitiesListWnd") 
+                    {
+                        UpdateCitiesInAddAddressWnd();
+                    }
+                    if (window.Name == "AddressesListWnd")
+                    {
+                        UpdateAddressesInAddCompaniesWnd();
+                    }
+
                     window.Close();
                 }
                 );
@@ -1227,7 +1555,6 @@ namespace GetRate.ViewModel
             CompaniesList.AllCompaniesView.ItemsSource = AllCompanies;
             CompaniesList.AllCompaniesView.Items.Refresh();
         }
-
         private void UpdateUnitTypesView()
         {
             AllUnitTypes = DataWorker.GetAllUnitTypes();
@@ -1236,7 +1563,23 @@ namespace GetRate.ViewModel
             UnitTypesListWindow.AllUnitTypesList.ItemsSource = AllUnitTypes;
             UnitTypesListWindow.AllUnitTypesList.Items.Refresh();
         }
+        private void UpdateTransportModesView()
+        {
+            AllTransportModes = DataWorker.GetAllTransportModes();
+            TransportModesListWindow.AllTransportModesList.ItemsSource = null;
+            TransportModesListWindow.AllTransportModesList.Items.Clear();
+            TransportModesListWindow.AllTransportModesList.ItemsSource = AllTransportModes;
+            TransportModesListWindow.AllTransportModesList.Items.Refresh();
+        }
+        private void UpdateTMUTView()
+        {
+            AllTransportModesUnitTypes = DataWorker.GetAllTransportModeUnitTypes();
+            TransportModesUnitTypesListWindow.AllTransportModeUnitTypesView.ItemsSource = null;
+            TransportModesUnitTypesListWindow.AllTransportModeUnitTypesView.Items.Clear();
+            TransportModesUnitTypesListWindow.AllTransportModeUnitTypesView.ItemsSource = AllTransportModesUnitTypes;
+            TransportModesUnitTypesListWindow.AllTransportModeUnitTypesView.Items.Refresh();
 
+        }
         private void UpdateCargoesView()
         {
             AllCargoes = DataWorker.GetAllCargoes();
@@ -1245,7 +1588,6 @@ namespace GetRate.ViewModel
             CargoesList.AllCagoesList.ItemsSource = AllCargoes;
             CargoesList.AllCagoesList.Items.Refresh();
         }
-
         private void UpdateRoutePointsView()
         {
             AllRoutePoints = DataWorker.GetAllRoutePoints();
@@ -1254,11 +1596,29 @@ namespace GetRate.ViewModel
             RoutePointsList.AllRoutePointsView.ItemsSource = AllRoutePoints;
             RoutePointsList.AllRoutePointsView.Items.Refresh();
         }
-        private void UpdateAllDataView()
+        private void UpdateCountriesInAddNewCityWnd()
         {
-            UpdateCountriesView();
-            UpdateCitiesView();
-            UpdateAddressesView();
+            AllCountries = DataWorker.GetAllCountries();
+            AddCityWindow.NewCountriesComboBox.ItemsSource = null;
+            AddCityWindow.NewCountriesComboBox.Items.Clear();
+            AddCityWindow.NewCountriesComboBox.ItemsSource = allCountries;
+            AddCityWindow.NewCountriesComboBox.Items.Refresh();
+        }
+        private void UpdateCitiesInAddAddressWnd()
+        {
+            AllCities = DataWorker.GetAllCities();
+            AddAddressWindow.NewCitiesSource.ItemsSource = null;
+            AddAddressWindow.NewCitiesSource.Items.Clear();
+            AddAddressWindow.NewCitiesSource.ItemsSource = AllCities;
+            AddAddressWindow.NewCitiesSource.Items.Refresh();
+        }
+        private void UpdateAddressesInAddCompaniesWnd()
+        {
+            AllAddresses = DataWorker.GetAlAddresses();
+            AddCompanyWindow.NewAddressesItemSource.ItemsSource = null;
+            AddCompanyWindow.NewAddressesItemSource.Items.Clear();
+            AddCompanyWindow.NewAddressesItemSource.ItemsSource= AllAddresses;
+            AddCompanyWindow.NewAddressesItemSource.Items.Refresh();
         }
 
         #endregion
@@ -1293,6 +1653,16 @@ namespace GetRate.ViewModel
             UnitTypeNameENG = null;
             UnitTypeNameUKR = null;
             UnitTypeMaxGW = 0;
+
+            //transportModes
+            TransportModeId = 0;
+            TransportModeNameENG = null;
+            TransportModeNameUKR = null;
+
+            //transportModesUnitTypes
+            TransportModeUnitTypeId = 0;
+            TMUTMode = null;
+            TMUTType = null;
 
             //Cargo
             CargoId = 0;
