@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GetRate.View"
         mc:Ignorable="d"
-        Title="AddRoutePointWindow" Height="280" Width="320"
+        Title="AddRoutePointWindow" Height="550" Width="500"
         Name="AddNewRoutePointWnd">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -21,21 +21,55 @@
         </Grid.ColumnDefinitions>
         <Label Content="RoutePoint:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
         <Label Content="Transport Modes:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
-        <Label Content="Unit types:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+        <Label Content="Unit types:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="3"/>
         <Label Content="Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
-        <TextBox x:Name="RoutePointCompanyTextBox" Text="{Binding RoutePointCompany}" Grid.Row="1" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>
-        <Label x:Name="UnitTypeIdLabel" Grid.Row="0" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>
-        <ComboBox Name="TransportModesComboBox" Grid.Row="2" Grid.Column="1" Margin="10" />
-        <!--<TextBox x:Name="UnitTypeNameUKRTextBox" Text="{Binding UnitTypeNameUKR}" Grid.Row="2" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>-->
-        <TextBox x:Name="UnitTypeMaxGWTextBox" Text="{Binding UnitTypeMaxGW}" Grid.Row="3" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>
+        <Label x:Name="RoutePointIdLabel" Grid.Row="0" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>
+        <ComboBox Name="RoutePointCompanyComboBox" Grid.Row="1"
+                  VerticalContentAlignment="Center"
+                  Grid.Column="1" Margin="10" 
+                  ItemsSource="{Binding AllCompanies}"
+                  SelectedItem="{Binding RoutePointCompany}"
+                  DisplayMemberPath="NameENG"/>
+        <!--<ListBox Name="TransportModesListBox" Grid.Row="2" Grid.Column="1" Margin="10"                 
+                 SelectedItem="{Binding RoutePointTransportModes}"
+                 SelectionMode="Multiple">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, Path=IsSelected}" DockPanel.Dock="Left"/>
+                        <TextBlock Text="{Binding}"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
+
+        <ListBox Name="UnitTypesListBox" Grid.Row="3" Grid.Column="1" Margin="10"
+                 ItemsSource="{Binding AllUnitTypes}"
+                 SelectionMode="Multiple"
+                 SelectedItem="{Binding RoutePointSelectedUnitTypes}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <!--<CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, Path=IsSelected}" DockPanel.Dock="Left"/>-->
+                        <TextBlock Text="{Binding NameENG}"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <!--<ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                </Style>
+            </ListBox.ItemContainerStyle>-->
+        </ListBox>
+        <!--<TextBox x:Name="RoutePointUnitTypesTextBox" Text="{Binding RoutePointUnitTypes}" Grid.Row="3" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>-->
         <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="SaveUnitTypeBtn" Content="Save" Command="{Binding AddNewUnitType}" 
-                    CommandParameter="{Binding ElementName=AddNewUnitTypeWnd}"
+            <Button Name="SaveRoutePointBtn" Content="Save" Command="{Binding AddNewRoutePoint}" 
+                    CommandParameter="{Binding ElementName=AddNewRoutePointWnd}"
                     Margin="10" Width="60"/>
             <Button Name="CancelUnitTypeBtn" Content="Cancel" 
                     Margin="10" Width="60"
                     Command="{Binding CloseWnd}"
-                    CommandParameter="{Binding ElementName=AddNewUnitTypeWnd}"/>
+                    CommandParameter="{Binding ElementName=AddNewRoutePointWnd}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -66,3 +66,7 @@ C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\AddRoutePointWindow
 C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\RoutePointsList.g.cs
 C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\AddRoutePointWindow.baml
 C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\RoutePointsList.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditRoutePointWindow.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditRoutePointWindow.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.RoutePoint2.resources
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.Revolution1.resources

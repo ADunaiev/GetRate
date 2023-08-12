@@ -85,8 +85,20 @@
     <Compile Include="Migrations\202308071936420_RoutePointsAndTransportModes.designer.cs">
       <DependentUpon>202308071936420_RoutePointsAndTransportModes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308111625068_RoutePoint2.cs" />
+    <Compile Include="Migrations\202308111625068_RoutePoint2.designer.cs">
+      <DependentUpon>202308111625068_RoutePoint2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308121209073_Revolution1.cs" />
+    <Compile Include="Migrations\202308121209073_Revolution1.designer.cs">
+      <DependentUpon>202308121209073_Revolution1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Cargo.cs" />
+    <Compile Include="Model\RoutePointTransportModeUnitType.cs" />
+    <Compile Include="Model\TransportationType.cs" />
+    <Compile Include="Model\TransportMode.cs" />
+    <Compile Include="Model\TransportModeUnitType.cs" />
     <Compile Include="Model\UnitType.cs" />
     <Compile Include="Model\Company.cs" />
     <Compile Include="Model\Data\GetRateContext.cs" />
@@ -124,6 +136,9 @@
     </Compile>
     <Compile Include="View\EditCountryWindow.xaml.cs">
       <DependentUpon>EditCountryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditRoutePointWindow.xaml.cs">
+      <DependentUpon>EditRoutePointWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditUnitTypeWindow.xaml.cs">
       <DependentUpon>EditUnitTypeWindow.xaml</DependentUpon>
@@ -202,6 +217,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditCountryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditRoutePointWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -286,10 +305,17 @@
     <EmbeddedResource Include="Migrations\202308071936420_RoutePointsAndTransportModes.resx">
       <DependentUpon>202308071936420_RoutePointsAndTransportModes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308111625068_RoutePoint2.resx">
+      <DependentUpon>202308111625068_RoutePoint2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308121209073_Revolution1.resx">
+      <DependentUpon>202308121209073_Revolution1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include=".gitignore" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

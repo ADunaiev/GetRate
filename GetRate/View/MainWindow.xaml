@@ -19,6 +19,7 @@
             <Button x:Name="CompanyBtn" Content="Companies" Margin="10" Command="{Binding OpenCompaniesListWnd}"/>
             <Button x:Name="CargoBtn" Content="Cargoes" Margin="10" Command="{Binding OpenCargoesListWnd}"/>
             <Button x:Name="UnitTypeBtn" Content="Unit types" Margin="10" Command="{Binding OpenUnitTypesListWnd}"/>
+            <Button x:Name="RoutePointBtn" Content="RoutePoints" Margin="10" Command="{Binding OpenRoutePointsListWnd}"/>
         </WrapPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Quit" VerticalContentAlignment="Center" 

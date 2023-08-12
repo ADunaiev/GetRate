@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -7,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace GetRate.Model
 {
-    public enum TransportMode { Sea, Rail, Avia, Auto }
+    public enum TransportModes { Sea, Rail, Avia, Auto }
     public class RoutePoint
     {
         public RoutePoint()
         {
-            UnitTypes = new List<UnitType>();
+            RoutePointTransportModeUnitTypes = new ObservableCollection<RoutePointTransportModeUnitType>();
             //StartRoutes = new List<Route>();
             //EndPoints = new List<Route>();
             //FromRoutePoints = new List<Request>();
@@ -21,9 +22,15 @@ namespace GetRate.Model
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
-        public List<TransportMode> TransportModes { get; set; }
-        public virtual ICollection<UnitType> UnitTypes { get; set; }
+        public virtual IEnumerable<RoutePointTransportModeUnitType> RoutePointTransportModeUnitTypes { get; set; }
 
+        public Company RoutePointCompany
+        { 
+            get
+            {
+                return DataWorker.GetCompanyById(CompanyId);
+            }
+        }
 
         //[InverseProperty("StartPoint")]
         //public virtual ICollection<Route> StartRoutes { get; set; }

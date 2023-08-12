@@ -2,6 +2,7 @@
 using GetRate.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace GetRate.ViewModel
 {
     internal class DataManageVM : INotifyPropertyChanged
     {
+        #region ALL ESSENSES
         //all countries
         private List<Country> allCountries = DataWorker.GetAllCountries();
         public List<Country> AllCountries 
@@ -76,6 +78,22 @@ namespace GetRate.ViewModel
                 return types;
             }
         }
+        public static List<string> AllTransportModes
+        {
+            get
+            {
+                List<string> modes = new List<string>();
+
+                Array iModes = Enum.GetValues(typeof(TransportMode));
+
+                foreach (int value in iModes)
+                {
+                    //modes.Add(((TransportMode)value).ToString());
+                }
+
+                return modes;
+            }
+        }
 
         //all unitTypes
 
@@ -103,6 +121,20 @@ namespace GetRate.ViewModel
             }
         }
 
+        //All RoutePoints
+        private List<RoutePoint> allRoutePoints = DataWorker.GetAllRoutePoints();
+        public List<RoutePoint> AllRoutePoints
+        {
+            get { return allRoutePoints; }
+            set
+            {
+                allRoutePoints = value;
+                NotifyPropertyChanged("AllRoutePoints");
+            }
+        }
+        #endregion
+
+        #region CLASS PROPERTIES
         //Countries properties
         public static string CountryNameENG { get; set; }
         public static string CountryNameUKR { get; set; }
@@ -149,7 +181,14 @@ namespace GetRate.ViewModel
         public static string CargoNameUKR { get; set; }
         public static string CargoCode { get; set; }
 
+        //RoutePoint Properties
+        public static int RoutePointId { get; set; }
+        public static Company RoutePointCompany { get; set; }
+        public static List<TransportMode> RoutePointTransportModes { get; set; }
+        public static ObservableCollection<UnitType> RoutePointUnitTypes { get; set; }
+        #endregion
 
+        #region SELECTED ITEMS
         //Selection properties
         public static Address SelectedAddress { get; set; }
         public static City SelectedCity { get; set; }
@@ -157,6 +196,9 @@ namespace GetRate.ViewModel
         public static Company SelectedCompany { get; set; }
         public static UnitType SelectedUnitType { get; set; }
         public static Cargo SelectedCargo { get; set; }
+        public static RoutePoint SelectedRoutePoint { get; set; }
+        public static ObservableCollection<UnitType> RoutePointSelectedUnitTypes { get; set; }
+        #endregion
 
         #region COMMANDS TO ADD
 
@@ -367,6 +409,42 @@ namespace GetRate.ViewModel
                         SetNullValuesToProperties();
                         ShowMessageToUser(resultStr);
                         window.Close();
+                    }
+                });
+            }
+        }
+
+        //RoutePoints
+        private RelayCommand addNewRoutePoint;
+        public RelayCommand AddNewRoutePoint
+        {
+            get
+            {
+                return addNewRoutePoint ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = string.Empty;
+
+                    if (RoutePointCompany == null)
+                    {
+                        SetRedBlockControl(window, "RoutePointCompanyComboBox");
+                    }
+                    else
+                    {
+
+                        //resultStr = DataWorker.CreateRoutePoint(RoutePointCompany, RoutePointTransportModes, RoutePointSelectedUnitTypes);
+                        //UpdateRoutePointsView();
+                        //SetNullValuesToProperties();
+                        if (RoutePointSelectedUnitTypes == null)
+                        {
+                            ShowMessageToUser("Empty collection");
+                        }
+                        else
+                        {
+                            foreach (var item in RoutePointSelectedUnitTypes)
+                                ShowMessageToUser(item.NameENG + " ");
+                        }
+                        //window.Close();
                     }
                 });
             }
@@ -616,6 +694,46 @@ namespace GetRate.ViewModel
             }
         }
 
+        //RoutePoints
+        private RelayCommand openAddNewRoutePointWnd;
+        public RelayCommand OpenAddNewRoutePointWnd
+        {
+            get
+            {
+                return openAddNewRoutePointWnd ?? new RelayCommand(obj =>
+                {
+                    OpenAddNewRoutePointWindowMethod();
+                }
+                );
+            }
+        }
+
+        private RelayCommand openEditRoutePointWnd;
+        public RelayCommand OpenEditRoutePointWnd
+        {
+            get
+            {
+                return openEditRoutePointWnd ?? new RelayCommand(obj =>
+                {
+                    OpenEditRoutePointWindowMethod();
+                }
+                );
+            }
+        }
+
+        private RelayCommand openRoutePointsListWnd;
+        public RelayCommand OpenRoutePointsListWnd
+        {
+            get
+            {
+                return openRoutePointsListWnd ?? new RelayCommand(obj =>
+                {
+                    OpenRoutePointsListWindowMethod();
+                }
+                );
+            }
+        }
+
         #endregion
 
         #region METHODS TO OPEN WINDOW
@@ -735,6 +853,28 @@ namespace GetRate.ViewModel
         {
             CargoesList cargoesList = new CargoesList();
             cargoesList.ShowDialog();
+        }
+
+        //RoutePoints
+        private void OpenAddNewRoutePointWindowMethod()
+        { 
+            SetNullValuesToProperties();
+            AddRoutePointWindow addRoutePointWindow = new AddRoutePointWindow();
+            addRoutePointWindow.ShowDialog();
+        }
+
+        private void OpenEditRoutePointWindowMethod()
+        {
+            RoutePointCompany = DataWorker.GetCompanyById(SelectedRoutePoint.CompanyId);
+            EditRoutePointWindow editRoutePointWindow = new EditRoutePointWindow(SelectedRoutePoint);
+            editRoutePointWindow.RoutePointCompanyComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.CompanyId.Equals(RoutePointCompany.Id));
+            editRoutePointWindow.ShowDialog();
+        }
+
+        private void OpenRoutePointsListWindowMethod()
+        {
+            RoutePointsList routePointsList = new RoutePointsList();
+            routePointsList.ShowDialog();               
         }
 
         private void SetCenterPositionAndOpen(Window window)
@@ -1106,6 +1246,14 @@ namespace GetRate.ViewModel
             CargoesList.AllCagoesList.Items.Refresh();
         }
 
+        private void UpdateRoutePointsView()
+        {
+            AllRoutePoints = DataWorker.GetAllRoutePoints();
+            RoutePointsList.AllRoutePointsView.ItemsSource = null;
+            RoutePointsList.AllRoutePointsView.Items.Clear();
+            RoutePointsList.AllRoutePointsView.ItemsSource = AllRoutePoints;
+            RoutePointsList.AllRoutePointsView.Items.Refresh();
+        }
         private void UpdateAllDataView()
         {
             UpdateCountriesView();
@@ -1151,6 +1299,12 @@ namespace GetRate.ViewModel
             CargoNameENG = null;
             CargoNameUKR = null;
             CargoCode = null;
+
+            //RoutePoint
+            RoutePointId = 0;
+            RoutePointCompany = null;
+            RoutePointTransportModes = null;
+            RoutePointUnitTypes = null;
 
         }
         private void SetRedBlockControl(Window window, string blockName)
