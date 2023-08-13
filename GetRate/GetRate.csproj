@@ -93,6 +93,10 @@
     <Compile Include="Migrations\202308121209073_Revolution1.designer.cs">
       <DependentUpon>202308121209073_Revolution1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308121851212_AddressesFixed.cs" />
+    <Compile Include="Migrations\202308121851212_AddressesFixed.designer.cs">
+      <DependentUpon>202308121851212_AddressesFixed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Cargo.cs" />
     <Compile Include="Model\RoutePointTransportModeUnitType.cs" />
@@ -112,6 +116,9 @@
     </Compile>
     <Compile Include="View\AddRoutePointWindow.xaml.cs">
       <DependentUpon>AddRoutePointWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddRPTMUTWindow.xaml.cs">
+      <DependentUpon>AddRPTMUTWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddTransportModeUnitTypeWindow.xaml.cs">
       <DependentUpon>AddTransportModeUnitTypeWindow.xaml</DependentUpon>
@@ -146,6 +153,9 @@
     <Compile Include="View\EditRoutePointWindow.xaml.cs">
       <DependentUpon>EditRoutePointWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditRPTMUTWindow.xaml.cs">
+      <DependentUpon>EditRPTMUTWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditTransportModeUnitTypeWindow.xaml.cs">
       <DependentUpon>EditTransportModeUnitTypeWindow.xaml</DependentUpon>
     </Compile>
@@ -157,6 +167,9 @@
     </Compile>
     <Compile Include="View\RoutePointsList.xaml.cs">
       <DependentUpon>RoutePointsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RPTMUTList.xaml.cs">
+      <DependentUpon>RPTMUTList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TransportModesListWindow.xaml.cs">
       <DependentUpon>TransportModesListWindow.xaml</DependentUpon>
@@ -187,6 +200,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddRoutePointWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddRPTMUTWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -250,6 +267,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditRPTMUTWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditTransportModeUnitTypeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -295,6 +316,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RoutePointsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RPTMUTList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -352,6 +377,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308121209073_Revolution1.resx">
       <DependentUpon>202308121209073_Revolution1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308121851212_AddressesFixed.resx">
+      <DependentUpon>202308121851212_AddressesFixed.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

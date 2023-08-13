@@ -11,7 +11,7 @@ namespace GetRate.Model
     {
         public Address()
         {
-           // Companies = new List<Company>();
+             Companies = new List<Company>();
         }
         public int Id { get; set; }
         public string StreetBuildingENG { get; set; }
@@ -19,7 +19,7 @@ namespace GetRate.Model
         public int CityId { get; set; }
         public virtual City City { get; set; }
 
-        //public virtual ICollection<Company> Companies { get; set; }
+        public virtual ICollection<Company> Companies { get; set; }
         [NotMapped]
         public City AddressCity 
         { 

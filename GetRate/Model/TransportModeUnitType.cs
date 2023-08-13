@@ -37,7 +37,22 @@ namespace GetRate.Model
                 return TMUTMode.NameUKR + " " + TMUTType.NameUKR;
             }
         }
-
+        [NotMapped]
+        public string TMUTModeNameENG
+        {
+            get
+            {
+                return TMUTMode.NameENG;
+            }
+        }
+        [NotMapped]
+        public string TMUTTypeNameENG
+        {
+            get
+            {
+                return TMUTType.NameENG;
+            }
+        }
         public TransportMode TMUTMode
         {
             get

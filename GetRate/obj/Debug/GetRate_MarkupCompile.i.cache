@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\ADunaev\source\repos\GetRate\GetRate\App.xaml
-2922610795
+32-1913194293
 
-64-1660508578
+691759681701
 16-1683882101
-View\AddAddressWindow.xaml;View\AddCargoWindow.xaml;View\AddCompanyWindow.xaml;View\AddressesList.xaml;View\AddRoutePointWindow.xaml;View\AddTransportModeUnitTypeWindow.xaml;View\AddTransportModeWindow.xaml;View\AddUnitTypeWindow.xaml;View\CargoesList.xaml;View\CitiesList.xaml;View\AddCityWindow.xaml;View\CompaniesList.xaml;View\CountriesList.xaml;View\AddCountryWindow.xaml;View\EditAddressWindow.xaml;View\EditCargoWindow.xaml;View\EditCityWindow.xaml;View\EditCompanyWindow.xaml;View\EditCountryWindow.xaml;View\EditRoutePointWindow.xaml;View\EditTransportModeUnitTypeWindow.xaml;View\EditUnitTypeWindow.xaml;View\MainWindow.xaml;View\MessageView.xaml;View\RoutePointsList.xaml;View\TransportModesListWindow.xaml;View\TransportModesUnitTypesListWindow.xaml;View\UnitTypesListWindow.xaml;View\EditTransportModeWindow.xaml;
+View\AddAddressWindow.xaml;View\AddCargoWindow.xaml;View\AddCompanyWindow.xaml;View\AddressesList.xaml;View\AddRoutePointWindow.xaml;View\AddRPTMUTWindow.xaml;View\AddTransportModeUnitTypeWindow.xaml;View\AddTransportModeWindow.xaml;View\AddUnitTypeWindow.xaml;View\CargoesList.xaml;View\CitiesList.xaml;View\AddCityWindow.xaml;View\CompaniesList.xaml;View\CountriesList.xaml;View\AddCountryWindow.xaml;View\EditAddressWindow.xaml;View\EditCargoWindow.xaml;View\EditCityWindow.xaml;View\EditCompanyWindow.xaml;View\EditCountryWindow.xaml;View\EditRoutePointWindow.xaml;View\EditRPTMUTWindow.xaml;View\EditTransportModeUnitTypeWindow.xaml;View\EditUnitTypeWindow.xaml;View\MainWindow.xaml;View\MessageView.xaml;View\RoutePointsList.xaml;View\RPTMUTList.xaml;View\TransportModesListWindow.xaml;View\TransportModesUnitTypesListWindow.xaml;View\UnitTypesListWindow.xaml;View\EditTransportModeWindow.xaml;
 
 True
 

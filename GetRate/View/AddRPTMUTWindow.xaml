@@ -1,0 +1,45 @@
+﻿<Window x:Class="GetRate.View.AddRPTMUTWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GetRate.View"
+        mc:Ignorable="d"
+        Title="AddRPTMUTWindow" Height="250" Width="400"
+        Name="AddNewRPTMUTWnd">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="TransportMode UnitType:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+        <Label Content="RoutePoint:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+        <Label Content="Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+        <ComboBox Name="RoutePointsComboBox" Grid.Row="1" Grid.Column="1"
+                  Margin="10" VerticalAlignment="Center"
+                  ItemsSource="{Binding AllRoutePoints}"
+                  SelectedItem="{Binding RPTMUTPoint}"
+                  DisplayMemberPath="RoutePointCompany.NameENG"/>
+        <ComboBox Name="TMUTComboBox" Grid.Row="2" Grid.Column="1"
+                  Margin="10" VerticalAlignment="Center"
+                  ItemsSource="{Binding AllTransportModesUnitTypes}"
+                  SelectedItem="{Binding RPTMUT_TMUT}"
+                  DisplayMemberPath="NameENG"/>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Save" Command="{Binding AddNewRPTMUT}" 
+                    CommandParameter="{Binding ElementName=AddNewRPTMUTWnd}"
+                    Margin="10" Width="60"/>
+            <Button Name="CancelUnitTypeBtn" Content="Cancel" 
+                    Margin="10" Width="60"
+                    Command="{Binding CloseWnd}"
+                    CommandParameter="{Binding ElementName=AddNewRPTMUTWnd}"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

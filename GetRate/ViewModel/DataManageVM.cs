@@ -109,6 +109,18 @@ namespace GetRate.ViewModel
             }
         }
 
+        //All RPTMUTs
+        private List<RoutePointTransportModeUnitType> allRPTMUTs = DataWorker.GetAllRPTMUT();
+        public List<RoutePointTransportModeUnitType> AllRPTMUTs
+        {
+            get { return allRPTMUTs;}
+            set
+            {
+                allRPTMUTs = value;
+                NotifyPropertyChanged("AllRPTMUTs");
+            }
+        }
+
         //all unitTypes
 
         private List<UnitType> allUnitTypes = DataWorker.GetAllUnitTypes();
@@ -199,6 +211,11 @@ namespace GetRate.ViewModel
         public static TransportMode TMUTMode { get; set; }
         public static UnitType TMUTType { get; set; }
 
+        //RPTMUT Properties
+        public static int RPTMUTId { get; set; }
+        public static RoutePoint RPTMUTPoint { get; set; }
+        public static TransportModeUnitType RPTMUT_TMUT{ get; set; }
+
         //Cargoes Properties
         public static int CargoId { get; set; }
         public static string CargoNameENG { get; set; }
@@ -222,6 +239,7 @@ namespace GetRate.ViewModel
         public static Cargo SelectedCargo { get; set; }
         public static TransportMode SelectedTransportMode { get; set; }
         public static TransportModeUnitType SelectedTMUT { get; set; }
+        public static RoutePointTransportModeUnitType SelectedRPTMUT { get; set; }
         public static RoutePoint SelectedRoutePoint { get; set; }
         public static ObservableCollection<UnitType> RoutePointSelectedUnitTypes { get; set; }
         #endregion
@@ -460,6 +478,37 @@ namespace GetRate.ViewModel
                     {
                         resultStr = DataWorker.CreateTransportModeUnitType(TMUTMode, TMUTType);
                         UpdateTMUTView();
+                        SetNullValuesToProperties();
+                        ShowMessageToUser(resultStr);
+                        window.Close();
+                    }
+                });
+            }
+        }
+
+        //RPTMUTs
+        private RelayCommand addNewRPTMUT;
+        public RelayCommand AddNewRPTMUT
+        {
+            get
+            {
+                return addNewRPTMUT ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = string.Empty;    
+
+                    if (RPTMUTPoint == null)
+                    {
+                        ShowMessageToUser("Please choose RoutePoint");
+                    }
+                    if (RPTMUT_TMUT == null)
+                    {
+                        ShowMessageToUser("Please choose TransportMode with UnitType");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.CreateRPTMUT(RPTMUT_TMUT, RPTMUTPoint);
+                        UpdateRPTMUTView();
                         SetNullValuesToProperties();
                         ShowMessageToUser(resultStr);
                         window.Close();
@@ -824,6 +873,44 @@ namespace GetRate.ViewModel
             }
         }
 
+        //RPTMUTs
+        private RelayCommand openAddNewRPTMUTWnd;
+        public RelayCommand OpenAddNewRPTMUTWnd
+        {
+            get
+            {
+                return openAddNewRPTMUTWnd ?? new RelayCommand(obj =>
+                {
+                    OpenAddRPTMUTWindowMethod();
+                });
+            }
+        }
+
+        private RelayCommand openEditRPTMUTWnd;
+        public RelayCommand OpenEditRPTMUTWnd
+        {
+            get
+            {
+                return openEditRPTMUTWnd ?? new RelayCommand(obj =>
+                {
+                    OpenEditRPTMUTWindowMethod();
+                });
+            }
+        }
+
+        private RelayCommand openRPTMUTListWnd;
+        public RelayCommand OpenRPTMUTListWnd
+        {
+            get
+            {
+                return openRPTMUTListWnd ?? new RelayCommand(obj =>
+                {
+                    OpenRPTMUTListWindowMethod();
+                }
+                );
+            }
+        }
+
         //Cargoes
         private RelayCommand openAddNewCargoWnd;
         public RelayCommand OpenAddNewCargoWnd
@@ -1046,6 +1133,30 @@ namespace GetRate.ViewModel
             TransportModesUnitTypesListWindow transportModesUnitTypesListWindow = new TransportModesUnitTypesListWindow();
             transportModesUnitTypesListWindow.ShowDialog();
         }
+
+        //RPTMUTs
+        private void OpenAddRPTMUTWindowMethod()
+        {
+            SetNullValuesToProperties();
+            AddRPTMUTWindow addRPTMUTWindow = new AddRPTMUTWindow();
+            addRPTMUTWindow.ShowDialog();
+        }
+        private void OpenEditRPTMUTWindowMethod()
+        {
+            RPTMUTPoint = DataWorker.GetRoutePointById(SelectedRPTMUT.RoutePointId);
+            RPTMUT_TMUT = DataWorker.GetTransportModeUnitTypeById(SelectedRPTMUT.TransportModeUnitTypeId);
+            EditRPTMUTWindow editRPTMUTWindow = new EditRPTMUTWindow(SelectedRPTMUT);    
+            editRPTMUTWindow.RoutePointsComboBox.SelectedIndex = AllRoutePoints.FindIndex(tm => tm.Id == RPTMUTPoint.Id);
+            editRPTMUTWindow.TMUTComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(tm => tm.Id == RPTMUT_TMUT.Id);
+            editRPTMUTWindow.ShowDialog();
+        }
+        private void OpenRPTMUTListWindowMethod()
+        {
+            RPTMUTList rPTMUTList = new RPTMUTList();
+            rPTMUTList.ShowDialog();
+        }
+
+
         //Cargoes
         private void OpenAddNewCargoWindowMethod()
         {
@@ -1258,6 +1369,28 @@ namespace GetRate.ViewModel
             }
         }
 
+        //RPTMUTs
+        private RelayCommand deleteRPTMUT;
+        public RelayCommand DeleteRPTMUT
+        {
+            get
+            {
+                return deleteRPTMUT ?? new RelayCommand(obj =>
+                {
+                    string resultStr = "No RoutePoint is selected";
+
+                    if (SelectedRPTMUT != null )
+                    {
+                        resultStr = DataWorker.DeleteRPTMUT(SelectedRPTMUT);
+                        SetNullValuesToProperties();
+                        UpdateRPTMUTView();
+
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
         //Cargo
         private RelayCommand deleteCargo;
         public RelayCommand DeleteCargo
@@ -1459,6 +1592,37 @@ namespace GetRate.ViewModel
             }
         }
 
+        //RPTMUTs
+        private RelayCommand editRPTMUT;
+        public RelayCommand EditRPTMUT
+        {
+            get
+            {
+                return editRPTMUT ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "No RoutePoint is selected!";
+
+                    if (RPTMUTPoint == null)
+                    {
+                        ShowMessageToUser("Please choose RoutePoint");
+                    }
+                    if (RPTMUT_TMUT == null)
+                    {
+                        ShowMessageToUser("Please choose TransportMode by UnitType");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.EditRPTMUT(SelectedRPTMUT, RPTMUTPoint, RPTMUT_TMUT);
+                        UpdateRPTMUTView();
+                        SetNullValuesToProperties();
+                        window.Close();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
         //Cargoes
         private RelayCommand editCargo;
         public RelayCommand EditCargo
@@ -1580,6 +1744,14 @@ namespace GetRate.ViewModel
             TransportModesUnitTypesListWindow.AllTransportModeUnitTypesView.Items.Refresh();
 
         }
+        private void UpdateRPTMUTView()
+        {
+            AllRPTMUTs = DataWorker.GetAllRPTMUT();
+            RPTMUTList.All_RPTMUTsView.ItemsSource = null;
+            RPTMUTList.All_RPTMUTsView.Items.Clear();
+            RPTMUTList.All_RPTMUTsView.ItemsSource= AllRPTMUTs;
+            RPTMUTList.All_RPTMUTsView.Items.Refresh();
+        }
         private void UpdateCargoesView()
         {
             AllCargoes = DataWorker.GetAllCargoes();
@@ -1663,6 +1835,11 @@ namespace GetRate.ViewModel
             TransportModeUnitTypeId = 0;
             TMUTMode = null;
             TMUTType = null;
+
+            //RPTMUTs
+            RPTMUTId = 0;
+            RPTMUTPoint = null;
+            RPTMUT_TMUT = null;
 
             //Cargo
             CargoId = 0;
