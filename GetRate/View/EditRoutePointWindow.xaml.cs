@@ -17,7 +17,7 @@ namespace GetRate.View
             InitializeComponent();
             DataContext = new DataManageVM();
             DataManageVM.RoutePointId = routePoint.Id;
-            DataManageVM.RoutePointCompany = routePoint.Company;
+            DataManageVM.RoutePointCompany.Id = routePoint.CompanyId;
             //DataManageVM.RoutePointTransportModes = routePoint.TransportModes;
             //DataManageVM.RoutePointUnitTypes = (ObservableCollection<UnitType>) routePoint.UnitTypes;
         }

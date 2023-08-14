@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace GetRate.Model
 {
-    public enum TransportModes { Sea, Rail, Avia, Auto }
+    //public enum TransportModes { Sea, Rail, Avia, Auto }
     public class RoutePoint
     {
         public RoutePoint()
         {
-            RoutePointTransportModeUnitTypes = new ObservableCollection<RoutePointTransportModeUnitType>();
+            RoutePointTransportModeUnitTypes = new List<RoutePointTransportModeUnitType>();
             //StartRoutes = new List<Route>();
             //EndPoints = new List<Route>();
             //FromRoutePoints = new List<Request>();

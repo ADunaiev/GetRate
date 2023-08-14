@@ -403,7 +403,7 @@ namespace GetRate.Model
             }
         }
 
-        public static string CreateRoutePoint(Company company, List<TransportMode> transportModes, ObservableCollection<UnitType> unitTypes)
+        public static string CreateRoutePoint(Company company)
         {
             string result = "RoutePoint is already exists!";
 
@@ -415,8 +415,6 @@ namespace GetRate.Model
                 {
                     RoutePoint routePoint = new RoutePoint();
                     routePoint.CompanyId = company.Id;
-                    //routePoint.TransportModes = transportModes;
-                    //routePoint.UnitTypes = unitTypes;
 
                     db.RoutePoints.Add(routePoint);
                     db.SaveChanges();
@@ -429,7 +427,7 @@ namespace GetRate.Model
         }
 
         //edit RoutePoint
-        public static string EditRoutePoint(RoutePoint oldRoutePoint, Company newCompany, List<TransportMode> newTransportModes, ObservableCollection<UnitType> newUnitTypes)
+        public static string EditRoutePoint(RoutePoint oldRoutePoint, Company newCompany)
         {
             string result = "There is no such RoutePoint!";
 
@@ -440,8 +438,6 @@ namespace GetRate.Model
                 if (routePoint != null)
                 {
                     routePoint.CompanyId = newCompany.Id;
-                    //routePoint.TransportModes = newTransportModes;
-                    //routePoint.UnitTypes = newUnitTypes;
 
                     db.SaveChanges();
                     result = $"RoutePoint was changed successfully";
@@ -480,23 +476,6 @@ namespace GetRate.Model
                 return db.RoutePoints.FirstOrDefault(c => c.Id == id);
             }
         }
-
-        //public static bool IsAuto(RoutePoint routePoint)
-        //{
-        //    //return routePoint.TransportModes.Any(tm => tm.Equals(TransportMode.Auto));
-        //}
-        ////public static bool IsRail(RoutePoint routePoint)
-        //{
-        //    return routePoint.TransportModes.Any(tm => tm.Equals(TransportMode.Rail));
-        //}
-        ////public static bool IsSea(RoutePoint routePoint)
-        //{
-        //    return routePoint.TransportModes.Any(tm => tm.Equals(TransportMode.Sea));
-        //}
-        ////public static bool IsAvia(RoutePoint routePoint)
-        //{
-        //    return routePoint.TransportModes.Any(tm => tm.Equals(TransportMode.Avia));
-        //}
 
 
         #endregion

@@ -225,8 +225,7 @@ namespace GetRate.ViewModel
         //RoutePoint Properties
         public static int RoutePointId { get; set; }
         public static Company RoutePointCompany { get; set; }
-        public static List<TransportMode> RoutePointTransportModes { get; set; }
-        public static ObservableCollection<UnitType> RoutePointUnitTypes { get; set; }
+
         #endregion
 
         #region SELECTED ITEMS
@@ -565,24 +564,15 @@ namespace GetRate.ViewModel
 
                     if (RoutePointCompany == null)
                     {
-                        SetRedBlockControl(window, "RoutePointCompanyComboBox");
+                        ShowMessageToUser("Please select Company");
                     }
                     else
                     {
-
-                        //resultStr = DataWorker.CreateRoutePoint(RoutePointCompany, RoutePointTransportModes, RoutePointSelectedUnitTypes);
-                        //UpdateRoutePointsView();
-                        //SetNullValuesToProperties();
-                        if (RoutePointSelectedUnitTypes == null)
-                        {
-                            ShowMessageToUser("Empty collection");
-                        }
-                        else
-                        {
-                            foreach (var item in RoutePointSelectedUnitTypes)
-                                ShowMessageToUser(item.NameENG + " ");
-                        }
-                        //window.Close();
+                        resultStr = DataWorker.CreateRoutePoint(RoutePointCompany);
+                        UpdateRoutePointsView();
+                        SetNullValuesToProperties();
+                        ShowMessageToUser(resultStr);
+                        window.Close();
                     }
                 });
             }
@@ -1187,7 +1177,7 @@ namespace GetRate.ViewModel
         {
             RoutePointCompany = DataWorker.GetCompanyById(SelectedRoutePoint.CompanyId);
             EditRoutePointWindow editRoutePointWindow = new EditRoutePointWindow(SelectedRoutePoint);
-            editRoutePointWindow.RoutePointCompanyComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.CompanyId.Equals(RoutePointCompany.Id));
+            editRoutePointWindow.RoutePointCompanyComboBox.SelectedIndex = AllCompanies.FindIndex(rp => rp.Id.Equals(RoutePointCompany.Id));
             editRoutePointWindow.ShowDialog();
         }
 
@@ -1406,6 +1396,28 @@ namespace GetRate.ViewModel
                         resultStr = DataWorker.DeleteCargo(SelectedCargo);
                         UpdateCargoesView();
                         SetNullValuesToProperties();                       
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
+        //RoutePoints
+        private RelayCommand deleteRoutePoint;
+        public RelayCommand DeleteRoutePoint
+        {
+            get
+            {
+                return deleteRoutePoint ?? new RelayCommand(obj =>
+                {
+                    string resultStr = "No RoutePoint is selected";
+
+                    if (SelectedRoutePoint != null )
+                    {
+                        resultStr = DataWorker.DeleteRoutePoint(SelectedRoutePoint);
+                        UpdateRoutePointsView();
+                        SetNullValuesToProperties();
+                        
                     }
                     ShowMessageToUser(resultStr);
                 });
@@ -1646,6 +1658,33 @@ namespace GetRate.ViewModel
             }
         }
 
+        //RoutePoints
+        private RelayCommand editRoutePoint;
+        public RelayCommand EditRoutePoint
+        {
+            get
+            {
+                return editRoutePoint ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "No RoutePoint is selected";
+
+                    if (RoutePointCompany == null )
+                    {
+                        ShowMessageToUser("Please select Company");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.EditRoutePoint(SelectedRoutePoint, RoutePointCompany);
+                        UpdateRoutePointsView();
+                        SetNullValuesToProperties();
+                        window.Close ();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
         #endregion
 
         #region COMMAND TO CLOSE WINDOWS
@@ -1850,8 +1889,6 @@ namespace GetRate.ViewModel
             //RoutePoint
             RoutePointId = 0;
             RoutePointCompany = null;
-            RoutePointTransportModes = null;
-            RoutePointUnitTypes = null;
 
         }
         private void SetRedBlockControl(Window window, string blockName)

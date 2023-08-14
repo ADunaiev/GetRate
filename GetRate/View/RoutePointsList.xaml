@@ -28,9 +28,10 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="RoutePoint" Width="120" DisplayMemberBinding="{Binding RoutePointCompany.NameENG}"/>
-                    <GridViewColumn Header="Transport Modes" Width="120" DisplayMemberBinding="{Binding TransportModes}"/>
-                    <GridViewColumn Header="Unit Types" Width="150" DisplayMemberBinding="{Binding RoutePointUnitTypes.NameENG}"/>
+                    <GridViewColumn Header="RoutePoint" Width="200" DisplayMemberBinding="{Binding RoutePointCompany.NameENG}"/>
+                    <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding RoutePointCompany.CompanyAddress.StreetBuildingENG}"/>
+                    <GridViewColumn Header="City" Width="100" DisplayMemberBinding="{Binding RoutePointCompany.CompanyAddress.AddressCity.NameENG}"/>
+                    <GridViewColumn Header="Country" Width="100" DisplayMemberBinding="{Binding RoutePointCompany.CompanyAddress.AddressCity.CityCountry.NameENG}"/>
                 </GridView>
             </ListView.View>
         </ListView>

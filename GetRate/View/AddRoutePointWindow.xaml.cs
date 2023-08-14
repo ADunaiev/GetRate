@@ -13,7 +13,6 @@ namespace GetRate.View
     /// </summary>
     public partial class AddRoutePointWindow : Window
     {
-        public static ObservableCollection<UnitType> SelectedUnitTypes { get; set; }
         public AddRoutePointWindow()
         {
 
