@@ -11,11 +11,14 @@ namespace GetRate.Model
         public Cargo()
         {
             //Requests = new List<Request>();
+            CargoPackages = new List<CargoPackage>();
         }
         public int Id { get; set; }
         public string NameENG { get; set; }
         public string NameUKR { get; set; }
         public string Code { get; set; }
+
+        public virtual ICollection<CargoPackage> CargoPackages { get; set; } 
 
         //public virtual ICollection<Request> Requests { get; set; }
     }

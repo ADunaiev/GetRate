@@ -18,6 +18,8 @@
             <Button x:Name="AddressBtn" Content="Addresses" Margin="10" Command="{Binding OpenAddressesListWnd}"/>
             <Button x:Name="CompanyBtn" Content="Companies" Margin="10" Command="{Binding OpenCompaniesListWnd}"/>
             <Button x:Name="CargoBtn" Content="Cargoes" Margin="10" Command="{Binding OpenCargoesListWnd}"/>
+            <Button x:Name="PackageBtn" Content="Packages" Margin="10" Command="{Binding OpenPackagesListWnd}"/>
+            <Button x:Name="CargoPackageBtn" Content="Cargo Packages" Margin="10" Command="{Binding OpenCargoPackagesListWnd}"/>
             <Button x:Name="UnitTypeBtn" Content="Unit types" Margin="10" Command="{Binding OpenUnitTypesListWnd}"/>
             <Button x:Name="TransportModeBtn" Content="Transport Modes" Margin="10" Command="{Binding OpenTransportModesListWnd}"/>
             <Button x:Name="TransportModeUnitTypesBtn" Content="TransportModes by UnitTypes" Margin="10" Command="{Binding OpenTransportModesUnitTypesListWnd}"/>

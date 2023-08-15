@@ -97,8 +97,22 @@
     <Compile Include="Migrations\202308121851212_AddressesFixed.designer.cs">
       <DependentUpon>202308121851212_AddressesFixed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308151846042_CargoPackage.cs" />
+    <Compile Include="Migrations\202308151846042_CargoPackage.designer.cs">
+      <DependentUpon>202308151846042_CargoPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308151917579_CargoPackage2.cs" />
+    <Compile Include="Migrations\202308151917579_CargoPackage2.designer.cs">
+      <DependentUpon>202308151917579_CargoPackage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308151948060_CargoPackage3.cs" />
+    <Compile Include="Migrations\202308151948060_CargoPackage3.designer.cs">
+      <DependentUpon>202308151948060_CargoPackage3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Cargo.cs" />
+    <Compile Include="Model\CargoPackage.cs" />
+    <Compile Include="Model\Package.cs" />
     <Compile Include="Model\RoutePointTransportModeUnitType.cs" />
     <Compile Include="Model\TransportationType.cs" />
     <Compile Include="Model\TransportMode.cs" />
@@ -113,6 +127,9 @@
     </Compile>
     <Compile Include="View\AddCompanyWindow.xaml.cs">
       <DependentUpon>AddCompanyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddPackageWindow.xaml.cs">
+      <DependentUpon>AddPackageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddRoutePointWindow.xaml.cs">
       <DependentUpon>AddRoutePointWindow.xaml</DependentUpon>
@@ -150,6 +167,9 @@
     <Compile Include="View\EditCountryWindow.xaml.cs">
       <DependentUpon>EditCountryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditPackageWindow.xaml.cs">
+      <DependentUpon>EditPackageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditRoutePointWindow.xaml.cs">
       <DependentUpon>EditRoutePointWindow.xaml</DependentUpon>
     </Compile>
@@ -164,6 +184,9 @@
     </Compile>
     <Compile Include="View\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PackagesList.xaml.cs">
+      <DependentUpon>PackagesList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RoutePointsList.xaml.cs">
       <DependentUpon>RoutePointsList.xaml</DependentUpon>
@@ -192,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddCompanyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddPackageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,6 +290,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditPackageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditRoutePointWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -312,6 +343,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\MessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PackagesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -380,6 +415,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308121851212_AddressesFixed.resx">
       <DependentUpon>202308121851212_AddressesFixed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308151846042_CargoPackage.resx">
+      <DependentUpon>202308151846042_CargoPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308151917579_CargoPackage2.resx">
+      <DependentUpon>202308151917579_CargoPackage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308151948060_CargoPackage3.resx">
+      <DependentUpon>202308151948060_CargoPackage3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

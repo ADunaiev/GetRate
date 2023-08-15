@@ -147,6 +147,21 @@ namespace GetRate.ViewModel
             }
         }
 
+        //All Packages
+        private List<Package> allPackages = DataWorker.GetAllPackages();
+        public List<Package> AllPackages
+        {
+            get
+            {
+                return allPackages;
+            }
+            set
+            {
+                allPackages = value;
+                NotifyPropertyChanged("AllPackages");
+            }
+        }
+
         //All RoutePoints
         private List<RoutePoint> allRoutePoints = DataWorker.GetAllRoutePoints();
         public List<RoutePoint> AllRoutePoints
@@ -222,6 +237,13 @@ namespace GetRate.ViewModel
         public static string CargoNameUKR { get; set; }
         public static string CargoCode { get; set; }
 
+        //Packages Properties
+        public static int PackageId { get; set; }
+        public static string PackageNameENG { get; set; }   
+        public static string PackageNameUKR { get; set; }
+        public static decimal PackagePayload { get; set; }
+        public static decimal PackageWeight { get; set; }
+
         //RoutePoint Properties
         public static int RoutePointId { get; set; }
         public static Company RoutePointCompany { get; set; }
@@ -236,6 +258,7 @@ namespace GetRate.ViewModel
         public static Company SelectedCompany { get; set; }
         public static UnitType SelectedUnitType { get; set; }
         public static Cargo SelectedCargo { get; set; }
+        public static Package SelectedPackage { get; set; }
         public static TransportMode SelectedTransportMode { get; set; }
         public static TransportModeUnitType SelectedTMUT { get; set; }
         public static RoutePointTransportModeUnitType SelectedRPTMUT { get; set; }
@@ -547,6 +570,45 @@ namespace GetRate.ViewModel
                         ShowMessageToUser(resultStr);
                         window.Close();
                     }
+                });
+            }
+        }
+
+        //Packages
+        private RelayCommand addNewPackage;
+        public RelayCommand AddNewPackage
+        {
+            get
+            {
+                return addNewPackage ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = string.Empty;
+
+                    if(string.IsNullOrEmpty(PackageNameENG))
+                    {
+                        SetRedBlockControl(window, "PackageNameENGTextBox");
+                    }
+                    if(string.IsNullOrEmpty(PackageNameUKR))
+                    {
+                        SetRedBlockControl(window, "PackageNameUKRTextBox");
+                    }
+                    if (PackagePayload <= 0)
+                    {
+                        SetRedBlockControl(window, "PackagePayloadTextBox");
+                    }
+                    if (PackageWeight < 0)
+                    {
+                        SetRedBlockControl(window, "PackageWeightTextBox");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.CreatePackage(PackageNameENG, PackageNameUKR, PackagePayload, PackageWeight);
+                        UpdatePackagesListView();
+                        SetNullValuesToProperties();
+                        window.Close();
+                    }
+                    ShowMessageToUser(resultStr);
                 });
             }
         }
@@ -941,6 +1003,44 @@ namespace GetRate.ViewModel
             }
         }
 
+        //Packages
+        private RelayCommand openAddNewPackageWnd;
+        public RelayCommand OpenAddNewPackageWnd
+        {
+            get
+            {
+                return openAddNewAddressWnd ?? new RelayCommand(obj =>
+                {
+                    OpenAddNewPackageWindowMethod();
+                }
+                );
+            }
+        }
+        private RelayCommand openEditPackageWnd;
+        public RelayCommand OpenEditPackageWnd
+        {
+            get
+            {
+                return openEditPackageWnd ?? new RelayCommand(obj =>
+                {
+                    OpenEditPackageWindowMethod();
+                }
+                );
+            }
+        }
+        private RelayCommand openPackagesListWnd;
+        public RelayCommand OpenPackagesListWnd
+        {
+            get
+            {
+                return openPackagesListWnd ?? new RelayCommand(obj =>
+                {
+                    OpenPackagesListWindowMethod();
+                }
+                );
+            }
+        }
+
         //RoutePoints
         private RelayCommand openAddNewRoutePointWnd;
         public RelayCommand OpenAddNewRoutePointWnd
@@ -1164,6 +1264,25 @@ namespace GetRate.ViewModel
             CargoesList cargoesList = new CargoesList();
             cargoesList.ShowDialog();
         }
+
+        //Packages
+        private void OpenAddNewPackageWindowMethod()
+        {
+            SetNullValuesToProperties();
+            AddPackageWindow addPackageWindow = new AddPackageWindow();
+            addPackageWindow.ShowDialog();
+        }
+        private void OpenEditPackageWindowMethod()
+        {
+            EditPackageWindow editPackageWindow = new EditPackageWindow(SelectedPackage);
+            editPackageWindow.ShowDialog();
+        }
+        private void OpenPackagesListWindowMethod()
+        {
+            PackagesList packagesList = new PackagesList();
+            packagesList.ShowDialog();
+        }
+
 
         //RoutePoints
         private void OpenAddNewRoutePointWindowMethod()
@@ -1399,6 +1518,28 @@ namespace GetRate.ViewModel
                     }
                     ShowMessageToUser(resultStr);
                 });
+            }
+        }
+
+        //Package
+        private RelayCommand deletePackage;
+        public RelayCommand DeletePackage
+        {
+            get
+            {
+                return deletePackage ?? new RelayCommand(obj =>
+                {
+                    string resultStr = "No package is selected!";
+
+                    if (SelectedPackage != null)
+                    {
+                        resultStr = DataWorker.DeletePackage(SelectedPackage);
+                        UpdatePackagesListView();
+                        SetNullValuesToProperties();
+                    }
+                    ShowMessageToUser(resultStr);
+                }
+                );
             }
         }
 
@@ -1658,6 +1799,29 @@ namespace GetRate.ViewModel
             }
         }
 
+        //Packages
+        private RelayCommand editPackage;
+        public RelayCommand EditPackage
+        {
+            get
+            {
+                return editPackage ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "No package is selected!";
+
+                    if (SelectedPackage != null )
+                    {
+                        resultStr = DataWorker.EditPackage(SelectedPackage, PackageNameENG, PackageNameUKR, PackagePayload, PackageWeight);
+                        UpdatePackagesListView();
+                        SetNullValuesToProperties();
+                        window.Close ();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
         //RoutePoints
         private RelayCommand editRoutePoint;
         public RelayCommand EditRoutePoint
@@ -1799,6 +1963,14 @@ namespace GetRate.ViewModel
             CargoesList.AllCagoesList.ItemsSource = AllCargoes;
             CargoesList.AllCagoesList.Items.Refresh();
         }
+        private void UpdatePackagesListView() 
+        { 
+            AllPackages = DataWorker.GetAllPackages();
+            PackagesList.AllPackagesView.ItemsSource = null;
+            PackagesList.AllPackagesView.Items.Clear();
+            PackagesList.AllPackagesView.ItemsSource = AllPackages;
+            PackagesList.AllPackagesView.Items.Refresh();
+        }
         private void UpdateRoutePointsView()
         {
             AllRoutePoints = DataWorker.GetAllRoutePoints();
@@ -1885,6 +2057,13 @@ namespace GetRate.ViewModel
             CargoNameENG = null;
             CargoNameUKR = null;
             CargoCode = null;
+
+            //Package
+            PackageId = 0; 
+            PackageNameENG = null;
+            PackageNameUKR = null;
+            PackagePayload = 0;
+            PackageWeight = 0;
 
             //RoutePoint
             RoutePointId = 0;

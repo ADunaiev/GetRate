@@ -576,6 +576,198 @@ namespace GetRate.Model
 
         #endregion
 
+        #region PACKAGE
+
+        //Get all Packages
+        public static List<Package> GetAllPackages()
+        {
+            using (var db = new GetRateContext())
+            {
+                var query = db.Packages.AsQueryable().OrderBy(c => c.NameENG);
+
+                return query.ToList();
+            }
+        }
+
+        //create Package
+        public static string CreatePackage(string packageNameENG, string packageNameUKR, decimal grossWeight, decimal packageGW)
+        {
+            string result = "Package is exists already!";
+
+            using (var db = new GetRateContext())
+            {
+                var packages = db.Packages;
+
+                bool checkIsExist = packages.Any(co => co.NameENG == packageNameENG);
+
+                if (!checkIsExist)
+                {
+                    Package newPackage = new Package();
+                    newPackage.NameENG = packageNameENG;
+                    newPackage.NameUKR = packageNameUKR;
+                    newPackage.Payload = grossWeight;
+                    newPackage.PackageWeight = packageGW;
+
+                    packages.Add(newPackage);
+                    db.SaveChanges();
+                    result = $"Package {newPackage.NameENG} added successfully!";
+                }
+
+                return result;
+            }
+        }
+
+        //edit Package
+        public static string EditPackage(Package oldPackage, string newNameENG, string newNameUKR, decimal newGrossWeight, decimal newPackageWeight)
+        {
+            string result = "There is no such package!";
+
+            using (var db = new GetRateContext())
+            {
+                Package package = db.Packages.FirstOrDefault(c => c.Id == oldPackage.Id);
+
+                if (package != null)
+                {
+                    package.NameENG = newNameENG;
+                    package.NameUKR = newNameUKR;
+                    package.Payload = newGrossWeight;
+                    package.PackageWeight = newPackageWeight;
+
+                    db.SaveChanges();
+                    result = $"Package {package.NameENG} is changed!";
+                }
+            }
+            return result;
+        }
+
+        //delete Package
+        public static string DeletePackage(Package package)
+        {
+            string result = "There is no such package!";
+
+            using (var db = new GetRateContext())
+            {
+                var packages = db.Packages;
+
+                var deletedPackage = (from c in packages
+                                    where c.Id == package.Id
+                                    select c).FirstOrDefault();
+
+                if (deletedPackage != null)
+                {
+                    db.Packages.Remove(deletedPackage);
+                    db.SaveChanges();
+                    result = $"Package {deletedPackage.NameENG} deleted!";
+                }
+            }
+            return result;
+        }
+
+        //get Package by Id
+        public static Package GetPackageById(int id)
+        {
+            using (var db = new GetRateContext())
+            {
+                return db.Packages.FirstOrDefault(c => c.Id == id);
+            }
+        }
+
+        #endregion
+
+        #region CARGO_PACKAGE
+
+        //Get all CargoPackages
+        public static List<CargoPackage> GetAllCargoPackages()
+        {
+            using (var db = new GetRateContext())
+            {
+                var query = db.CargoPackages.AsQueryable().OrderBy(c => c.NameENG);
+
+                return query.ToList();
+            }
+        }
+
+        //create CargoPackage
+        public static string CreateCargoPackage(Cargo cargo, Package package)
+        {
+            string result = "CargoPackage is exists already!";
+
+            using (var db = new GetRateContext())
+            {
+                var cargoPackages = db.CargoPackages;
+
+                bool checkIsExist = cargoPackages.Any(cp => cp.CargoId == cargo.Id && cp.PackageId == package.Id);
+
+                if (!checkIsExist)
+                {
+                    CargoPackage newCargoPackage = new CargoPackage();
+                    newCargoPackage.CargoId = cargo.Id;
+                    newCargoPackage.PackageId  = package.Id;
+
+                    cargoPackages.Add(newCargoPackage);
+                    db.SaveChanges();
+                    result = $"CargoPackage {newCargoPackage.NameENG} added successfully!";
+                }
+
+                return result;
+            }
+        }
+
+        //edit CargoPackage
+        public static string EditCargoPackage(CargoPackage oldCargoPackage, Cargo newCargo, Package newPackage)
+        {
+            string result = "There is no such CargoPackage!";
+
+            using (var db = new GetRateContext())
+            {
+                CargoPackage cargoPackage = db.CargoPackages.FirstOrDefault(c => c.Id == oldCargoPackage.Id);
+
+                if (cargoPackage != null)
+                {
+                    cargoPackage.CargoId = newCargo.Id;
+                    cargoPackage.PackageId = newPackage.Id;
+
+                    db.SaveChanges();
+                    result = $"CargoPackage {cargoPackage.NameENG} is changed!";
+                }
+            }
+            return result;
+        }
+
+        //delete CargoPackage
+        public static string DeleteCargoPackage(CargoPackage cargoPackage)
+        {
+            string result = "There is no such CargoPackage!";
+
+            using (var db = new GetRateContext())
+            {
+                var cargoPackages = db.CargoPackages;
+
+                var deletedCargoPackage = (from c in cargoPackages
+                                      where c.Id == cargoPackage.Id
+                                      select c).FirstOrDefault();
+
+                if (deletedCargoPackage != null)
+                {
+                    db.CargoPackages.Remove(deletedCargoPackage);
+                    db.SaveChanges();
+                    result = $"CargoPackage {deletedCargoPackage.NameENG} deleted!";
+                }
+            }
+            return result;
+        }
+
+        //get Package by Id
+        public static CargoPackage GetCargoPackageById(int id)
+        {
+            using (var db = new GetRateContext())
+            {
+                return db.CargoPackages.FirstOrDefault(c => c.Id == id);
+            }
+        }
+
+        #endregion
+
         #region UNITTYPES
         //Get all unitTypes
         public static List<UnitType> GetAllUnitTypes()

@@ -32,4 +32,7 @@ FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\TransportModesListWindow.xam
 FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\TransportModesUnitTypesListWindow.xaml;;
 FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\UnitTypesListWindow.xaml;;
 FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\EditTransportModeWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\PackagesList.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\AddPackageWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate\GetRate\View\EditPackageWindow.xaml;;
 
