@@ -22,7 +22,10 @@ namespace GetRate.Model
         {
             get
             {
-                return Cargo.NameENG = " in " + Package.NameENG;
+                string cargoName = (DataWorker.GetCargoById(CargoId)).NameENG;
+                string packageName = (DataWorker.GetPackageById(PackageId)).NameENG;
+
+                return cargoName + " in " + packageName;
             }
         }
 
@@ -31,7 +34,28 @@ namespace GetRate.Model
         {
             get
             {
-                return Cargo.NameUKR = " in " + Package.NameUKR;
+                string cargoName = (DataWorker.GetCargoById(CargoId)).NameUKR;
+                string packageName = (DataWorker.GetPackageById(PackageId)).NameUKR;
+
+                return cargoName + " в " + packageName;
+            }
+        }
+
+        [NotMapped]
+        public Cargo CargoPackageCargo
+        {
+            get
+            {
+                return DataWorker.GetCargoById(CargoId);
+            }
+        }
+
+        [NotMapped]
+        public Package CargoPackagePackage
+        {
+            get
+            {
+                return DataWorker.GetPackageById(PackageId);
             }
         }
     }

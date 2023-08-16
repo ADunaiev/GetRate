@@ -122,6 +122,9 @@
     <Compile Include="Model\Data\GetRateContext.cs" />
     <Compile Include="Model\RelayCommand.cs" />
     <Compile Include="Model\RoutePoint.cs" />
+    <Compile Include="View\AddCargoPackageWindow.xaml.cs">
+      <DependentUpon>AddCargoPackageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddCargoWindow.xaml.cs">
       <DependentUpon>AddCargoWindow.xaml</DependentUpon>
     </Compile>
@@ -149,11 +152,17 @@
     <Compile Include="View\CargoesList.xaml.cs">
       <DependentUpon>CargoesList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CargoPackagesList.xaml.cs">
+      <DependentUpon>CargoPackagesList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CompaniesList.xaml.cs">
       <DependentUpon>CompaniesList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditAddressWindow.xaml.cs">
       <DependentUpon>EditAddressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditCargoPackageWindow.xaml.cs">
+      <DependentUpon>EditCargoPackageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditCargoWindow.xaml.cs">
       <DependentUpon>EditCargoWindow.xaml</DependentUpon>
@@ -210,6 +219,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AddCargoPackageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddCargoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -250,6 +263,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CargoPackagesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CitiesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +288,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditAddressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditCargoPackageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

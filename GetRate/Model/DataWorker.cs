@@ -681,7 +681,13 @@ namespace GetRate.Model
         {
             using (var db = new GetRateContext())
             {
-                var query = db.CargoPackages.AsQueryable().OrderBy(c => c.NameENG);
+                var cargoPackages = db.CargoPackages;
+                var cargoes = db.Cargoes;
+                var query = from c in cargoPackages
+                            join ca in cargoes
+                            on c.CargoId equals ca.Id
+                            orderby ca.NameENG
+                            select c;
 
                 return query.ToList();
             }
