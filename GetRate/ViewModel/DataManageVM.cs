@@ -185,6 +185,18 @@ namespace GetRate.ViewModel
                 NotifyPropertyChanged("AllRoutePoints");
             }
         }
+
+        //All Requests
+        private List<Request> allRequests = DataWorker.GetAllRequests();
+        public List<Request> AllRequests
+        {
+            get { return allRequests; }
+            set
+            {
+                allRequests = value;
+                NotifyPropertyChanged("AllRequests");
+            }
+        }
         #endregion
 
         #region CLASS PROPERTIES
@@ -265,6 +277,21 @@ namespace GetRate.ViewModel
         public static int RoutePointId { get; set; }
         public static Company RoutePointCompany { get; set; }
 
+        //Request Properties
+        public static int RequestId { get; set; }
+        public static DateTime RequestDate { get; set; }
+        public static Company RequestCompany { get; set; }
+        public static CargoPackage RequestFromCargoPackage { get; set; }
+        public static CargoPackage RequestToCargoPackage { get; set; }
+        public static bool RequestFromHandlingNeeded { get; set; }
+        public static bool RequestToHandlingNeeded { get; set; }
+        public static City RequestFromCity { get; set; }
+        public static City RequestToCity { get; set; }
+        public static RoutePoint RequestFromRoutePoint { get; set; }
+        public static RoutePoint RequestToRoutePoint { get; set; }
+        public static decimal RequestCargoGrossWeight { get; set; }
+        public static decimal RequestCargoVolume { get; set; }
+
         #endregion
 
         #region SELECTED ITEMS
@@ -281,6 +308,7 @@ namespace GetRate.ViewModel
         public static TransportModeUnitType SelectedTMUT { get; set; }
         public static RoutePointTransportModeUnitType SelectedRPTMUT { get; set; }
         public static RoutePoint SelectedRoutePoint { get; set; }
+        public static Request SelectedRequest { get; set; }
         public static ObservableCollection<UnitType> RoutePointSelectedUnitTypes { get; set; }
         #endregion
 
@@ -681,6 +709,77 @@ namespace GetRate.ViewModel
                     {
                         resultStr = DataWorker.CreateRoutePoint(RoutePointCompany);
                         UpdateRoutePointsView();
+                        SetNullValuesToProperties();
+                        ShowMessageToUser(resultStr);
+                        window.Close();
+                    }
+                });
+            }
+        }
+
+        //Requests
+        private RelayCommand addNewRequest;
+        public RelayCommand AddNewRequest
+        {
+            get
+            {
+                return addNewRequest ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = string.Empty;
+
+                    if (RequestCompany == null)
+                    {
+                        ShowMessageToUser("Please choose company");
+                    }
+                    if (RequestFromCargoPackage == null)
+                    {
+                        ShowMessageToUser("Please choose From CargoPackage");
+                    }
+                    if (RequestToCargoPackage == null)
+                    {
+                        ShowMessageToUser("Please choose To CargoPackage");
+                    }
+                    if (RequestCargoGrossWeight == 0)
+                    {
+                        SetRedBlockControl(window, "CargoGWTextBox");
+                    }
+                    if (RequestCargoVolume == 0)
+                    {
+                        SetRedBlockControl(window, "CargoVolumeTextBox");
+                    }
+                    if (RequestToCity == null)
+                    {
+                        ShowMessageToUser("Please choose To City");
+                    }
+                    if (RequestFromCity == null)
+                    {
+                        ShowMessageToUser("Please choose From City");
+                    }
+                    if (RequestFromRoutePoint == null)
+                    {
+                        ShowMessageToUser("Please choose From RoutePoint");
+                    }
+                    if (RequestToRoutePoint == null)
+                    {
+                        ShowMessageToUser("Please choose To RoutePoint");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.CreateRequest(
+                            RequestCompany,
+                            RequestFromCargoPackage,
+                            RequestFromCity,
+                            RequestFromRoutePoint,
+                            RequestFromHandlingNeeded,
+                            RequestToCargoPackage,
+                            RequestToCity,
+                            RequestToRoutePoint,
+                            RequestToHandlingNeeded,
+                            RequestCargoGrossWeight,
+                            RequestCargoVolume
+                            );
+                        UpdateRequestsListView();
                         SetNullValuesToProperties();
                         ShowMessageToUser(resultStr);
                         window.Close();
@@ -1169,6 +1268,44 @@ namespace GetRate.ViewModel
             }
         }
 
+        //Requests
+        private RelayCommand openAddNewRequestWnd;
+        public RelayCommand OpenAddNewRequestWnd
+        {
+            get
+            {
+                return openAddNewRequestWnd ?? new RelayCommand(obj =>
+                {
+                    OpenAddNewRequestWindowMethod();
+                }
+                );
+            }
+        }
+
+        private RelayCommand openEditRequestWnd;
+        public RelayCommand OpenEditRequestWnd
+        {
+            get
+            {
+                return openEditRequestWnd ?? new RelayCommand(obj =>
+                {
+                    OpenEditRequestWindowMethod();
+                });
+            }
+        }
+
+        private RelayCommand openRequestsListWnd;
+        public RelayCommand OpenRequestsListWnd
+        {
+            get
+            {
+                return openRequestsListWnd ?? new RelayCommand(obj =>
+                {
+                    OpenRequestsListWindowMethod();
+                });
+            }
+        }
+
         #endregion
 
         #region METHODS TO OPEN WINDOW
@@ -1413,6 +1550,39 @@ namespace GetRate.ViewModel
         {
             RoutePointsList routePointsList = new RoutePointsList();
             routePointsList.ShowDialog();               
+        }
+
+        //Requests
+        private void OpenAddNewRequestWindowMethod()
+        {
+            SetNullValuesToProperties();
+            AddRequestWindow addNewRequestWindow = new AddRequestWindow();
+            DataManageVM.RequestDate = DateTime.Now;
+            addNewRequestWindow.ShowDialog();
+        }
+        private void OpenEditRequestWindowMethod() 
+        { 
+            RequestCompany = DataWorker.GetCompanyById(SelectedRequest.CompanyId);
+            RequestFromCargoPackage = DataWorker.GetCargoPackageById((int)SelectedRequest.FromCargoPackageId);
+            RequestToCargoPackage = DataWorker.GetCargoPackageById((int)SelectedRequest.ToCargoPackageId);
+            RequestFromCity = DataWorker.GetCityById((int)SelectedRequest.FromCityId);
+            RequestToCity = DataWorker.GetCityById((int)SelectedRequest.ToCityId);
+            RequestFromRoutePoint = DataWorker.GetRoutePointById((int)SelectedRequest.FromRoutePointId);
+            RequestToRoutePoint = DataWorker.GetRoutePointById((int)SelectedRequest.ToRoutePointId);
+            EditRequestWindow editRequestWindow = new EditRequestWindow(SelectedRequest);
+            editRequestWindow.CustomerComboBox.SelectedIndex = AllCompanies.FindIndex(c => c.Id == RequestCompany.Id);
+            editRequestWindow.FromCargoPackageComboBox.SelectedIndex = AllCargoPackages.FindIndex(cp => cp.Id == RequestFromCargoPackage.Id);
+            editRequestWindow.ToCargoPackageComboBox.SelectedIndex = AllCargoPackages.FindIndex(cp => cp.Id == RequestToCargoPackage.Id);
+            editRequestWindow.FromCityComboBox.SelectedIndex = AllCities.FindIndex(c => c.Id == RequestFromCity.Id);
+            editRequestWindow.ToCityComboBox.SelectedIndex = AllCities.FindIndex(c => c.Id == RequestToCity.Id);
+            editRequestWindow.FromPointComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == RequestFromRoutePoint.Id);
+            editRequestWindow.ToPointComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == RequestToRoutePoint.Id);
+            editRequestWindow.ShowDialog();
+        }
+        private void OpenRequestsListWindowMethod()
+        {
+            RequestsList requestsList = new RequestsList();
+            requestsList.ShowDialog();
         }
 
         private void SetCenterPositionAndOpen(Window window)
@@ -1691,6 +1861,27 @@ namespace GetRate.ViewModel
                         UpdateRoutePointsView();
                         SetNullValuesToProperties();
                         
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
+        //Requests
+        private RelayCommand deleteRequest;
+        public RelayCommand DeleteRequest
+        {
+            get
+            {
+                return deleteRequest ?? new RelayCommand(obj =>
+                {
+                    string resultStr = "Please select Request to delete";
+
+                    if ( SelectedRequest != null )
+                    {
+                        resultStr += DataWorker.DeleteRequest(SelectedRequest);
+                        UpdateRequestsListView();
+                        SetNullValuesToProperties();
                     }
                     ShowMessageToUser(resultStr);
                 });
@@ -2005,6 +2196,78 @@ namespace GetRate.ViewModel
             }
         }
 
+        //Requests
+        private RelayCommand editRequest;
+        public RelayCommand EditRequest
+        {
+            get
+            {
+                return editRequest ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "Please choose Request to edit";
+
+                    if (RequestCompany == null)
+                    {
+                        ShowMessageToUser("Please choose company");
+                    }
+                    if (RequestFromCargoPackage == null)
+                    {
+                        ShowMessageToUser("Please choose From CargoPackage");
+                    }
+                    if (RequestToCargoPackage == null)
+                    {
+                        ShowMessageToUser("Please choose To CargoPackage");
+                    }
+                    if (RequestCargoGrossWeight == 0)
+                    {
+                        SetRedBlockControl(window, "CargoGWTextBox");
+                    }
+                    if (RequestCargoVolume == 0)
+                    {
+                        SetRedBlockControl(window, "CargoVolumeTextBox");
+                    }
+                    if (RequestToCity == null)
+                    {
+                        ShowMessageToUser("Please choose To City");
+                    }
+                    if (RequestFromCity == null)
+                    {
+                        ShowMessageToUser("Please choose From City");
+                    }
+                    if (RequestFromRoutePoint == null)
+                    {
+                        ShowMessageToUser("Please choose From RoutePoint");
+                    }
+                    if (RequestToRoutePoint == null)
+                    {
+                        ShowMessageToUser("Please choose To RoutePoint");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.EditRequest(
+                            SelectedRequest,
+                            RequestCompany,
+                            RequestFromCargoPackage,
+                            RequestFromCity,
+                            RequestFromRoutePoint,
+                            RequestFromHandlingNeeded,
+                            RequestToCargoPackage,
+                            RequestToCity,
+                            RequestToRoutePoint,
+                            RequestToHandlingNeeded,
+                            RequestCargoGrossWeight,
+                            RequestCargoVolume
+                            );
+                        UpdateRequestsListView();
+                        SetNullValuesToProperties();
+                        window.Close();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
         #endregion
 
         #region COMMAND TO CLOSE WINDOWS
@@ -2017,24 +2280,26 @@ namespace GetRate.ViewModel
                 return closeWnd ?? new RelayCommand(obj =>
                 {
                     Window window = obj as Window;
-                    
+
                     //ShowMessageToUser(window.GetType().FullName + " " +
                     //    window.Name);
 
-                    if (window.Name == "CountriesListWnd") 
+                    if (window != null)
                     {
-                        UpdateCountriesInAddNewCityWnd();
+                        if (window.Name == "CountriesListWnd")
+                        {
+                            UpdateCountriesInAddNewCityWnd();
+                        }
+                        if (window.Name == "CitiesListWnd")
+                        {
+                            UpdateCitiesInAddAddressWnd();
+                        }
+                        if (window.Name == "AddressesListWnd")
+                        {
+                            UpdateAddressesInAddCompaniesWnd();
+                        }
                     }
-                    if(window.Name == "CitiesListWnd") 
-                    {
-                        UpdateCitiesInAddAddressWnd();
-                    }
-                    if (window.Name == "AddressesListWnd")
-                    {
-                        UpdateAddressesInAddCompaniesWnd();
-                    }
-
-                    window.Close();
+                        window.Close();                    
                 }
                 );
             }
@@ -2135,7 +2400,14 @@ namespace GetRate.ViewModel
             CargoPackagesList.AllCargoPackaeesView.ItemsSource = AllCargoPackages;
             CargoPackagesList.AllCargoPackaeesView.Items.Refresh();
         }
-
+        private void UpdateRequestsListView() 
+        { 
+            AllRequests = DataWorker.GetAllRequests();
+            RequestsList.AllRequestsListView.ItemsSource = null;
+            RequestsList.AllRequestsListView.Items.Clear();
+            RequestsList.AllRequestsListView.ItemsSource = AllRequests;
+            RequestsList.AllRequestsListView.Items.Refresh();
+        }
         private void UpdateRoutePointsView()
         {
             AllRoutePoints = DataWorker.GetAllRoutePoints();
@@ -2154,11 +2426,14 @@ namespace GetRate.ViewModel
         }
         private void UpdateCitiesInAddAddressWnd()
         {
-            AllCities = DataWorker.GetAllCities();
-            AddAddressWindow.NewCitiesSource.ItemsSource = null;
-            AddAddressWindow.NewCitiesSource.Items.Clear();
-            AddAddressWindow.NewCitiesSource.ItemsSource = AllCities;
-            AddAddressWindow.NewCitiesSource.Items.Refresh();
+            if (AddAddressWindow.NewCitiesSource != null)
+            {
+                AllCities = DataWorker.GetAllCities();
+                AddAddressWindow.NewCitiesSource.ItemsSource = null;
+                AddAddressWindow.NewCitiesSource.Items.Clear();
+                AddAddressWindow.NewCitiesSource.ItemsSource = AllCities;
+                AddAddressWindow.NewCitiesSource.Items.Refresh();
+            }
         }
         private void UpdateAddressesInAddCompaniesWnd()
         {
@@ -2239,6 +2514,20 @@ namespace GetRate.ViewModel
             RoutePointId = 0;
             RoutePointCompany = null;
 
+            //Request
+            RequestId = 0;
+            RequestDate = DateTime.MinValue;
+            RequestCompany = null;
+            RequestFromCargoPackage = null;
+            RequestToCargoPackage = null;
+            RequestFromHandlingNeeded = false;
+            RequestToHandlingNeeded = false;
+            RequestFromCity = null;
+            RequestToCity = null;
+            RequestFromRoutePoint = null;
+            RequestToRoutePoint = null;
+            RequestCargoGrossWeight = 0;
+            RequestCargoVolume = 0;
         }
         private void SetRedBlockControl(Window window, string blockName)
         {

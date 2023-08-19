@@ -1155,5 +1155,132 @@ namespace GetRate.Model
             }
         }
         #endregion
+
+        #region REQUEST
+
+        //Get all Requests
+        public static List<Request> GetAllRequests()
+        {
+            using (var db = new GetRateContext())
+            {
+                var requests = db.Requests;
+
+                var query = from c in requests
+                            select c;
+
+                return query.ToList();
+            }
+        }
+
+        //create Request
+        public static string CreateRequest(Company customer, CargoPackage fromCargoPackage, City fromCity, RoutePoint fromRoutePoint, bool fromHandlingNeeded,
+            CargoPackage toCargoPackage, City toCity, RoutePoint toRoutePoint, bool toHandlingNeeded, decimal cargoGrossWeight, decimal cargoVolume)
+        {
+            string result = "";
+
+            using (var db = new GetRateContext())
+            {
+                var requests = db.Requests;
+
+
+                Request newRequest = new Request();
+                newRequest.CompanyId = customer.Id;
+                newRequest.FromCargoPackageId = fromCargoPackage.Id;
+                newRequest.FromCityId = fromCity.Id;    
+                newRequest.FromRoutePointId = fromRoutePoint.Id;
+                newRequest.FromHandlingNeeded = fromHandlingNeeded;
+                newRequest.ToCargoPackageId = toCargoPackage.Id;
+                newRequest.ToCityId = toCity.Id;
+                newRequest.ToRoutePointId = toRoutePoint.Id;
+                newRequest.ToHandlingNeeded = toHandlingNeeded;
+                newRequest.Date = System.DateTime.Now;
+                newRequest.CargoGW = cargoGrossWeight;
+                newRequest.CargoVolume = cargoVolume;
+
+                requests.Add(newRequest);
+                db.SaveChanges();
+                result = $"Request added successfully!";
+                
+                return result;
+            }
+        }
+
+        //edit Request
+        public static string EditRequest
+            (
+                Request oldRequest, 
+                Company newCompany,
+                CargoPackage newFromCargoPackage,
+                City newFromCity,
+                RoutePoint newFromRoutePoint,
+                bool newFromHandlingNeeded,
+                CargoPackage newToCargoPackage,
+                City newToCity,
+                RoutePoint newToRoutePoint,
+                bool newToHandlingNeeded,
+                decimal newCargoGrossWeight,
+                decimal newCargoVolume
+            )
+        {
+            string result = "There is no such Request!";
+
+            using (var db = new GetRateContext())
+            {
+                Request request = db.Requests.FirstOrDefault(c => c.Id == oldRequest.Id);
+
+                if (request != null)
+                {
+                    request.CompanyId = newCompany.Id;
+                    request.FromRoutePointId = newFromRoutePoint.Id;
+                    request.ToRoutePointId = newToRoutePoint.Id;
+                    request.FromCityId = newFromCity.Id;
+                    request.ToCityId = newToCity.Id;
+                    request.FromCargoPackageId = newFromCargoPackage.Id;
+                    request.ToCargoPackageId = newToCargoPackage.Id;
+                    request.FromHandlingNeeded = newFromHandlingNeeded;
+                    request.ToHandlingNeeded = newToHandlingNeeded;
+                    request.CargoGW = newCargoGrossWeight;
+                    request.CargoVolume = newCargoVolume;
+
+                    db.SaveChanges();
+                    result = $"Request {request.Id} is changed!";
+                }
+            }
+            return result;
+        }
+
+        //delete Request
+        public static string DeleteRequest(Request request)
+        {
+            string result = "There is no such Request!";
+
+            using (var db = new GetRateContext())
+            {
+                var requests = db.Requests;
+
+                var deletedRequest = (from c in requests
+                                           where c.Id == request.Id
+                                           select c).FirstOrDefault();
+
+                if (deletedRequest != null)
+                {
+                    requests.Remove(deletedRequest);
+                    db.SaveChanges();
+                    result = $"Request deleted!";
+                }
+            }
+            return result;
+        }
+
+        //get Request by Id
+        public static Request GetRequestById(int id)
+        {
+            using (var db = new GetRateContext())
+            {
+                return db.Requests.FirstOrDefault(c => c.Id == id);
+            }
+        }
+
+        #endregion
     }
 }

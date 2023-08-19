@@ -16,8 +16,8 @@ namespace GetRate.Model
             RoutePointTransportModeUnitTypes = new List<RoutePointTransportModeUnitType>();
             //StartRoutes = new List<Route>();
             //EndPoints = new List<Route>();
-            //FromRoutePoints = new List<Request>();
-            //ToRoutePoints = new List<Request>();
+            FromRoutePoints = new List<Request>();
+            ToRoutePoints = new List<Request>();
         }
         public int Id { get; set; }
         public int CompanyId { get; set; }
@@ -38,11 +38,11 @@ namespace GetRate.Model
         //[InverseProperty("EndPoint")]
         //public virtual ICollection<Route> EndPoints { get; set; }
 
-        //[InverseProperty("FromRoutePoint")]
-        //public virtual ICollection<Request> FromRoutePoints { get; set; }
+        [InverseProperty("FromRoutePoint")]
+        public virtual ICollection<Request> FromRoutePoints { get; set; }
 
-        //[InverseProperty("ToRoutePoint")]
-        //public virtual ICollection<Request> ToRoutePoints { get; set; }
+        [InverseProperty("ToRoutePoint")]
+        public virtual ICollection<Request> ToRoutePoints { get; set; }
     }
 
     //public class Terminal : RoutePoint

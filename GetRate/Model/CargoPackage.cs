@@ -9,6 +9,11 @@ namespace GetRate.Model
 {
     public class CargoPackage
     {
+        public CargoPackage() 
+        { 
+            FromCargoPackages = new List<Request>();
+            ToCargoPackages = new List<Request>();
+        }
         public int Id { get; set; }
 
         public int CargoId { get; set; }
@@ -16,6 +21,11 @@ namespace GetRate.Model
 
         public int PackageId { get; set; }
         public virtual Package Package { get; set;}
+
+        [InverseProperty("FromCargoPackage")]
+        public virtual ICollection<Request> FromCargoPackages { get; set; }
+        [InverseProperty("ToCargoPackage")]
+        public virtual ICollection<Request> ToCargoPackages { get; set; }
 
         [NotMapped]
         public string NameENG

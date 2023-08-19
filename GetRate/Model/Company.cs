@@ -12,7 +12,7 @@ namespace GetRate.Model
     {
         public Company()
         {
-            //Requests = new List<Request>();
+            Requests = new List<Request>();
             //Carriers = new List<RouteSupplierRate>();
             RoutePoints = new List<RoutePoint>();
         }
@@ -31,7 +31,7 @@ namespace GetRate.Model
             }
         }
 
-        //public virtual ICollection<Request> Requests { get; set; }
+        public virtual ICollection<Request> Requests { get; set; }
         //public virtual ICollection<RouteSupplierRate> Carriers { get; set; }
         public virtual ICollection<RoutePoint> RoutePoints { get; set; }
     }

@@ -12,6 +12,8 @@ namespace GetRate.Model
         public City()
         {
             CityAddresses = new List<Address>();
+            FromCities = new List<Request>();
+            ToCities = new List<Request>();
         }
         public int Id { get; set; }
         public string NameENG { get; set; }
@@ -19,6 +21,11 @@ namespace GetRate.Model
         public int CountryId { get; set; }
         public virtual Country Country { get; set; }
         public virtual ICollection<Address> CityAddresses { get; set; }
+
+        [InverseProperty("FromCity")]
+        public virtual ICollection<Request> FromCities { get; set; }
+        [InverseProperty("ToCity")]
+        public virtual ICollection<Request> ToCities { get; set; }
         [NotMapped]
         public Country CityCountry
         {

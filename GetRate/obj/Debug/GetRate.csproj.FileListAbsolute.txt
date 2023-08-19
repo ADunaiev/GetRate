@@ -104,3 +104,15 @@ C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditCargoPackageWin
 C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\AddCargoPackageWindow.baml
 C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\CargoPackagesList.baml
 C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditCargoPackageWindow.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.RequestAdded.resources
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.Request3.resources
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.Request6.resources
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.Request7.resources
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.Request8.resources
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\AddRequestWindow.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditRequestWindow.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\RequestsList.g.cs
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\AddRequestWindow.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\EditRequestWindow.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\View\RequestsList.baml
+C:\Users\ADunaev\source\repos\GetRate\GetRate\obj\Debug\GetRate.Migrations.Request9.resources

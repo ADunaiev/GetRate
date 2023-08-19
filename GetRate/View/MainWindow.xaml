@@ -10,9 +10,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <WrapPanel>
+        <WrapPanel Grid.Row="0">
+            <Button x:Name="RequestBtn" Content="Requests" Margin="10" Command="{Binding OpenRequestsListWnd}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="1">
             <Button x:Name="CountryBtn" Content="Countries" Margin="10" Command="{Binding OpenCountriesListWnd}"/>
             <Button x:Name="CityBtn" Content="Cities" Margin="10" Command="{Binding OpenCitiesListWnd}"/>
             <Button x:Name="AddressBtn" Content="Addresses" Margin="10" Command="{Binding OpenAddressesListWnd}"/>
@@ -26,7 +30,7 @@
             <Button x:Name="RPTMUTBtn" Content="RoutePoints possibilities" Margin="10" Command="{Binding OpenRPTMUTListWnd}"/>
             <Button x:Name="RoutePointBtn" Content="RoutePoints" Margin="10" Command="{Binding OpenRoutePointsListWnd}"/>
         </WrapPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Quit" VerticalContentAlignment="Center" 
                     Height="40" Margin="10" 
                     Command="{Binding CloseWnd}"

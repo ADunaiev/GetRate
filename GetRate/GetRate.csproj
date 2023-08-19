@@ -109,10 +109,35 @@
     <Compile Include="Migrations\202308151948060_CargoPackage3.designer.cs">
       <DependentUpon>202308151948060_CargoPackage3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308171911264_RequestAdded.cs" />
+    <Compile Include="Migrations\202308171911264_RequestAdded.designer.cs">
+      <DependentUpon>202308171911264_RequestAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308172005478_Request3.cs" />
+    <Compile Include="Migrations\202308172005478_Request3.designer.cs">
+      <DependentUpon>202308172005478_Request3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308172105596_Request6.cs" />
+    <Compile Include="Migrations\202308172105596_Request6.designer.cs">
+      <DependentUpon>202308172105596_Request6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308172107528_Request7.cs" />
+    <Compile Include="Migrations\202308172107528_Request7.designer.cs">
+      <DependentUpon>202308172107528_Request7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308172112465_Request8.cs" />
+    <Compile Include="Migrations\202308172112465_Request8.designer.cs">
+      <DependentUpon>202308172112465_Request8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308190917337_Request9.cs" />
+    <Compile Include="Migrations\202308190917337_Request9.designer.cs">
+      <DependentUpon>202308190917337_Request9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Cargo.cs" />
     <Compile Include="Model\CargoPackage.cs" />
     <Compile Include="Model\Package.cs" />
+    <Compile Include="Model\Request.cs" />
     <Compile Include="Model\RoutePointTransportModeUnitType.cs" />
     <Compile Include="Model\TransportationType.cs" />
     <Compile Include="Model\TransportMode.cs" />
@@ -133,6 +158,9 @@
     </Compile>
     <Compile Include="View\AddPackageWindow.xaml.cs">
       <DependentUpon>AddPackageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddRequestWindow.xaml.cs">
+      <DependentUpon>AddRequestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddRoutePointWindow.xaml.cs">
       <DependentUpon>AddRoutePointWindow.xaml</DependentUpon>
@@ -179,6 +207,9 @@
     <Compile Include="View\EditPackageWindow.xaml.cs">
       <DependentUpon>EditPackageWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditRequestWindow.xaml.cs">
+      <DependentUpon>EditRequestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditRoutePointWindow.xaml.cs">
       <DependentUpon>EditRoutePointWindow.xaml</DependentUpon>
     </Compile>
@@ -196,6 +227,9 @@
     </Compile>
     <Compile Include="View\PackagesList.xaml.cs">
       <DependentUpon>PackagesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RequestsList.xaml.cs">
+      <DependentUpon>RequestsList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RoutePointsList.xaml.cs">
       <DependentUpon>RoutePointsList.xaml</DependentUpon>
@@ -232,6 +266,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddPackageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddRequestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -315,6 +353,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditRequestWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditRoutePointWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -368,6 +410,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PackagesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RequestsList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -445,6 +491,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308151948060_CargoPackage3.resx">
       <DependentUpon>202308151948060_CargoPackage3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308171911264_RequestAdded.resx">
+      <DependentUpon>202308171911264_RequestAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308172005478_Request3.resx">
+      <DependentUpon>202308172005478_Request3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308172105596_Request6.resx">
+      <DependentUpon>202308172105596_Request6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308172107528_Request7.resx">
+      <DependentUpon>202308172107528_Request7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308172112465_Request8.resx">
+      <DependentUpon>202308172112465_Request8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308190917337_Request9.resx">
+      <DependentUpon>202308190917337_Request9.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
