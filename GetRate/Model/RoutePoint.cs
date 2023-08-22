@@ -18,6 +18,8 @@ namespace GetRate.Model
             //EndPoints = new List<Route>();
             FromRoutePoints = new List<Request>();
             ToRoutePoints = new List<Request>();
+            TransportationFromRoutePoints = new List<TransportationType>();
+            TransportationToRoutePoints = new List<TransportationType>();
         }
         public int Id { get; set; }
         public int CompanyId { get; set; }
@@ -37,6 +39,12 @@ namespace GetRate.Model
 
         //[InverseProperty("EndPoint")]
         //public virtual ICollection<Route> EndPoints { get; set; }
+
+        [InverseProperty("TransportationFromRoutePoint")]
+        public virtual ICollection<TransportationType> TransportationFromRoutePoints { get; set; }
+
+        [InverseProperty("TransportationToRoutePoint")]
+        public virtual ICollection<TransportationType> TransportationToRoutePoints { get; set; }
 
         [InverseProperty("FromRoutePoint")]
         public virtual ICollection<Request> FromRoutePoints { get; set; }

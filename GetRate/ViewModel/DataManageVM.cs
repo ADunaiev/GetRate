@@ -197,6 +197,18 @@ namespace GetRate.ViewModel
                 NotifyPropertyChanged("AllRequests");
             }
         }
+
+        //All TransportationTypes
+        private List<TransportationType> allTransportationTypes = DataWorker.GetAllTransportationTypes();
+        public List<TransportationType> AllTransportationTypes
+        {
+            get { return allTransportationTypes; }
+            set
+            {
+                allTransportationTypes = value;
+                NotifyPropertyChanged("AllTransportationTypes");
+            }
+        }
         #endregion
 
         #region CLASS PROPERTIES
@@ -292,6 +304,12 @@ namespace GetRate.ViewModel
         public static decimal RequestCargoGrossWeight { get; set; }
         public static decimal RequestCargoVolume { get; set; }
 
+        //TransportationTypes Properties
+        public static int TT_Id { get; set; }
+        public static TransportModeUnitType TT_TMUT { get; set; }
+        public static RoutePoint TT_FromRoutePoint { get; set; }
+        public static RoutePoint TT_ToRoutePoint { get; set; }
+
         #endregion
 
         #region SELECTED ITEMS
@@ -310,6 +328,7 @@ namespace GetRate.ViewModel
         public static RoutePoint SelectedRoutePoint { get; set; }
         public static Request SelectedRequest { get; set; }
         public static ObservableCollection<UnitType> RoutePointSelectedUnitTypes { get; set; }
+        public static TransportationType SelectedTransportationType { get; set; }
         #endregion
 
         #region COMMANDS TO ADD
@@ -780,6 +799,45 @@ namespace GetRate.ViewModel
                             RequestCargoVolume
                             );
                         UpdateRequestsListView();
+                        SetNullValuesToProperties();
+                        ShowMessageToUser(resultStr);
+                        window.Close();
+                    }
+                });
+            }
+        }
+
+        //TransportationTypes
+        private RelayCommand addNewTransportationType;
+        public RelayCommand AddNewTransportationType
+        {
+            get
+            {
+                return addNewTransportationType ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "";
+
+                    if (TT_TMUT == null)
+                    {
+                        ShowMessageToUser("Please select TransportMode by UnitType");
+                    }
+                    else if(TT_FromRoutePoint == null) 
+                    {
+                        ShowMessageToUser("Please select From RoutePoint");
+                    }
+                    else if (TT_ToRoutePoint == null)
+                    {
+                        ShowMessageToUser("Please select To RoutePoint");
+                    }
+                    else if (TT_FromRoutePoint == TT_ToRoutePoint)
+                    {
+                        ShowMessageToUser("Please choose diffenet From and To RoutePoints");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.CreateTransportationType(TT_TMUT, TT_FromRoutePoint, TT_ToRoutePoint);
+                        UpdateTransportationTypesListView();
                         SetNullValuesToProperties();
                         ShowMessageToUser(resultStr);
                         window.Close();
@@ -1306,6 +1364,44 @@ namespace GetRate.ViewModel
             }
         }
 
+        //TransportationTypes
+        private RelayCommand openAddNewTransportationTypeWnd;
+        public RelayCommand OpenAddNewTransportationTypeWnd
+        {
+            get
+            {
+                return openAddNewTransportationTypeWnd ?? new RelayCommand(obj =>
+                {
+                    OpenAddNewTransportationTypeWindowMethod();
+                });
+            }
+        }
+
+        private RelayCommand openEditTransportationTypeWnd;
+        public RelayCommand OpenEditTransportationTypeWnd
+        {
+            get
+            {
+                return openEditTransportationTypeWnd ?? new RelayCommand(obj =>
+                {
+                    OpenEditTransportationTypeWindowMethod();
+                });
+            }
+        }
+
+        private RelayCommand openTransportationTypesListWnd;
+        public RelayCommand OpenTransportationTypesListWnd
+        {
+            get
+            {
+                return openTransportationTypesListWnd ?? new RelayCommand(obj =>
+                {
+                    OpenTransportationTypesListWindowMethod();
+                });
+            }
+        }
+
+
         #endregion
 
         #region METHODS TO OPEN WINDOW
@@ -1585,6 +1681,29 @@ namespace GetRate.ViewModel
             requestsList.ShowDialog();
         }
 
+        //TransportationTypes
+        private void OpenAddNewTransportationTypeWindowMethod()
+        {
+            SetNullValuesToProperties();
+            AddTransportationTypeWindow addTransportationTypeWindow = new AddTransportationTypeWindow();
+            addTransportationTypeWindow.ShowDialog();
+        }
+        private void OpenEditTransportationTypeWindowMethod()
+        {
+            TT_TMUT = DataWorker.GetTransportModeUnitTypeById(SelectedTransportationType.TransportModeUnitTypeId);
+            TT_FromRoutePoint = DataWorker.GetRoutePointById((int)SelectedTransportationType.FromRoutePointId);
+            TT_ToRoutePoint = DataWorker.GetRoutePointById((int)SelectedTransportationType.ToRoutePointId);
+            EditTransportationTypeWindow editTransportationTypeWindow = new EditTransportationTypeWindow(SelectedTransportationType);
+            editTransportationTypeWindow.TMUT_ComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(tp => tp.Id == TT_TMUT.Id);
+            editTransportationTypeWindow.FromRoutePointsComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == TT_FromRoutePoint.Id);
+            editTransportationTypeWindow.ToRoutePointsComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == TT_ToRoutePoint.Id);
+            editTransportationTypeWindow.ShowDialog();
+        }
+        private void OpenTransportationTypesListWindowMethod()
+        {
+            TransporationTypesList transporationTypesList = new TransporationTypesList();
+            transporationTypesList.ShowDialog();
+        }
         private void SetCenterPositionAndOpen(Window window)
         {
             window.Owner = Application.Current.MainWindow;
@@ -1881,6 +2000,27 @@ namespace GetRate.ViewModel
                     {
                         resultStr += DataWorker.DeleteRequest(SelectedRequest);
                         UpdateRequestsListView();
+                        SetNullValuesToProperties();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
+        //TransportationTypes
+        private RelayCommand deleteTransportationType;
+        public RelayCommand DeleteTransportationType
+        {
+            get
+            {
+                return deleteTransportationType ?? new RelayCommand(obj =>
+                {
+                    string resultStr = "No TransportationType is selected";
+
+                    if ( SelectedTransportationType != null )
+                    {
+                        resultStr = DataWorker.DeleteTransportationType(SelectedTransportationType);
+                        UpdateTransportationTypesListView(); 
                         SetNullValuesToProperties();
                     }
                     ShowMessageToUser(resultStr);
@@ -2268,6 +2408,45 @@ namespace GetRate.ViewModel
             }
         }
 
+        //TransportationTypes
+        private RelayCommand editTransportationType;
+        public RelayCommand EditTransportationType
+        {
+            get
+            {
+                return editTransportationType ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "No TransportationType is selected";
+
+                    if (TT_TMUT == null)
+                    {
+                        ShowMessageToUser("Please select TransportMode by UnitType");
+                    }
+                    else if (TT_FromRoutePoint == null)
+                    {
+                        ShowMessageToUser("Please select From RoutePoint");
+                    }
+                    else if (TT_ToRoutePoint == null)
+                    {
+                        ShowMessageToUser("Please select To RoutePoint");
+                    }
+                    else if (TT_FromRoutePoint == TT_ToRoutePoint)
+                    {
+                        ShowMessageToUser("Please choose diffenet From and To RoutePoints");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.EditTransportationType(SelectedTransportationType, TT_TMUT, TT_FromRoutePoint, TT_ToRoutePoint);
+                        UpdateTransportationTypesListView();
+                        SetNullValuesToProperties();
+                        window.Close();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
         #endregion
 
         #region COMMAND TO CLOSE WINDOWS
@@ -2408,6 +2587,15 @@ namespace GetRate.ViewModel
             RequestsList.AllRequestsListView.ItemsSource = AllRequests;
             RequestsList.AllRequestsListView.Items.Refresh();
         }
+
+        private void UpdateTransportationTypesListView()
+        {
+            AllTransportationTypes = DataWorker.GetAllTransportationTypes();
+            TransporationTypesList.AllTransportationTypesView.ItemsSource = null;
+            TransporationTypesList.AllTransportationTypesView.Items.Clear();
+            TransporationTypesList.AllTransportationTypesView.ItemsSource = AllTransportationTypes;
+            TransporationTypesList.AllTransportationTypesView.Items.Refresh();
+        }
         private void UpdateRoutePointsView()
         {
             AllRoutePoints = DataWorker.GetAllRoutePoints();
@@ -2528,6 +2716,12 @@ namespace GetRate.ViewModel
             RequestToRoutePoint = null;
             RequestCargoGrossWeight = 0;
             RequestCargoVolume = 0;
+
+            //TransportationType
+            TT_Id = 0;
+            TT_TMUT = null;
+            TT_FromRoutePoint = null;
+            TT_ToRoutePoint = null;
         }
         private void SetRedBlockControl(Window window, string blockName)
         {

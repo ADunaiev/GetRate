@@ -23,20 +23,8 @@
                   SelectedItem="{Binding SelectedRequest}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Id" Width="50">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="{Binding Id}"/>
-                                    <TextBlock Grid.Row="0" Text="{Binding Date}"/>
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Date" Width="70" DisplayMemberBinding="{Binding Date}"/>
                     <GridViewColumn Header="Company" Width="200" DisplayMemberBinding="{Binding RequestCompany.NameENG}"/>
                     <GridViewColumn Header="From City" Width="120" DisplayMemberBinding="{Binding RequestFromCity.NameENG}"/>
                     <GridViewColumn Header="From Point" Width="120" DisplayMemberBinding="{Binding RequestFromRoutePoint.RoutePointCompany.NameENG}"/>

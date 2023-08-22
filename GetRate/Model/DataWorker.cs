@@ -1052,6 +1052,105 @@ namespace GetRate.Model
         }
         #endregion
 
+        #region TRANSPORTATION_TYPES
+        //Get all TransportationTypes
+        public static List<TransportationType> GetAllTransportationTypes()
+        {
+            using (var db = new GetRateContext())
+            {
+                var tTypes = db.TransportationTypes;
+
+                var query = from type in tTypes                          
+                            select type;
+
+                return query.ToList();
+            }
+        }
+
+        //create TransportationType
+        public static string CreateTransportationType(TransportModeUnitType transportModeUnitType, RoutePoint fromRoutePoint, RoutePoint toRoutePoint)
+        {
+            string result = "TransportationType is exists already!";
+
+            using (var db = new GetRateContext())
+            {
+                var transTypes = db.TransportationTypes;
+
+                bool checkIsExist = transTypes.Any(tt => tt.TransportModeUnitTypeId == transportModeUnitType.Id 
+                                                    && tt.FromRoutePointId == fromRoutePoint.Id
+                                                    && tt.ToRoutePointId == toRoutePoint.Id);
+
+                if (!checkIsExist)
+                {
+                    TransportationType newTransportationType = new TransportationType();
+                    newTransportationType.TransportModeUnitTypeId = transportModeUnitType.Id;
+                    newTransportationType.FromRoutePointId = fromRoutePoint.Id;
+                    newTransportationType.ToRoutePointId = toRoutePoint.Id;
+
+                    transTypes.Add(newTransportationType);
+                    db.SaveChanges();
+                    result = $"TransportationType added successfully!";
+                }
+
+                return result;
+            }
+        }
+
+        //edit TransportationtType
+        public static string EditTransportationType(TransportationType oldTransportationtType, TransportModeUnitType newTMUT, RoutePoint newFromRP, RoutePoint newToRP)
+        {
+            string result = "There is no such TransportationType!";
+
+            using (var db = new GetRateContext())
+            {
+                TransportationType transportationType = db.TransportationTypes.FirstOrDefault(c => c.Id == oldTransportationtType.Id);
+
+                if (transportationType != null)
+                {
+                    transportationType.TransportModeUnitTypeId = newTMUT.Id;
+                    transportationType.FromRoutePointId = newFromRP.Id;
+                    transportationType.ToRoutePointId= newToRP.Id;
+
+                    db.SaveChanges();
+                    result = "TransportModeUnitType is changed!";
+                }
+            }
+            return result;
+        }
+
+        //delete TransportationType
+        public static string DeleteTransportationType(TransportationType deletedTransportationType)
+        {
+            string result = "There is no such TransportationType!";
+
+            using (var db = new GetRateContext())
+            {
+                var modes = db.TransportationTypes;
+
+                var deletedType = (from c in modes
+                                                    where c.Id == deletedTransportationType.Id
+                                                    select c).FirstOrDefault();
+
+                if (deletedType != null)
+                {
+                    db.TransportationTypes.Remove(deletedType);
+                    db.SaveChanges();
+                    result = $"TransportationType deleted!";
+                }
+            }
+            return result;
+        }
+
+        //get TransportationType by Id
+        public static TransportationType GetTransportationTypeById(int id)
+        {
+            using (var db = new GetRateContext())
+            {
+                return db.TransportationTypes.FirstOrDefault(c => c.Id == id);
+            }
+        }
+        #endregion
+
         #region ROUTEPOINT_TRANSPORTMODE_UNITTYPES
         //Get all RoutePointTransportModesUnitTypes = RPTMUT
         public static List<RoutePointTransportModeUnitType> GetAllRPTMUT()

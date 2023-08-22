@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetRate", "GetRate\GetRate.csproj", "{9592238A-EAF2-477D-AB20-F79430D024D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetRate2", "GetRate\GetRate2.csproj", "{9592238A-EAF2-477D-AB20-F79430D024D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity_Request", "..\Trinity_Request\Trinity_Request\Trinity_Request.csproj", "{E1E2BFF8-F5AF-4937-A54C-C797235CC40F}"
 EndProject
