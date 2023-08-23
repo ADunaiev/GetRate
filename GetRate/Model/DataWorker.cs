@@ -19,8 +19,10 @@ namespace GetRate.Model
             using (var db = new GetRateContext()) 
             {
                 var countries = db.Countries;
-                var query = db.Countries.AsQueryable().OrderBy(c => c.NameENG);
-
+                var query = from country in countries
+                            orderby country.NameENG
+                            select country;                 
+                  
                 return query.ToList();
             }
         }
@@ -1151,109 +1153,109 @@ namespace GetRate.Model
         }
         #endregion
 
-        #region ROUTEPOINT_TRANSPORTMODE_UNITTYPES
-        //Get all RoutePointTransportModesUnitTypes = RPTMUT
-        public static List<RoutePointTransportModeUnitType> GetAllRPTMUT()
-        {
-            using (var db = new GetRateContext())
-            {
-                var query = db.RoutePointTransportModeUnitTypes.AsQueryable().OrderBy(c => c.RoutePoint.Company.NameENG);
+        //#region ROUTEPOINT_TRANSPORTMODE_UNITTYPES
+        ////Get all RoutePointTransportModesUnitTypes = RPTMUT
+        //public static List<RoutePointTransportModeUnitType> GetAllRPTMUT()
+        //{
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var query = db.RoutePointTransportModeUnitTypes.AsQueryable().OrderBy(c => c.RoutePoint.Company.NameENG);
 
-                return query.ToList();
-            }
-        }
+        //        return query.ToList();
+        //    }
+        //}
 
-        //create RoutePointTransportModeUnitType
-        public static string CreateRPTMUT(TransportModeUnitType tMUT, RoutePoint routePoint)
-        {
-            string result = "RoutePointTransportModeUnitType is exists already!";
+        ////create RoutePointTransportModeUnitType
+        //public static string CreateRPTMUT(TransportModeUnitType tMUT, RoutePoint routePoint)
+        //{
+        //    string result = "RoutePointTransportModeUnitType is exists already!";
 
-            using (var db = new GetRateContext())
-            {
-                var tmuTypes = db.RoutePointTransportModeUnitTypes;
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var tmuTypes = db.RoutePointTransportModeUnitTypes;
 
-                bool checkIsExist = tmuTypes.Any(co => co.RoutePointId == routePoint.Id && co.TransportModeUnitTypeId == tMUT.Id);
+        //        bool checkIsExist = tmuTypes.Any(co => co.RoutePointId == routePoint.Id && co.TransportModeUnitTypeId == tMUT.Id);
 
-                if (!checkIsExist)
-                {
-                    RoutePointTransportModeUnitType newRPTMUT = new RoutePointTransportModeUnitType();
-                    newRPTMUT.TransportModeUnitTypeId = tMUT.Id;
-                    newRPTMUT.RoutePointId = routePoint.Id;
+        //        if (!checkIsExist)
+        //        {
+        //            RoutePointTransportModeUnitType newRPTMUT = new RoutePointTransportModeUnitType();
+        //            newRPTMUT.TransportModeUnitTypeId = tMUT.Id;
+        //            newRPTMUT.RoutePointId = routePoint.Id;
 
-                    tmuTypes.Add(newRPTMUT);
-                    db.SaveChanges();
-                    result = $"RoutePointTransportModeUnitType {newRPTMUT.RoutePointNameENG} added successfully!";
-                }
+        //            tmuTypes.Add(newRPTMUT);
+        //            db.SaveChanges();
+        //            result = $"RoutePointTransportModeUnitType {newRPTMUT.RoutePointNameENG} added successfully!";
+        //        }
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
-        //edit RoutePointTransportModeUnitType
-        public static string EditRPTMUT(RoutePointTransportModeUnitType oldRPTMUT, RoutePoint routePoint, TransportModeUnitType tMUT)
-        {
-            string result = "There is no such RoutePointTransportModeUnitType!";
+        ////edit RoutePointTransportModeUnitType
+        //public static string EditRPTMUT(RoutePointTransportModeUnitType oldRPTMUT, RoutePoint routePoint, TransportModeUnitType tMUT)
+        //{
+        //    string result = "There is no such RoutePointTransportModeUnitType!";
 
-            using (var db = new GetRateContext())
-            {
-                var rptmutypes = db.RoutePointTransportModeUnitTypes;
-                RoutePointTransportModeUnitType transportModeUnitType = rptmutypes.FirstOrDefault(c => c.Id == oldRPTMUT.Id);
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var rptmutypes = db.RoutePointTransportModeUnitTypes;
+        //        RoutePointTransportModeUnitType transportModeUnitType = rptmutypes.FirstOrDefault(c => c.Id == oldRPTMUT.Id);
 
-                if (transportModeUnitType != null)
-                {
+        //        if (transportModeUnitType != null)
+        //        {
 
-                    bool checkIsExist = rptmutypes.Any(co => co.RoutePointId == routePoint.Id && co.TransportModeUnitTypeId == tMUT.Id);
+        //            bool checkIsExist = rptmutypes.Any(co => co.RoutePointId == routePoint.Id && co.TransportModeUnitTypeId == tMUT.Id);
 
-                    if (checkIsExist)
-                    {
-                        result = "This item exists allready in database";
-                    }
-                    else
-                    {
-                        transportModeUnitType.RoutePointId = routePoint.Id;
-                        transportModeUnitType.TransportModeUnitTypeId = tMUT.Id;
+        //            if (checkIsExist)
+        //            {
+        //                result = "This item exists allready in database";
+        //            }
+        //            else
+        //            {
+        //                transportModeUnitType.RoutePointId = routePoint.Id;
+        //                transportModeUnitType.TransportModeUnitTypeId = tMUT.Id;
 
-                        db.SaveChanges();
-                        result = "RoutePointTransportModeUnitType is changed!";
-                    }
+        //                db.SaveChanges();
+        //                result = "RoutePointTransportModeUnitType is changed!";
+        //            }
 
-                }
-            }
-            return result;
-        }
+        //        }
+        //    }
+        //    return result;
+        //}
 
-        //delete RoutePointTransportModeUnitType
-        public static string DeleteRPTMUT(RoutePointTransportModeUnitType rptmutype)
-        {
-            string result = "There is no such RoutePointTransportModeUnitType!";
+        ////delete RoutePointTransportModeUnitType
+        //public static string DeleteRPTMUT(RoutePointTransportModeUnitType rptmutype)
+        //{
+        //    string result = "There is no such RoutePointTransportModeUnitType!";
 
-            using (var db = new GetRateContext())
-            {
-                var rptmutypes = db.RoutePointTransportModeUnitTypes;
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var rptmutypes = db.RoutePointTransportModeUnitTypes;
 
-                var deletedTransportModeUnitType = (from c in rptmutypes
-                                                    where c.Id == rptmutype.Id
-                                                    select c).FirstOrDefault();
+        //        var deletedTransportModeUnitType = (from c in rptmutypes
+        //                                            where c.Id == rptmutype.Id
+        //                                            select c).FirstOrDefault();
 
-                if (deletedTransportModeUnitType != null)
-                {
-                    rptmutypes.Remove(deletedTransportModeUnitType);
-                    db.SaveChanges();
-                    result = $"RoutePointTransportModeUnitType deleted!";
-                }
-            }
-            return result;
-        }
+        //        if (deletedTransportModeUnitType != null)
+        //        {
+        //            rptmutypes.Remove(deletedTransportModeUnitType);
+        //            db.SaveChanges();
+        //            result = $"RoutePointTransportModeUnitType deleted!";
+        //        }
+        //    }
+        //    return result;
+        //}
 
-        //get RoutePointTransportModeUnitType by Id
-        public static RoutePointTransportModeUnitType GetRPTMUTbyId(int id)
-        {
-            using (var db = new GetRateContext())
-            {
-                return db.RoutePointTransportModeUnitTypes.FirstOrDefault(c => c.Id == id);
-            }
-        }
-        #endregion
+        ////get RoutePointTransportModeUnitType by Id
+        //public static RoutePointTransportModeUnitType GetRPTMUTbyId(int id)
+        //{
+        //    using (var db = new GetRateContext())
+        //    {
+        //        return db.RoutePointTransportModeUnitTypes.FirstOrDefault(c => c.Id == id);
+        //    }
+        //}
+        //#endregion
 
         #region REQUEST
 

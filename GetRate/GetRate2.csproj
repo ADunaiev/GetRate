@@ -153,12 +153,17 @@
     <Compile Include="Migrations\202308230618156_Handling2.designer.cs">
       <DependentUpon>202308230618156_Handling2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308231936142_RPTMUT deleted.cs" />
+    <Compile Include="Migrations\202308231936142_RPTMUT deleted.designer.cs">
+      <DependentUpon>202308231936142_RPTMUT deleted.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Cargo.cs" />
     <Compile Include="Model\CargoPackage.cs" />
     <Compile Include="Model\Handling.cs" />
     <Compile Include="Model\Package.cs" />
     <Compile Include="Model\Request.cs" />
+    <Compile Include="Model\RequestHandling.cs" />
     <Compile Include="Model\RequestTransportationType.cs" />
     <Compile Include="Model\RoutePointTransportModeUnitType.cs" />
     <Compile Include="Model\TransportationType.cs" />
@@ -588,6 +593,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308230618156_Handling2.resx">
       <DependentUpon>202308230618156_Handling2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308231936142_RPTMUT deleted.resx">
+      <DependentUpon>202308231936142_RPTMUT deleted.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

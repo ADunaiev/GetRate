@@ -9,6 +9,10 @@ namespace GetRate.Model
 {
     public class Handling
     {
+        public Handling() 
+        { 
+            //RequestHandlings = new List<RequestHandling>();
+        }
         public int Id { get; set; }
         public int? TMUT_InId { get; set; }
         public virtual TransportModeUnitType TMUT_In { get; set; }
@@ -42,6 +46,8 @@ namespace GetRate.Model
                 return DataWorker.GetRoutePointById(RoutePointId);
             }
         }
+
+        //public virtual ICollection<RequestHandling> RequestHandlings { get; set; }
 
     }
 }

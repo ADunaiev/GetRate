@@ -10,11 +10,13 @@ namespace GetRate.View
     /// </summary>
     public partial class EditRPTMUTWindow : Window
     {
-        public EditRPTMUTWindow(RoutePointTransportModeUnitType rPTMUT)
+        public EditRPTMUTWindow(
+            //RoutePointTransportModeUnitType rPTMUT
+            )
         {
             InitializeComponent();
             DataContext = new DataManageVM();
-            DataManageVM.RPTMUTId = rPTMUT.Id;
+            //DataManageVM.RPTMUTId = rPTMUT.Id;
         }
     }
 }

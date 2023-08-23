@@ -13,7 +13,7 @@ namespace GetRate.Model
     {
         public RoutePoint()
         {
-            RoutePointTransportModeUnitTypes = new List<RoutePointTransportModeUnitType>();
+            //RoutePointTransportModeUnitTypes = new List<RoutePointTransportModeUnitType>();
             //StartRoutes = new List<Route>();
             //EndPoints = new List<Route>();
             FromRoutePoints = new List<Request>();
@@ -25,7 +25,7 @@ namespace GetRate.Model
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
-        public virtual IEnumerable<RoutePointTransportModeUnitType> RoutePointTransportModeUnitTypes { get; set; }
+        //public virtual IEnumerable<RoutePointTransportModeUnitType> RoutePointTransportModeUnitTypes { get; set; }
 
         public Company RoutePointCompany
         { 
