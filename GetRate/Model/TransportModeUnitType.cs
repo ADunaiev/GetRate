@@ -14,6 +14,8 @@ namespace GetRate.Model
         {
             RoutePointTransportModeUnitTypes = new ObservableCollection<RoutePointTransportModeUnitType>();
             TransportationTypes = new ObservableCollection<TransportationType>();
+            TMUT_Ins = new List<Handling>();
+            TMUT_Outs = new List<Handling>();
         }
         public int Id { get; set; }
         public int TransportModeId { get; set; }
@@ -71,5 +73,11 @@ namespace GetRate.Model
 
         public virtual ICollection<RoutePointTransportModeUnitType> RoutePointTransportModeUnitTypes { get; set; }
         public virtual ICollection<TransportationType> TransportationTypes { get; set; }
+
+        [InverseProperty("TMUT_In")]
+        public virtual ICollection<Handling> TMUT_Ins { get; set; }
+
+        [InverseProperty("TMUT_Out")]
+        public virtual ICollection<Handling> TMUT_Outs { get; set; }
     }
 }

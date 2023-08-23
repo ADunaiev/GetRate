@@ -137,11 +137,29 @@
     <Compile Include="Migrations\202308212057542_TransportationType.designer.cs">
       <DependentUpon>202308212057542_TransportationType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308221955329_RequestTransportationTypeAdded.cs" />
+    <Compile Include="Migrations\202308221955329_RequestTransportationTypeAdded.designer.cs">
+      <DependentUpon>202308221955329_RequestTransportationTypeAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308222023025_RequestTT2.cs" />
+    <Compile Include="Migrations\202308222023025_RequestTT2.designer.cs">
+      <DependentUpon>202308222023025_RequestTT2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308230613094_HandlingAdded.cs" />
+    <Compile Include="Migrations\202308230613094_HandlingAdded.designer.cs">
+      <DependentUpon>202308230613094_HandlingAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308230618156_Handling2.cs" />
+    <Compile Include="Migrations\202308230618156_Handling2.designer.cs">
+      <DependentUpon>202308230618156_Handling2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Cargo.cs" />
     <Compile Include="Model\CargoPackage.cs" />
+    <Compile Include="Model\Handling.cs" />
     <Compile Include="Model\Package.cs" />
     <Compile Include="Model\Request.cs" />
+    <Compile Include="Model\RequestTransportationType.cs" />
     <Compile Include="Model\RoutePointTransportModeUnitType.cs" />
     <Compile Include="Model\TransportationType.cs" />
     <Compile Include="Model\TransportMode.cs" />
@@ -159,6 +177,9 @@
     </Compile>
     <Compile Include="View\AddCompanyWindow.xaml.cs">
       <DependentUpon>AddCompanyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddHandlingWindow.xaml.cs">
+      <DependentUpon>AddHandlingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddPackageWindow.xaml.cs">
       <DependentUpon>AddPackageWindow.xaml</DependentUpon>
@@ -211,6 +232,9 @@
     <Compile Include="View\EditCountryWindow.xaml.cs">
       <DependentUpon>EditCountryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditHandlingWindow.xaml.cs">
+      <DependentUpon>EditHandlingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditPackageWindow.xaml.cs">
       <DependentUpon>EditPackageWindow.xaml</DependentUpon>
     </Compile>
@@ -228,6 +252,9 @@
     </Compile>
     <Compile Include="View\EditUnitTypeWindow.xaml.cs">
       <DependentUpon>EditUnitTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HandlingsList.xaml.cs">
+      <DependentUpon>HandlingsList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
@@ -275,6 +302,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddCompanyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddHandlingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -366,6 +397,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditHandlingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditPackageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -387,6 +422,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditUnitTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HandlingsList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -537,6 +576,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308212057542_TransportationType.resx">
       <DependentUpon>202308212057542_TransportationType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308221955329_RequestTransportationTypeAdded.resx">
+      <DependentUpon>202308221955329_RequestTransportationTypeAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308222023025_RequestTT2.resx">
+      <DependentUpon>202308222023025_RequestTT2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308230613094_HandlingAdded.resx">
+      <DependentUpon>202308230613094_HandlingAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308230618156_Handling2.resx">
+      <DependentUpon>202308230618156_Handling2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

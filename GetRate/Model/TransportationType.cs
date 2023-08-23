@@ -10,6 +10,10 @@ namespace GetRate.Model
 {
     public class TransportationType
     {
+        public TransportationType() 
+        { 
+            RequestTransportationTypes = new List<RequestTransportationType>();    
+        }
         public int Id { get; set; }
         public int TransportModeUnitTypeId { get; set; }
         public virtual TransportModeUnitType TransportModeUnitType { get; set; }
@@ -42,5 +46,6 @@ namespace GetRate.Model
                 return DataWorker.GetRoutePointById((int)ToRoutePointId);
             }
         }
+        public virtual ICollection<RequestTransportationType> RequestTransportationTypes { get; set; }
     }
 }

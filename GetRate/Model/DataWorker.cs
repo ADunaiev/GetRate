@@ -1381,5 +1381,214 @@ namespace GetRate.Model
         }
 
         #endregion
+
+        #region REQUEST_TRANSPORTATIONTYPE
+
+        //Get all RequestTransportationTypes
+        public static List<RequestTransportationType> GetAllRequestTT()
+        {
+            using (var db = new GetRateContext())
+            {
+                var types = db.RequestTransportationTypes;
+                var requests = db.Requests;
+
+                var query = from type in types
+                            join request in requests
+                            on type.RequestId equals request.Id
+                            orderby request.Id
+                            select type;
+
+                return query.ToList();
+            }
+        }
+
+        //create RequestTT
+        public static string CreateRequestTT(Request request, TransportationType transportationType, int option, int subOption)
+        {
+            string result = "RequestTransportationType is exists already!";
+
+            using (var db = new GetRateContext())
+            {
+                var rTTypes = db.RequestTransportationTypes;
+
+                bool checkIsExist = rTTypes.Any(rtt => rtt.RequestId == request.Id 
+                        && rtt.TransportationTypeId == transportationType.Id
+                        && rtt.Option == option
+                        && rtt.SubOption == subOption);
+
+                if (!checkIsExist)
+                {
+                    RequestTransportationType newRequestTT = new RequestTransportationType();
+                    newRequestTT.RequestId = request.Id;
+                    newRequestTT.TransportationTypeId = transportationType.Id;
+                    newRequestTT.Option = option;
+                    newRequestTT.SubOption = subOption;
+
+                    rTTypes.Add(newRequestTT);
+                    db.SaveChanges();
+                    result = $"RequestTransportationType added successfully!";
+                }
+
+                return result;
+            }
+        }
+
+        //edit RequestTT
+        public static string EditRequestTT(RequestTransportationType oldRequestTT, Request newRequest, TransportationType newTT, int newOption, int newSubOption)
+        {
+            string result = "There is no such RequestTransportationType!";
+
+            using (var db = new GetRateContext())
+            {
+                RequestTransportationType requestTT = db.RequestTransportationTypes.FirstOrDefault(c => c.Id == oldRequestTT.Id);
+
+                if (requestTT != null)
+                {
+                    requestTT.RequestId = newRequest.Id;
+                    requestTT.TransportationTypeId = newTT.Id;
+                    requestTT.Option = newOption;
+                    requestTT.SubOption = newSubOption;
+
+                    db.SaveChanges();
+                    result = $"RequestTransportationType is changed!";
+                }
+            }
+            return result;
+        }
+
+        //delete RequestTT
+        public static string DeleteRequestTT(RequestTransportationType requestTT)
+        {
+            string result = "There is no such RequestTransportationType!";
+
+            using (var db = new GetRateContext())
+            {
+                var rTTypes = db.RequestTransportationTypes;
+
+                var deletedRequestTT = (from rtt in rTTypes
+                                           where rtt.Id == requestTT.Id
+                                           select rtt).FirstOrDefault();
+
+                if (deletedRequestTT != null)
+                {
+                    rTTypes.Remove(deletedRequestTT);
+                    db.SaveChanges();
+                    result = $"RequestTransportationType deleted!";
+                }
+            }
+            return result;
+        }
+
+        //get RequestTT by Id
+        public static RequestTransportationType GetRequestTTById(int id)
+        {
+            using (var db = new GetRateContext())
+            {
+                return db.RequestTransportationTypes.FirstOrDefault(c => c.Id == id);
+            }
+        }
+
+
+
+        #endregion
+
+        #region HANDLING
+        //Get all Handlings
+        public static List<Handling> GetAllHandlings()
+        {
+            using (var db = new GetRateContext())
+            {
+                var handlings = db.Handlings;
+
+                var query = from handling in handlings
+                            select handling;
+
+                return query.ToList();
+            }
+        }
+
+        //create Handling
+        public static string CreateHandling(TransportModeUnitType tMUT_In, TransportModeUnitType tMUT_Out, RoutePoint routePoint)
+        {
+            string result = "Handling is exists already!";
+
+            using (var db = new GetRateContext())
+            {
+                var handlings = db.Handlings;
+
+                bool checkIsExist = handlings.Any(h => h.TMUT_InId == tMUT_In.Id
+                                                    && h.TMUT_OutId == tMUT_Out.Id
+                                                    && h.RoutePointId == routePoint.Id);
+
+                if (!checkIsExist)
+                {
+                    Handling newHandlng = new Handling();
+                    newHandlng.TMUT_InId = tMUT_In.Id;
+                    newHandlng.TMUT_OutId = tMUT_Out.Id;
+                    newHandlng.RoutePointId = routePoint.Id;
+
+                    handlings.Add(newHandlng);
+                    db.SaveChanges();
+                    result = $"Handling added successfully!";
+                }
+
+                return result;
+            }
+        }
+
+        //edit Handling
+        public static string EditHandling(Handling oldHandling, TransportModeUnitType newTMUT_In, TransportModeUnitType newTMUT_Out, RoutePoint newRoutePoint)
+        {
+            string result = "There is no such Handling!";
+
+            using (var db = new GetRateContext())
+            {
+                Handling handling = db.Handlings.FirstOrDefault(h => h.Id == oldHandling.Id);
+
+                if (handling != null)
+                {
+                    handling.TMUT_InId = newTMUT_In.Id;
+                    handling.TMUT_OutId = newTMUT_Out.Id;
+                    handling.RoutePointId = newRoutePoint.Id;
+
+                    db.SaveChanges();
+                    result = "Handling is changed!";
+                }
+            }
+            return result;
+        }
+
+        //delete Handling
+        public static string DeleteHandling(Handling oldHandling)
+        {
+            string result = "There is no such Handling!";
+
+            using (var db = new GetRateContext())
+            {
+                var handlings = db.Handlings;
+
+                var deletedHandling = (from h in handlings
+                                   where h.Id == oldHandling.Id
+                                   select h).FirstOrDefault();
+
+                if (deletedHandling != null)
+                {
+                    handlings.Remove(deletedHandling);
+                    db.SaveChanges();
+                    result = $"Handling deleted!";
+                }
+            }
+            return result;
+        }
+
+        //get Handling by Id
+        public static Handling GetHandlingById(int id)
+        {
+            using (var db = new GetRateContext())
+            {
+                return db.Handlings.FirstOrDefault(h => h.Id == id);
+            }
+        }
+        #endregion
     }
 }

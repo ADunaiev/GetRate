@@ -28,5 +28,7 @@ namespace GetRate.Model.Data
         public DbSet<RoutePointTransportModeUnitType> RoutePointTransportModeUnitTypes { get; set; }
         public DbSet<TransportationType> TransportationTypes { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<RequestTransportationType> RequestTransportationTypes { get; set; }
+        public DbSet<Handling> Handlings { get; set; }
     }
 }

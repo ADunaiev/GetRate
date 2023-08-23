@@ -12,6 +12,7 @@ namespace GetRate.Model
         public Request()
         {
             //Quotations = new List<Quotation>();
+            RequestTransportationTypes = new List<RequestTransportationType>();
         }
         public int Id { get; set; }
         public DateTime Date { get; set; }
@@ -100,5 +101,6 @@ namespace GetRate.Model
         }
         //public virtual ICollection<Quotation> Quotations { get; set; }
 
+        public virtual ICollection<RequestTransportationType> RequestTransportationTypes { get; set; }
     }
 }

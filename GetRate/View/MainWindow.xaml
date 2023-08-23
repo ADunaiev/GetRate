@@ -30,6 +30,7 @@
             <Button x:Name="RPTMUTBtn" Content="RoutePoints possibilities" Margin="10" Command="{Binding OpenRPTMUTListWnd}"/>
             <Button x:Name="RoutePointBtn" Content="RoutePoints" Margin="10" Command="{Binding OpenRoutePointsListWnd}"/>
             <Button x:Name="TransportationTypeBtn" Content="Routes" Margin="10" Command="{Binding OpenTransportationTypesListWnd}"/>
+            <Button x:Name="HandlingBtn" Content="Handlings" Margin="10" Command="{Binding OpenHandlingsListWnd}"/>
         </WrapPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Quit" VerticalContentAlignment="Center" 

@@ -209,6 +209,18 @@ namespace GetRate.ViewModel
                 NotifyPropertyChanged("AllTransportationTypes");
             }
         }
+
+        //All Handlings
+        private List<Handling> allHandlings = DataWorker.GetAllHandlings();
+        public List<Handling> AllHandlings
+        {
+            get { return allHandlings; }
+            set
+            {
+                allHandlings = value;
+                NotifyPropertyChanged("AllHandlings");
+            }
+        }
         #endregion
 
         #region CLASS PROPERTIES
@@ -310,6 +322,12 @@ namespace GetRate.ViewModel
         public static RoutePoint TT_FromRoutePoint { get; set; }
         public static RoutePoint TT_ToRoutePoint { get; set; }
 
+        //Handlings Properties
+        public static int HandlingId { get; set; }
+        public static TransportModeUnitType HandlingTMUT_In { get; set; }  
+        public static TransportModeUnitType HandlingTMUT_Out { get; set; }  
+        public static RoutePoint HandlingRoutePoint { get; set; }
+
         #endregion
 
         #region SELECTED ITEMS
@@ -329,6 +347,7 @@ namespace GetRate.ViewModel
         public static Request SelectedRequest { get; set; }
         public static ObservableCollection<UnitType> RoutePointSelectedUnitTypes { get; set; }
         public static TransportationType SelectedTransportationType { get; set; }
+        public static Handling SelectedHandling { get; set; }
         #endregion
 
         #region COMMANDS TO ADD
@@ -842,6 +861,42 @@ namespace GetRate.ViewModel
                         ShowMessageToUser(resultStr);
                         window.Close();
                     }
+                });
+            }
+        }
+
+        //Hanlings
+        private RelayCommand addNewHandling;
+        public RelayCommand AddNewHandling
+        {
+            get
+            {
+                return addNewHandling ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = string.Empty;
+
+                    if (HandlingRoutePoint == null)
+                    {
+                        ShowMessageToUser("Please choose RoutePoint");
+                    }
+                    else if (HandlingTMUT_In == null)
+                    {
+                        ShowMessageToUser("Please choose incoming transport");
+                    }
+                    else if (HandlingTMUT_Out == null)
+                    {
+                        ShowMessageToUser("Please choose outcoming transport");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.CreateHandling(HandlingTMUT_In, HandlingTMUT_Out, HandlingRoutePoint);
+                        UpdateHandlingsListView();
+                        SetNullValuesToProperties();
+                        ShowMessageToUser(resultStr);
+                        window.Close();
+                    }
+                    
                 });
             }
         }
@@ -1401,6 +1456,42 @@ namespace GetRate.ViewModel
             }
         }
 
+        //Handlings
+        private RelayCommand openAddNewHandlingWnd;
+        public RelayCommand OpenAddNewHandlingWnd
+        {
+            get
+            {
+                return openAddNewHandlingWnd ?? new RelayCommand(obj =>
+                {
+                    OpenAddNewHandlingWindowMethod();
+                });
+            }
+        }
+
+        private RelayCommand openEditHandlingWnd;
+        public RelayCommand OpenEditHandlingWnd
+        {
+            get
+            {
+                return openEditHandlingWnd ?? new RelayCommand(obj =>
+                {
+                    OpenEditHandlingWindowMethod();
+                });
+            }
+        }
+
+        private RelayCommand openHandlingsListWnd;
+        public RelayCommand OpenHandlingsListWnd
+        {
+            get
+            {
+                return openHandlingsListWnd ?? new RelayCommand(obj =>
+                {
+                    OpenHandlingsListWindowMethod();
+                });
+            }
+        }
 
         #endregion
 
@@ -1703,6 +1794,30 @@ namespace GetRate.ViewModel
         {
             TransporationTypesList transporationTypesList = new TransporationTypesList();
             transporationTypesList.ShowDialog();
+        }
+
+        //Handlings
+        private void OpenAddNewHandlingWindowMethod()
+        {
+            SetNullValuesToProperties();
+            AddHandlingWindow addHandlingWindow = new AddHandlingWindow();
+            addHandlingWindow.ShowDialog();
+        }
+        private void OpenEditHandlingWindowMethod()
+        {
+            HandlingRoutePoint = DataWorker.GetRoutePointById(SelectedHandling.RoutePointId);
+            HandlingTMUT_In = DataWorker.GetTransportModeUnitTypeById((int)SelectedHandling.TMUT_InId);
+            HandlingTMUT_Out = DataWorker.GetTransportModeUnitTypeById((int)SelectedHandling.TMUT_OutId);
+            EditHandlingWindow editHandlingWindow = new EditHandlingWindow(SelectedHandling);
+            editHandlingWindow.RoutePointsComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == HandlingRoutePoint.Id);
+            editHandlingWindow.TMUT_InsComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(rp => rp.Id == HandlingTMUT_In.Id);
+            editHandlingWindow.TMUT_OutsComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(rp => rp.Id == HandlingTMUT_Out.Id);
+            editHandlingWindow.ShowDialog();
+        }
+        private void OpenHandlingsListWindowMethod() 
+        { 
+            HandlingsList handlingsList = new HandlingsList();
+            handlingsList.ShowDialog();
         }
         private void SetCenterPositionAndOpen(Window window)
         {
@@ -2021,6 +2136,27 @@ namespace GetRate.ViewModel
                     {
                         resultStr = DataWorker.DeleteTransportationType(SelectedTransportationType);
                         UpdateTransportationTypesListView(); 
+                        SetNullValuesToProperties();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
+        //Handlings
+        private RelayCommand deleteHandling;
+        public RelayCommand DeleteHandling
+        {
+            get
+            {
+                return deleteHandling ?? new RelayCommand(obj =>
+                {
+                    string resultStr = "Please choose handling to delete";
+
+                    if ( SelectedHandling != null )
+                    {
+                        resultStr = DataWorker.DeleteHandling(SelectedHandling);
+                        UpdateHandlingsListView();
                         SetNullValuesToProperties();
                     }
                     ShowMessageToUser(resultStr);
@@ -2447,6 +2583,29 @@ namespace GetRate.ViewModel
             }
         }
 
+        //Handlings
+        private RelayCommand editHandling;
+        public RelayCommand EditHandling
+        {
+            get
+            {
+                return editHandling ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "Please choose Handling to edit";
+
+                    if (SelectedHandling != null)
+                    {
+                        resultStr = DataWorker.EditHandling(SelectedHandling, HandlingTMUT_In, HandlingTMUT_Out, HandlingRoutePoint);
+                        UpdateHandlingsListView();
+                        SetNullValuesToProperties();
+                        window.Close();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
         #endregion
 
         #region COMMAND TO CLOSE WINDOWS
@@ -2596,6 +2755,14 @@ namespace GetRate.ViewModel
             TransporationTypesList.AllTransportationTypesView.ItemsSource = AllTransportationTypes;
             TransporationTypesList.AllTransportationTypesView.Items.Refresh();
         }
+        private void UpdateHandlingsListView()
+        {
+            AllHandlings = DataWorker.GetAllHandlings();
+            HandlingsList.AllHandlingsView.ItemsSource = null;
+            HandlingsList.AllHandlingsView.Items.Clear();
+            HandlingsList.AllHandlingsView.ItemsSource = AllHandlings;
+            HandlingsList.AllHandlingsView.Items.Refresh();
+        }
         private void UpdateRoutePointsView()
         {
             AllRoutePoints = DataWorker.GetAllRoutePoints();
@@ -2722,6 +2889,12 @@ namespace GetRate.ViewModel
             TT_TMUT = null;
             TT_FromRoutePoint = null;
             TT_ToRoutePoint = null;
+
+            //Handling
+            HandlingId = 0;
+            HandlingRoutePoint = null;
+            HandlingTMUT_In = null;
+            HandlingTMUT_Out = null;
         }
         private void SetRedBlockControl(Window window, string blockName)
         {
