@@ -1054,104 +1054,104 @@ namespace GetRate.Model
         }
         #endregion
 
-        #region TRANSPORTATION_TYPES
-        //Get all TransportationTypes
-        public static List<TransportationType> GetAllTransportationTypes()
-        {
-            using (var db = new GetRateContext())
-            {
-                var tTypes = db.TransportationTypes;
+        //#region TRANSPORTATION_TYPES
+        ////Get all TransportationTypes
+        //public static List<TransportationType> GetAllTransportationTypes()
+        //{
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var tTypes = db.TransportationTypes;
 
-                var query = from type in tTypes                          
-                            select type;
+        //        var query = from type in tTypes                          
+        //                    select type;
 
-                return query.ToList();
-            }
-        }
+        //        return query.ToList();
+        //    }
+        //}
 
-        //create TransportationType
-        public static string CreateTransportationType(TransportModeUnitType transportModeUnitType, RoutePoint fromRoutePoint, RoutePoint toRoutePoint)
-        {
-            string result = "TransportationType is exists already!";
+        ////create TransportationType
+        //public static string CreateTransportationType(TransportModeUnitType transportModeUnitType, RoutePoint fromRoutePoint, RoutePoint toRoutePoint)
+        //{
+        //    string result = "TransportationType is exists already!";
 
-            using (var db = new GetRateContext())
-            {
-                var transTypes = db.TransportationTypes;
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var transTypes = db.TransportationTypes;
 
-                bool checkIsExist = transTypes.Any(tt => tt.TransportModeUnitTypeId == transportModeUnitType.Id 
-                                                    && tt.FromRoutePointId == fromRoutePoint.Id
-                                                    && tt.ToRoutePointId == toRoutePoint.Id);
+        //        bool checkIsExist = transTypes.Any(tt => tt.TransportModeUnitTypeId == transportModeUnitType.Id 
+        //                                            && tt.TransportFromRoutePointId == fromRoutePoint.Id
+        //                                            && tt.TransportToRoutePointId == toRoutePoint.Id);
 
-                if (!checkIsExist)
-                {
-                    TransportationType newTransportationType = new TransportationType();
-                    newTransportationType.TransportModeUnitTypeId = transportModeUnitType.Id;
-                    newTransportationType.FromRoutePointId = fromRoutePoint.Id;
-                    newTransportationType.ToRoutePointId = toRoutePoint.Id;
+        //        if (!checkIsExist)
+        //        {
+        //            TransportationType newTransportationType = new TransportationType();
+        //            newTransportationType.TransportModeUnitTypeId = transportModeUnitType.Id;
+        //            newTransportationType.TransportFromRoutePointId = fromRoutePoint.Id;
+        //            newTransportationType.TransportToRoutePointId = toRoutePoint.Id;
 
-                    transTypes.Add(newTransportationType);
-                    db.SaveChanges();
-                    result = $"TransportationType added successfully!";
-                }
+        //            transTypes.Add(newTransportationType);
+        //            db.SaveChanges();
+        //            result = $"TransportationType added successfully!";
+        //        }
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
-        //edit TransportationtType
-        public static string EditTransportationType(TransportationType oldTransportationtType, TransportModeUnitType newTMUT, RoutePoint newFromRP, RoutePoint newToRP)
-        {
-            string result = "There is no such TransportationType!";
+        ////edit TransportationtType
+        //public static string EditTransportationType(TransportationType oldTransportationtType, TransportModeUnitType newTMUT, RoutePoint newFromRP, RoutePoint newToRP)
+        //{
+        //    string result = "There is no such TransportationType!";
 
-            using (var db = new GetRateContext())
-            {
-                TransportationType transportationType = db.TransportationTypes.FirstOrDefault(c => c.Id == oldTransportationtType.Id);
+        //    using (var db = new GetRateContext())
+        //    {
+        //        TransportationType transportationType = db.TransportationTypes.FirstOrDefault(c => c.Id == oldTransportationtType.Id);
 
-                if (transportationType != null)
-                {
-                    transportationType.TransportModeUnitTypeId = newTMUT.Id;
-                    transportationType.FromRoutePointId = newFromRP.Id;
-                    transportationType.ToRoutePointId= newToRP.Id;
+        //        if (transportationType != null)
+        //        {
+        //            transportationType.TransportModeUnitTypeId = newTMUT.Id;
+        //            transportationType.TransportFromRoutePointId = newFromRP.Id;
+        //            transportationType.TransportToRoutePointId= newToRP.Id;
 
-                    db.SaveChanges();
-                    result = "TransportModeUnitType is changed!";
-                }
-            }
-            return result;
-        }
+        //            db.SaveChanges();
+        //            result = "TransportModeUnitType is changed!";
+        //        }
+        //    }
+        //    return result;
+        //}
 
-        //delete TransportationType
-        public static string DeleteTransportationType(TransportationType deletedTransportationType)
-        {
-            string result = "There is no such TransportationType!";
+        ////delete TransportationType
+        //public static string DeleteTransportationType(TransportationType deletedTransportationType)
+        //{
+        //    string result = "There is no such TransportationType!";
 
-            using (var db = new GetRateContext())
-            {
-                var modes = db.TransportationTypes;
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var modes = db.TransportationTypes;
 
-                var deletedType = (from c in modes
-                                                    where c.Id == deletedTransportationType.Id
-                                                    select c).FirstOrDefault();
+        //        var deletedType = (from c in modes
+        //                                            where c.Id == deletedTransportationType.Id
+        //                                            select c).FirstOrDefault();
 
-                if (deletedType != null)
-                {
-                    db.TransportationTypes.Remove(deletedType);
-                    db.SaveChanges();
-                    result = $"TransportationType deleted!";
-                }
-            }
-            return result;
-        }
+        //        if (deletedType != null)
+        //        {
+        //            db.TransportationTypes.Remove(deletedType);
+        //            db.SaveChanges();
+        //            result = $"TransportationType deleted!";
+        //        }
+        //    }
+        //    return result;
+        //}
 
-        //get TransportationType by Id
-        public static TransportationType GetTransportationTypeById(int id)
-        {
-            using (var db = new GetRateContext())
-            {
-                return db.TransportationTypes.FirstOrDefault(c => c.Id == id);
-            }
-        }
-        #endregion
+        ////get TransportationType by Id
+        //public static TransportationType GetTransportationTypeById(int id)
+        //{
+        //    using (var db = new GetRateContext())
+        //    {
+        //        return db.TransportationTypes.FirstOrDefault(c => c.Id == id);
+        //    }
+        //}
+        //#endregion
 
         //#region ROUTEPOINT_TRANSPORTMODE_UNITTYPES
         ////Get all RoutePointTransportModesUnitTypes = RPTMUT
@@ -1384,123 +1384,123 @@ namespace GetRate.Model
 
         #endregion
 
-        #region REQUEST_TRANSPORTATIONTYPE
+        //#region REQUEST_TRANSPORTATIONTYPE
 
-        //Get all RequestTransportationTypes
-        public static List<RequestTransportationType> GetAllRequestTT()
+        ////Get all RequestTransportationTypes
+        //public static List<RequestTransportationType> GetAllRequestTT()
+        //{
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var types = db.RequestTransportationTypes;
+        //        var requests = db.Requests;
+
+        //        var query = from type in types
+        //                    join request in requests
+        //                    on type.RequestId equals request.Id
+        //                    orderby request.Id
+        //                    select type;
+
+        //        return query.ToList();
+        //    }
+        //}
+
+        ////create RequestTT
+        //public static string CreateRequestTT(Request request, TransportationType transportationType, int option, int subOption)
+        //{
+        //    string result = "RequestTransportationType is exists already!";
+
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var rTTypes = db.RequestTransportationTypes;
+
+        //        bool checkIsExist = rTTypes.Any(rtt => rtt.RequestId == request.Id 
+        //                && rtt.TransportationTypeId == transportationType.Id
+        //                && rtt.Option == option
+        //                && rtt.SubOption == subOption);
+
+        //        if (!checkIsExist)
+        //        {
+        //            RequestTransportationType newRequestTT = new RequestTransportationType();
+        //            newRequestTT.RequestId = request.Id;
+        //            newRequestTT.TransportationTypeId = transportationType.Id;
+        //            newRequestTT.Option = option;
+        //            newRequestTT.SubOption = subOption;
+
+        //            rTTypes.Add(newRequestTT);
+        //            db.SaveChanges();
+        //            result = $"RequestTransportationType added successfully!";
+        //        }
+
+        //        return result;
+        //    }
+        //}
+
+        ////edit RequestTT
+        //public static string EditRequestTT(RequestTransportationType oldRequestTT, Request newRequest, TransportationType newTT, int newOption, int newSubOption)
+        //{
+        //    string result = "There is no such RequestTransportationType!";
+
+        //    using (var db = new GetRateContext())
+        //    {
+        //        RequestTransportationType requestTT = db.RequestTransportationTypes.FirstOrDefault(c => c.Id == oldRequestTT.Id);
+
+        //        if (requestTT != null)
+        //        {
+        //            requestTT.RequestId = newRequest.Id;
+        //            requestTT.TransportationTypeId = newTT.Id;
+        //            requestTT.Option = newOption;
+        //            requestTT.SubOption = newSubOption;
+
+        //            db.SaveChanges();
+        //            result = $"RequestTransportationType is changed!";
+        //        }
+        //    }
+        //    return result;
+        //}
+
+        ////delete RequestTT
+        //public static string DeleteRequestTT(RequestTransportationType requestTT)
+        //{
+        //    string result = "There is no such RequestTransportationType!";
+
+        //    using (var db = new GetRateContext())
+        //    {
+        //        var rTTypes = db.RequestTransportationTypes;
+
+        //        var deletedRequestTT = (from rtt in rTTypes
+        //                                   where rtt.Id == requestTT.Id
+        //                                   select rtt).FirstOrDefault();
+
+        //        if (deletedRequestTT != null)
+        //        {
+        //            rTTypes.Remove(deletedRequestTT);
+        //            db.SaveChanges();
+        //            result = $"RequestTransportationType deleted!";
+        //        }
+        //    }
+        //    return result;
+        //}
+
+        ////get RequestTT by Id
+        //public static RequestTransportationType GetRequestTTById(int id)
+        //{
+        //    using (var db = new GetRateContext())
+        //    {
+        //        return db.RequestTransportationTypes.FirstOrDefault(c => c.Id == id);
+        //    }
+        //}
+
+
+
+        //#endregion
+
+        #region ROUTEITEMS
+        //Get all RouteItems
+        public static List<RouteItem> GetAllRouteItems()
         {
             using (var db = new GetRateContext())
             {
-                var types = db.RequestTransportationTypes;
-                var requests = db.Requests;
-
-                var query = from type in types
-                            join request in requests
-                            on type.RequestId equals request.Id
-                            orderby request.Id
-                            select type;
-
-                return query.ToList();
-            }
-        }
-
-        //create RequestTT
-        public static string CreateRequestTT(Request request, TransportationType transportationType, int option, int subOption)
-        {
-            string result = "RequestTransportationType is exists already!";
-
-            using (var db = new GetRateContext())
-            {
-                var rTTypes = db.RequestTransportationTypes;
-
-                bool checkIsExist = rTTypes.Any(rtt => rtt.RequestId == request.Id 
-                        && rtt.TransportationTypeId == transportationType.Id
-                        && rtt.Option == option
-                        && rtt.SubOption == subOption);
-
-                if (!checkIsExist)
-                {
-                    RequestTransportationType newRequestTT = new RequestTransportationType();
-                    newRequestTT.RequestId = request.Id;
-                    newRequestTT.TransportationTypeId = transportationType.Id;
-                    newRequestTT.Option = option;
-                    newRequestTT.SubOption = subOption;
-
-                    rTTypes.Add(newRequestTT);
-                    db.SaveChanges();
-                    result = $"RequestTransportationType added successfully!";
-                }
-
-                return result;
-            }
-        }
-
-        //edit RequestTT
-        public static string EditRequestTT(RequestTransportationType oldRequestTT, Request newRequest, TransportationType newTT, int newOption, int newSubOption)
-        {
-            string result = "There is no such RequestTransportationType!";
-
-            using (var db = new GetRateContext())
-            {
-                RequestTransportationType requestTT = db.RequestTransportationTypes.FirstOrDefault(c => c.Id == oldRequestTT.Id);
-
-                if (requestTT != null)
-                {
-                    requestTT.RequestId = newRequest.Id;
-                    requestTT.TransportationTypeId = newTT.Id;
-                    requestTT.Option = newOption;
-                    requestTT.SubOption = newSubOption;
-
-                    db.SaveChanges();
-                    result = $"RequestTransportationType is changed!";
-                }
-            }
-            return result;
-        }
-
-        //delete RequestTT
-        public static string DeleteRequestTT(RequestTransportationType requestTT)
-        {
-            string result = "There is no such RequestTransportationType!";
-
-            using (var db = new GetRateContext())
-            {
-                var rTTypes = db.RequestTransportationTypes;
-
-                var deletedRequestTT = (from rtt in rTTypes
-                                           where rtt.Id == requestTT.Id
-                                           select rtt).FirstOrDefault();
-
-                if (deletedRequestTT != null)
-                {
-                    rTTypes.Remove(deletedRequestTT);
-                    db.SaveChanges();
-                    result = $"RequestTransportationType deleted!";
-                }
-            }
-            return result;
-        }
-
-        //get RequestTT by Id
-        public static RequestTransportationType GetRequestTTById(int id)
-        {
-            using (var db = new GetRateContext())
-            {
-                return db.RequestTransportationTypes.FirstOrDefault(c => c.Id == id);
-            }
-        }
-
-
-
-        #endregion
-
-        #region HANDLING
-        //Get all Handlings
-        public static List<Handling> GetAllHandlings()
-        {
-            using (var db = new GetRateContext())
-            {
-                var handlings = db.Handlings;
+                var handlings = db.RouteItems;
 
                 var query = from handling in handlings
                             select handling;
@@ -1509,88 +1509,117 @@ namespace GetRate.Model
             }
         }
 
-        //create Handling
-        public static string CreateHandling(TransportModeUnitType tMUT_In, TransportModeUnitType tMUT_Out, RoutePoint routePoint)
+        //create RouteItem
+        public static string CreateRouteItem(
+                    TransportModeUnitType tMUT_In, 
+                    TransportModeUnitType tMUT_Out, 
+                    RoutePoint routePointIn,
+                    RoutePoint routePointOut,
+                    CargoPackage cargoPackageIn,
+                    CargoPackage cargoPackageOut)
         {
-            string result = "Handling is exists already!";
+            string result = "RouteItem is exists already!";
 
             using (var db = new GetRateContext())
             {
-                var handlings = db.Handlings;
+                var items = db.RouteItems;
 
-                bool checkIsExist = handlings.Any(h => h.TMUT_InId == tMUT_In.Id
+                bool checkIsExist = items.Any(h => h.TMUT_InId == tMUT_In.Id
                                                     && h.TMUT_OutId == tMUT_Out.Id
-                                                    && h.RoutePointId == routePoint.Id);
+                                                    && h.RoutePointInId == routePointIn.Id
+                                                    && h.RoutePointOutId == routePointOut.Id
+                                                    && h.CargoPackageInId == cargoPackageIn.Id
+                                                    && h.CargoPackageOutId == cargoPackageOut.Id
+                                                    );
 
                 if (!checkIsExist)
                 {
-                    Handling newHandlng = new Handling();
-                    newHandlng.TMUT_InId = tMUT_In.Id;
-                    newHandlng.TMUT_OutId = tMUT_Out.Id;
-                    newHandlng.RoutePointId = routePoint.Id;
+                    RouteItem newRouteItem = new RouteItem();
+                    newRouteItem.TMUT_InId = tMUT_In.Id;
+                    newRouteItem.TMUT_OutId = tMUT_Out.Id;
+                    newRouteItem.RoutePointInId = routePointIn.Id;
+                    newRouteItem.RoutePointOutId = routePointOut.Id;
+                    newRouteItem.CargoPackageInId = cargoPackageIn.Id;
+                    newRouteItem.CargoPackageOutId = cargoPackageOut.Id;
 
-                    handlings.Add(newHandlng);
+                    items.Add(newRouteItem);
                     db.SaveChanges();
-                    result = $"Handling added successfully!";
+                    result = $"RouteItem added successfully!";
                 }
 
                 return result;
             }
         }
 
-        //edit Handling
-        public static string EditHandling(Handling oldHandling, TransportModeUnitType newTMUT_In, TransportModeUnitType newTMUT_Out, RoutePoint newRoutePoint)
+        //edit RouteItem
+        public static string EditRouteItem(
+                    RouteItem oldRouteItem, 
+                    TransportModeUnitType newTMUT_In, 
+                    TransportModeUnitType newTMUT_Out, 
+                    RoutePoint newRoutePointIn,
+                    RoutePoint newRoutePointOut,
+                    CargoPackage newCargoPackageIn,
+                    CargoPackage newCargoPackageOut
+                    )
         {
-            string result = "There is no such Handling!";
+            string result = "There is no such RouteItem!";
 
             using (var db = new GetRateContext())
             {
-                Handling handling = db.Handlings.FirstOrDefault(h => h.Id == oldHandling.Id);
+                RouteItem routeItem = db.RouteItems.FirstOrDefault(h => h.Id == oldRouteItem.Id);
 
-                if (handling != null)
+                if (routeItem != null)
                 {
-                    handling.TMUT_InId = newTMUT_In.Id;
-                    handling.TMUT_OutId = newTMUT_Out.Id;
-                    handling.RoutePointId = newRoutePoint.Id;
+                    routeItem.TMUT_InId = newTMUT_In.Id;
+                    routeItem.TMUT_OutId = newTMUT_Out.Id;
+                    routeItem.RoutePointInId = newRoutePointIn.Id;
+                    routeItem.RoutePointOutId = newRoutePointOut.Id;
+                    routeItem.CargoPackageInId = newCargoPackageIn.Id;
+                    routeItem.CargoPackageOutId = newCargoPackageOut.Id;
 
                     db.SaveChanges();
-                    result = "Handling is changed!";
+                    result = "RoutePoint is changed!";
                 }
             }
             return result;
         }
 
-        //delete Handling
-        public static string DeleteHandling(Handling oldHandling)
+        //delete RouteItem
+        public static string DeleteRouteItem(RouteItem oldRouteItem)
         {
-            string result = "There is no such Handling!";
+            string result = "There is no such RouteItem!";
 
             using (var db = new GetRateContext())
             {
-                var handlings = db.Handlings;
+                var items = db.RouteItems;
 
-                var deletedHandling = (from h in handlings
-                                   where h.Id == oldHandling.Id
+                var deletedRouteItem = (from h in items
+                                   where h.Id == oldRouteItem.Id
                                    select h).FirstOrDefault();
 
-                if (deletedHandling != null)
+                if (deletedRouteItem != null)
                 {
-                    handlings.Remove(deletedHandling);
+                    items.Remove(deletedRouteItem);
                     db.SaveChanges();
-                    result = $"Handling deleted!";
+                    result = $"RouteItem is deleted!";
                 }
             }
             return result;
         }
 
-        //get Handling by Id
-        public static Handling GetHandlingById(int id)
+        //get RouteItem by Id
+        public static RouteItem GetRouteItemById(int id)
         {
             using (var db = new GetRateContext())
             {
-                return db.Handlings.FirstOrDefault(h => h.Id == id);
+                return db.RouteItems.FirstOrDefault(h => h.Id == id);
             }
         }
+        #endregion
+
+        #region ROUTEGREATION
+
+
         #endregion
     }
 }

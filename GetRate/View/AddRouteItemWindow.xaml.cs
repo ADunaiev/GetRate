@@ -7,9 +7,9 @@ namespace GetRate.View
     /// <summary>
     /// Interaction logic for AddHandlingWindow.xaml
     /// </summary>
-    public partial class AddHandlingWindow : Window
+    public partial class AddRouteItemWindow : Window
     {
-        public AddHandlingWindow()
+        public AddRouteItemWindow()
         {
             InitializeComponent();
             DataContext = new DataManageVM();

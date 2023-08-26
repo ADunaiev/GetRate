@@ -199,26 +199,26 @@ namespace GetRate.ViewModel
         }
 
         //All TransportationTypes
-        private List<TransportationType> allTransportationTypes = DataWorker.GetAllTransportationTypes();
-        public List<TransportationType> AllTransportationTypes
-        {
-            get { return allTransportationTypes; }
-            set
-            {
-                allTransportationTypes = value;
-                NotifyPropertyChanged("AllTransportationTypes");
-            }
-        }
+        //private List<TransportationType> allTransportationTypes = DataWorker.GetAllTransportationTypes();
+        //public List<TransportationType> AllTransportationTypes
+        //{
+        //    get { return allTransportationTypes; }
+        //    set
+        //    {
+        //        allTransportationTypes = value;
+        //        NotifyPropertyChanged("AllTransportationTypes");
+        //    }
+        //}
 
-        //All Handlings
-        private List<Handling> allHandlings = DataWorker.GetAllHandlings();
-        public List<Handling> AllHandlings
+        //All RouteItems
+        private List<RouteItem> allRouteItems = DataWorker.GetAllRouteItems();
+        public List<RouteItem> AllRouteItems
         {
-            get { return allHandlings; }
+            get { return allRouteItems; }
             set
             {
-                allHandlings = value;
-                NotifyPropertyChanged("AllHandlings");
+                allRouteItems = value;
+                NotifyPropertyChanged("AllRouteItems");
             }
         }
         #endregion
@@ -317,16 +317,19 @@ namespace GetRate.ViewModel
         public static decimal RequestCargoVolume { get; set; }
 
         //TransportationTypes Properties
-        public static int TT_Id { get; set; }
-        public static TransportModeUnitType TT_TMUT { get; set; }
-        public static RoutePoint TT_FromRoutePoint { get; set; }
-        public static RoutePoint TT_ToRoutePoint { get; set; }
+        //public static int TT_Id { get; set; }
+        //public static TransportModeUnitType TT_TMUT { get; set; }
+        //public static RoutePoint TT_FromRoutePoint { get; set; }
+        //public static RoutePoint TT_ToRoutePoint { get; set; }
 
-        //Handlings Properties
-        public static int HandlingId { get; set; }
-        public static TransportModeUnitType HandlingTMUT_In { get; set; }  
-        public static TransportModeUnitType HandlingTMUT_Out { get; set; }  
-        public static RoutePoint HandlingRoutePoint { get; set; }
+        //RouteItems Properties
+        public static int RouteItemId { get; set; }
+        public static TransportModeUnitType RouteItemTMUT_In { get; set; }  
+        public static TransportModeUnitType RouteItemTMUT_Out { get; set; }  
+        public static RoutePoint RouteItemRoutePointIn { get; set; }
+        public static RoutePoint RouteItemRoutePointOut { get; set; }
+        public static CargoPackage RouteItemCargoPackageIn { get; set; }
+        public static CargoPackage RouteItemCargoPackageOut { get; set; }
 
         #endregion
 
@@ -346,8 +349,8 @@ namespace GetRate.ViewModel
         public static RoutePoint SelectedRoutePoint { get; set; }
         public static Request SelectedRequest { get; set; }
         public static ObservableCollection<UnitType> RoutePointSelectedUnitTypes { get; set; }
-        public static TransportationType SelectedTransportationType { get; set; }
-        public static Handling SelectedHandling { get; set; }
+        //public static TransportationType SelectedTransportationType { get; set; }
+        public static RouteItem SelectedRouteItem { get; set; }
         #endregion
 
         #region COMMANDS TO ADD
@@ -827,71 +830,89 @@ namespace GetRate.ViewModel
         }
 
         //TransportationTypes
-        private RelayCommand addNewTransportationType;
-        public RelayCommand AddNewTransportationType
+        //private RelayCommand addNewTransportationType;
+        //public RelayCommand AddNewTransportationType
+        //{
+        //    get
+        //    {
+        //        return addNewTransportationType ?? new RelayCommand(obj =>
+        //        {
+        //            Window window = obj as Window;
+        //            string resultStr = "";
+
+        //            if (TT_TMUT == null)
+        //            {
+        //                ShowMessageToUser("Please select TransportMode by UnitType");
+        //            }
+        //            else if(TT_FromRoutePoint == null) 
+        //            {
+        //                ShowMessageToUser("Please select From RoutePoint");
+        //            }
+        //            else if (TT_ToRoutePoint == null)
+        //            {
+        //                ShowMessageToUser("Please select To RoutePoint");
+        //            }
+        //            else if (TT_FromRoutePoint == TT_ToRoutePoint)
+        //            {
+        //                ShowMessageToUser("Please choose diffenet From and To RoutePoints");
+        //            }
+        //            else
+        //            {
+        //                resultStr = DataWorker.CreateTransportationType(TT_TMUT, TT_FromRoutePoint, TT_ToRoutePoint);
+        //                UpdateTransportationTypesListView();
+        //                SetNullValuesToProperties();
+        //                ShowMessageToUser(resultStr);
+        //                window.Close();
+        //            }
+        //        });
+        //    }
+        //}
+
+        //RouteItems
+        private RelayCommand addNewRouteItem;
+        public RelayCommand AddNewRouteItem
         {
             get
             {
-                return addNewTransportationType ?? new RelayCommand(obj =>
-                {
-                    Window window = obj as Window;
-                    string resultStr = "";
-
-                    if (TT_TMUT == null)
-                    {
-                        ShowMessageToUser("Please select TransportMode by UnitType");
-                    }
-                    else if(TT_FromRoutePoint == null) 
-                    {
-                        ShowMessageToUser("Please select From RoutePoint");
-                    }
-                    else if (TT_ToRoutePoint == null)
-                    {
-                        ShowMessageToUser("Please select To RoutePoint");
-                    }
-                    else if (TT_FromRoutePoint == TT_ToRoutePoint)
-                    {
-                        ShowMessageToUser("Please choose diffenet From and To RoutePoints");
-                    }
-                    else
-                    {
-                        resultStr = DataWorker.CreateTransportationType(TT_TMUT, TT_FromRoutePoint, TT_ToRoutePoint);
-                        UpdateTransportationTypesListView();
-                        SetNullValuesToProperties();
-                        ShowMessageToUser(resultStr);
-                        window.Close();
-                    }
-                });
-            }
-        }
-
-        //Hanlings
-        private RelayCommand addNewHandling;
-        public RelayCommand AddNewHandling
-        {
-            get
-            {
-                return addNewHandling ?? new RelayCommand(obj =>
+                return addNewRouteItem ?? new RelayCommand(obj =>
                 {
                     Window window = obj as Window;
                     string resultStr = string.Empty;
 
-                    if (HandlingRoutePoint == null)
+                    if (RouteItemRoutePointIn == null)
                     {
-                        ShowMessageToUser("Please choose RoutePoint");
+                        ShowMessageToUser("Please choose RoutePoint From");
                     }
-                    else if (HandlingTMUT_In == null)
+                    else if (RouteItemRoutePointOut == null)
+                    {
+                        ShowMessageToUser("Please choose RoutePoint To");
+                    }
+                    else if (RouteItemTMUT_In == null)
                     {
                         ShowMessageToUser("Please choose incoming transport");
                     }
-                    else if (HandlingTMUT_Out == null)
+                    else if (RouteItemTMUT_Out == null)
                     {
                         ShowMessageToUser("Please choose outcoming transport");
                     }
+                    else if (RouteItemCargoPackageIn == null)
+                    {
+                        ShowMessageToUser("Please choose incoming CargoPackage");
+                    }
+                    else if (RouteItemCargoPackageOut == null)
+                    {
+                        ShowMessageToUser("Please choose outcoming CargoPackage");
+                    }
                     else
                     {
-                        resultStr = DataWorker.CreateHandling(HandlingTMUT_In, HandlingTMUT_Out, HandlingRoutePoint);
-                        UpdateHandlingsListView();
+                        resultStr = DataWorker.CreateRouteItem(
+                                RouteItemTMUT_In, 
+                                RouteItemTMUT_Out, 
+                                RouteItemRoutePointIn,
+                                RouteItemRoutePointOut,
+                                RouteItemCargoPackageIn,
+                                RouteItemCargoPackageOut);
+                        UpdateRouteItemsListView();
                         SetNullValuesToProperties();
                         ShowMessageToUser(resultStr);
                         window.Close();
@@ -1420,75 +1441,75 @@ namespace GetRate.ViewModel
         }
 
         //TransportationTypes
-        private RelayCommand openAddNewTransportationTypeWnd;
-        public RelayCommand OpenAddNewTransportationTypeWnd
+        //private RelayCommand openAddNewTransportationTypeWnd;
+        //public RelayCommand OpenAddNewTransportationTypeWnd
+        //{
+        //    get
+        //    {
+        //        return openAddNewTransportationTypeWnd ?? new RelayCommand(obj =>
+        //        {
+        //            OpenAddNewTransportationTypeWindowMethod();
+        //        });
+        //    }
+        //}
+
+        //private RelayCommand openEditTransportationTypeWnd;
+        //public RelayCommand OpenEditTransportationTypeWnd
+        //{
+        //    get
+        //    {
+        //        return openEditTransportationTypeWnd ?? new RelayCommand(obj =>
+        //        {
+        //            OpenEditTransportationTypeWindowMethod();
+        //        });
+        //    }
+        //}
+
+        //private RelayCommand openTransportationTypesListWnd;
+        //public RelayCommand OpenTransportationTypesListWnd
+        //{
+        //    get
+        //    {
+        //        return openTransportationTypesListWnd ?? new RelayCommand(obj =>
+        //        {
+        //            OpenTransportationTypesListWindowMethod();
+        //        });
+        //    }
+        //}
+
+        //RouteItems
+        private RelayCommand openAddNewRouteItemWnd;
+        public RelayCommand OpenAddNewRouteItemWnd
         {
             get
             {
-                return openAddNewTransportationTypeWnd ?? new RelayCommand(obj =>
+                return openAddNewRouteItemWnd ?? new RelayCommand(obj =>
                 {
-                    OpenAddNewTransportationTypeWindowMethod();
+                    OpenAddNewRouteItemWindowMethod();
                 });
             }
         }
 
-        private RelayCommand openEditTransportationTypeWnd;
-        public RelayCommand OpenEditTransportationTypeWnd
+        private RelayCommand openEditRouteItemWnd;
+        public RelayCommand OpenEditRouteItemWnd
         {
             get
             {
-                return openEditTransportationTypeWnd ?? new RelayCommand(obj =>
+                return openEditRouteItemWnd ?? new RelayCommand(obj =>
                 {
-                    OpenEditTransportationTypeWindowMethod();
+                    OpenEditRouteItemWindowMethod();
                 });
             }
         }
 
-        private RelayCommand openTransportationTypesListWnd;
-        public RelayCommand OpenTransportationTypesListWnd
+        private RelayCommand openRouteItemsListWnd;
+        public RelayCommand OpenRouteItemsListWnd
         {
             get
             {
-                return openTransportationTypesListWnd ?? new RelayCommand(obj =>
+                return openRouteItemsListWnd ?? new RelayCommand(obj =>
                 {
-                    OpenTransportationTypesListWindowMethod();
-                });
-            }
-        }
-
-        //Handlings
-        private RelayCommand openAddNewHandlingWnd;
-        public RelayCommand OpenAddNewHandlingWnd
-        {
-            get
-            {
-                return openAddNewHandlingWnd ?? new RelayCommand(obj =>
-                {
-                    OpenAddNewHandlingWindowMethod();
-                });
-            }
-        }
-
-        private RelayCommand openEditHandlingWnd;
-        public RelayCommand OpenEditHandlingWnd
-        {
-            get
-            {
-                return openEditHandlingWnd ?? new RelayCommand(obj =>
-                {
-                    OpenEditHandlingWindowMethod();
-                });
-            }
-        }
-
-        private RelayCommand openHandlingsListWnd;
-        public RelayCommand OpenHandlingsListWnd
-        {
-            get
-            {
-                return openHandlingsListWnd ?? new RelayCommand(obj =>
-                {
-                    OpenHandlingsListWindowMethod();
+                    OpenRouteItemsListWindowMethod();
                 });
             }
         }
@@ -1773,51 +1794,57 @@ namespace GetRate.ViewModel
         }
 
         //TransportationTypes
-        private void OpenAddNewTransportationTypeWindowMethod()
-        {
-            SetNullValuesToProperties();
-            AddTransportationTypeWindow addTransportationTypeWindow = new AddTransportationTypeWindow();
-            addTransportationTypeWindow.ShowDialog();
-        }
-        private void OpenEditTransportationTypeWindowMethod()
-        {
-            TT_TMUT = DataWorker.GetTransportModeUnitTypeById(SelectedTransportationType.TransportModeUnitTypeId);
-            TT_FromRoutePoint = DataWorker.GetRoutePointById((int)SelectedTransportationType.FromRoutePointId);
-            TT_ToRoutePoint = DataWorker.GetRoutePointById((int)SelectedTransportationType.ToRoutePointId);
-            EditTransportationTypeWindow editTransportationTypeWindow = new EditTransportationTypeWindow(SelectedTransportationType);
-            editTransportationTypeWindow.TMUT_ComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(tp => tp.Id == TT_TMUT.Id);
-            editTransportationTypeWindow.FromRoutePointsComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == TT_FromRoutePoint.Id);
-            editTransportationTypeWindow.ToRoutePointsComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == TT_ToRoutePoint.Id);
-            editTransportationTypeWindow.ShowDialog();
-        }
-        private void OpenTransportationTypesListWindowMethod()
-        {
-            TransporationTypesList transporationTypesList = new TransporationTypesList();
-            transporationTypesList.ShowDialog();
-        }
+        //private void OpenAddNewTransportationTypeWindowMethod()
+        //{
+        //    SetNullValuesToProperties();
+        //    AddTransportationTypeWindow addTransportationTypeWindow = new AddTransportationTypeWindow();
+        //    addTransportationTypeWindow.ShowDialog();
+        //}
+        //private void OpenEditTransportationTypeWindowMethod()
+        //{
+        //    TT_TMUT = DataWorker.GetTransportModeUnitTypeById(SelectedTransportationType.TransportModeUnitTypeId);
+        //    TT_FromRoutePoint = DataWorker.GetRoutePointById((int)SelectedTransportationType.TransportFromRoutePointId);
+        //    TT_ToRoutePoint = DataWorker.GetRoutePointById((int)SelectedTransportationType.TransportToRoutePointId);
+        //    EditTransportationTypeWindow editTransportationTypeWindow = new EditTransportationTypeWindow(SelectedTransportationType);
+        //    editTransportationTypeWindow.TMUT_ComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(tp => tp.Id == TT_TMUT.Id);
+        //    editTransportationTypeWindow.FromRoutePointsComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == TT_FromRoutePoint.Id);
+        //    editTransportationTypeWindow.ToRoutePointsComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == TT_ToRoutePoint.Id);
+        //    editTransportationTypeWindow.ShowDialog();
+        //}
+        //private void OpenTransportationTypesListWindowMethod()
+        //{
+        //    TransporationTypesList transporationTypesList = new TransporationTypesList();
+        //    transporationTypesList.ShowDialog();
+        //}
 
-        //Handlings
-        private void OpenAddNewHandlingWindowMethod()
+        //RouteItems
+        private void OpenAddNewRouteItemWindowMethod()
         {
             SetNullValuesToProperties();
-            AddHandlingWindow addHandlingWindow = new AddHandlingWindow();
+            AddRouteItemWindow addHandlingWindow = new AddRouteItemWindow();
             addHandlingWindow.ShowDialog();
         }
-        private void OpenEditHandlingWindowMethod()
+        private void OpenEditRouteItemWindowMethod()
         {
-            HandlingRoutePoint = DataWorker.GetRoutePointById(SelectedHandling.RoutePointId);
-            HandlingTMUT_In = DataWorker.GetTransportModeUnitTypeById((int)SelectedHandling.TMUT_InId);
-            HandlingTMUT_Out = DataWorker.GetTransportModeUnitTypeById((int)SelectedHandling.TMUT_OutId);
-            EditHandlingWindow editHandlingWindow = new EditHandlingWindow(SelectedHandling);
-            editHandlingWindow.RoutePointsComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == HandlingRoutePoint.Id);
-            editHandlingWindow.TMUT_InsComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(rp => rp.Id == HandlingTMUT_In.Id);
-            editHandlingWindow.TMUT_OutsComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(rp => rp.Id == HandlingTMUT_Out.Id);
-            editHandlingWindow.ShowDialog();
+            RouteItemRoutePointIn = DataWorker.GetRoutePointById((int)SelectedRouteItem.RoutePointInId);
+            RouteItemRoutePointOut = DataWorker.GetRoutePointById((int)SelectedRouteItem.RoutePointOutId);
+            RouteItemTMUT_In = DataWorker.GetTransportModeUnitTypeById((int)SelectedRouteItem.TMUT_InId);
+            RouteItemTMUT_Out = DataWorker.GetTransportModeUnitTypeById((int)SelectedRouteItem.TMUT_OutId);
+            RouteItemCargoPackageIn = DataWorker.GetCargoPackageById((int)SelectedRouteItem.CargoPackageInId);
+            RouteItemCargoPackageOut = DataWorker.GetCargoPackageById((int)SelectedRouteItem.CargoPackageOutId);
+            EditRouteItemWindow editRouteItemWindow = new EditRouteItemWindow(SelectedRouteItem);
+            editRouteItemWindow.RoutePointsInComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == RouteItemRoutePointIn.Id);
+            editRouteItemWindow.RoutePointsOutComboBox.SelectedIndex = AllRoutePoints.FindIndex(rp => rp.Id == RouteItemRoutePointOut.Id);
+            editRouteItemWindow.TMUT_InsComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(rp => rp.Id == RouteItemTMUT_In.Id);
+            editRouteItemWindow.TMUT_OutsComboBox.SelectedIndex = AllTransportModesUnitTypes.FindIndex(rp => rp.Id == RouteItemTMUT_Out.Id);
+            editRouteItemWindow.CargoPackagesInComboBox.SelectedIndex = AllCargoPackages.FindIndex(rp => rp.Id == RouteItemCargoPackageIn.Id);
+            editRouteItemWindow.CargoPackagesOutComboBox.SelectedIndex = AllCargoPackages.FindIndex(rp => rp.Id == RouteItemCargoPackageOut.Id);
+            editRouteItemWindow.ShowDialog();
         }
-        private void OpenHandlingsListWindowMethod() 
+        private void OpenRouteItemsListWindowMethod() 
         { 
-            HandlingsList handlingsList = new HandlingsList();
-            handlingsList.ShowDialog();
+            RouteItemsList routeItemsList = new RouteItemsList();
+            routeItemsList.ShowDialog();
         }
         private void SetCenterPositionAndOpen(Window window)
         {
@@ -2123,40 +2150,40 @@ namespace GetRate.ViewModel
         }
 
         //TransportationTypes
-        private RelayCommand deleteTransportationType;
-        public RelayCommand DeleteTransportationType
-        {
-            get
-            {
-                return deleteTransportationType ?? new RelayCommand(obj =>
-                {
-                    string resultStr = "No TransportationType is selected";
+        //private RelayCommand deleteTransportationType;
+        //public RelayCommand DeleteTransportationType
+        //{
+        //    get
+        //    {
+        //        return deleteTransportationType ?? new RelayCommand(obj =>
+        //        {
+        //            string resultStr = "No TransportationType is selected";
 
-                    if ( SelectedTransportationType != null )
-                    {
-                        resultStr = DataWorker.DeleteTransportationType(SelectedTransportationType);
-                        UpdateTransportationTypesListView(); 
-                        SetNullValuesToProperties();
-                    }
-                    ShowMessageToUser(resultStr);
-                });
-            }
-        }
+        //            if ( SelectedTransportationType != null )
+        //            {
+        //                resultStr = DataWorker.DeleteTransportationType(SelectedTransportationType);
+        //                UpdateTransportationTypesListView(); 
+        //                SetNullValuesToProperties();
+        //            }
+        //            ShowMessageToUser(resultStr);
+        //        });
+        //    }
+        //}
 
         //Handlings
-        private RelayCommand deleteHandling;
-        public RelayCommand DeleteHandling
+        private RelayCommand deleteHRouteItem;
+        public RelayCommand DeleteRouteItem
         {
             get
             {
-                return deleteHandling ?? new RelayCommand(obj =>
+                return deleteHRouteItem ?? new RelayCommand(obj =>
                 {
-                    string resultStr = "Please choose handling to delete";
+                    string resultStr = "Please choose RouteItem to delete";
 
-                    if ( SelectedHandling != null )
+                    if ( SelectedRouteItem != null )
                     {
-                        resultStr = DataWorker.DeleteHandling(SelectedHandling);
-                        UpdateHandlingsListView();
+                        resultStr = DataWorker.DeleteRouteItem(SelectedRouteItem);
+                        UpdateRouteItemsListView();
                         SetNullValuesToProperties();
                     }
                     ShowMessageToUser(resultStr);
@@ -2545,59 +2572,66 @@ namespace GetRate.ViewModel
         }
 
         //TransportationTypes
-        private RelayCommand editTransportationType;
-        public RelayCommand EditTransportationType
-        {
-            get
-            {
-                return editTransportationType ?? new RelayCommand(obj =>
-                {
-                    Window window = obj as Window;
-                    string resultStr = "No TransportationType is selected";
+        //private RelayCommand editTransportationType;
+        //public RelayCommand EditTransportationType
+        //{
+        //    get
+        //    {
+        //        return editTransportationType ?? new RelayCommand(obj =>
+        //        {
+        //            Window window = obj as Window;
+        //            string resultStr = "No TransportationType is selected";
 
-                    if (TT_TMUT == null)
-                    {
-                        ShowMessageToUser("Please select TransportMode by UnitType");
-                    }
-                    else if (TT_FromRoutePoint == null)
-                    {
-                        ShowMessageToUser("Please select From RoutePoint");
-                    }
-                    else if (TT_ToRoutePoint == null)
-                    {
-                        ShowMessageToUser("Please select To RoutePoint");
-                    }
-                    else if (TT_FromRoutePoint == TT_ToRoutePoint)
-                    {
-                        ShowMessageToUser("Please choose diffenet From and To RoutePoints");
-                    }
-                    else
-                    {
-                        resultStr = DataWorker.EditTransportationType(SelectedTransportationType, TT_TMUT, TT_FromRoutePoint, TT_ToRoutePoint);
-                        UpdateTransportationTypesListView();
-                        SetNullValuesToProperties();
-                        window.Close();
-                    }
-                    ShowMessageToUser(resultStr);
-                });
-            }
-        }
+        //            if (TT_TMUT == null)
+        //            {
+        //                ShowMessageToUser("Please select TransportMode by UnitType");
+        //            }
+        //            else if (TT_FromRoutePoint == null)
+        //            {
+        //                ShowMessageToUser("Please select From RoutePoint");
+        //            }
+        //            else if (TT_ToRoutePoint == null)
+        //            {
+        //                ShowMessageToUser("Please select To RoutePoint");
+        //            }
+        //            else if (TT_FromRoutePoint == TT_ToRoutePoint)
+        //            {
+        //                ShowMessageToUser("Please choose diffenet From and To RoutePoints");
+        //            }
+        //            else
+        //            {
+        //                resultStr = DataWorker.EditTransportationType(SelectedTransportationType, TT_TMUT, TT_FromRoutePoint, TT_ToRoutePoint);
+        //                UpdateTransportationTypesListView();
+        //                SetNullValuesToProperties();
+        //                window.Close();
+        //            }
+        //            ShowMessageToUser(resultStr);
+        //        });
+        //    }
+        //}
 
         //Handlings
-        private RelayCommand editHandling;
-        public RelayCommand EditHandling
+        private RelayCommand editRouteItem;
+        public RelayCommand EditRouteItem
         {
             get
             {
-                return editHandling ?? new RelayCommand(obj =>
+                return editRouteItem ?? new RelayCommand(obj =>
                 {
                     Window window = obj as Window;
-                    string resultStr = "Please choose Handling to edit";
+                    string resultStr = "Please choose RouteItem to edit";
 
-                    if (SelectedHandling != null)
+                    if (SelectedRouteItem != null)
                     {
-                        resultStr = DataWorker.EditHandling(SelectedHandling, HandlingTMUT_In, HandlingTMUT_Out, HandlingRoutePoint);
-                        UpdateHandlingsListView();
+                        resultStr = DataWorker.EditRouteItem(
+                                    SelectedRouteItem, 
+                                    RouteItemTMUT_In, 
+                                    RouteItemTMUT_Out, 
+                                    RouteItemRoutePointIn,
+                                    RouteItemRoutePointOut,
+                                    RouteItemCargoPackageIn,
+                                    RouteItemCargoPackageOut);
+                        UpdateRouteItemsListView();
                         SetNullValuesToProperties();
                         window.Close();
                     }
@@ -2747,21 +2781,21 @@ namespace GetRate.ViewModel
             RequestsList.AllRequestsListView.Items.Refresh();
         }
 
-        private void UpdateTransportationTypesListView()
+        //private void UpdateTransportationTypesListView()
+        //{
+        //    AllTransportationTypes = DataWorker.GetAllTransportationTypes();
+        //    TransporationTypesList.AllTransportationTypesView.ItemsSource = null;
+        //    TransporationTypesList.AllTransportationTypesView.Items.Clear();
+        //    TransporationTypesList.AllTransportationTypesView.ItemsSource = AllTransportationTypes;
+        //    TransporationTypesList.AllTransportationTypesView.Items.Refresh();
+        //}
+        private void UpdateRouteItemsListView()
         {
-            AllTransportationTypes = DataWorker.GetAllTransportationTypes();
-            TransporationTypesList.AllTransportationTypesView.ItemsSource = null;
-            TransporationTypesList.AllTransportationTypesView.Items.Clear();
-            TransporationTypesList.AllTransportationTypesView.ItemsSource = AllTransportationTypes;
-            TransporationTypesList.AllTransportationTypesView.Items.Refresh();
-        }
-        private void UpdateHandlingsListView()
-        {
-            AllHandlings = DataWorker.GetAllHandlings();
-            HandlingsList.AllHandlingsView.ItemsSource = null;
-            HandlingsList.AllHandlingsView.Items.Clear();
-            HandlingsList.AllHandlingsView.ItemsSource = AllHandlings;
-            HandlingsList.AllHandlingsView.Items.Refresh();
+            AllRouteItems = DataWorker.GetAllRouteItems();
+            RouteItemsList.AllRouteItemsView.ItemsSource = null;
+            RouteItemsList.AllRouteItemsView.Items.Clear();
+            RouteItemsList.AllRouteItemsView.ItemsSource = AllRouteItems;
+            RouteItemsList.AllRouteItemsView.Items.Refresh();
         }
         private void UpdateRoutePointsView()
         {
@@ -2891,16 +2925,19 @@ namespace GetRate.ViewModel
             RequestCargoVolume = 0;
 
             //TransportationType
-            TT_Id = 0;
-            TT_TMUT = null;
-            TT_FromRoutePoint = null;
-            TT_ToRoutePoint = null;
+            //TT_Id = 0;
+            //TT_TMUT = null;
+            //TT_FromRoutePoint = null;
+            //TT_ToRoutePoint = null;
 
-            //Handling
-            HandlingId = 0;
-            HandlingRoutePoint = null;
-            HandlingTMUT_In = null;
-            HandlingTMUT_Out = null;
+            //RouteItem
+            RouteItemId = 0;
+            RouteItemRoutePointIn = null;
+            RouteItemRoutePointOut = null;
+            RouteItemTMUT_In = null;
+            RouteItemTMUT_Out = null;
+            RouteItemCargoPackageIn = null;
+            RouteItemCargoPackageOut = null;
         }
         private void SetRedBlockControl(Window window, string blockName)
         {

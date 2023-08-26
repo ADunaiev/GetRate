@@ -7,14 +7,14 @@ namespace GetRate.View
     /// <summary>
     /// Interaction logic for HandlingsList.xaml
     /// </summary>
-    public partial class HandlingsList : Window
+    public partial class RouteItemsList : Window
     {
-        public static ListView AllHandlingsView;
-        public HandlingsList()
+        public static ListView AllRouteItemsView;
+        public RouteItemsList()
         {
             InitializeComponent();
             DataContext = new DataManageVM();
-            AllHandlingsView = HandlingsListView;
+            AllRouteItemsView = RouteItemsListView;
         }
     }
 }

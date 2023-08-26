@@ -10,11 +10,13 @@ namespace GetRate.View
     /// </summary>
     public partial class EditTransportationTypeWindow : Window
     {
-        public EditTransportationTypeWindow(TransportationType transportationType)
+        public EditTransportationTypeWindow(
+            //TransportationType transportationType
+            )
         {
             InitializeComponent();
             DataContext = new DataManageVM();
-            DataManageVM.TT_Id = transportationType.Id;
+            //DataManageVM.TT_Id = transportationType.Id;
         }
     }
 }

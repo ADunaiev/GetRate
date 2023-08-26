@@ -18,9 +18,10 @@ namespace GetRate.Model
             //EndPoints = new List<Route>();
             FromRoutePoints = new List<Request>();
             ToRoutePoints = new List<Request>();
-            TransportationFromRoutePoints = new List<TransportationType>();
-            TransportationToRoutePoints = new List<TransportationType>();
-            HandlingRoutePoints = new List<Handling>();
+            //TransportationFromRoutePoints = new List<TransportationType>();
+            //TransportationToRoutePoints = new List<TransportationType>();
+            RoutePointsIn = new List<RouteItem>();
+            RoutePointsOut = new List<RouteItem>();
         }
         public int Id { get; set; }
         public int CompanyId { get; set; }
@@ -41,18 +42,23 @@ namespace GetRate.Model
         //[InverseProperty("EndPoint")]
         //public virtual ICollection<Route> EndPoints { get; set; }
 
-        [InverseProperty("TransportationFromRoutePoint")]
-        public virtual ICollection<TransportationType> TransportationFromRoutePoints { get; set; }
+        //[InverseProperty("TransportationFromRoutePoint")]
+        //public virtual ICollection<TransportationType> TransportationFromRoutePoints { get; set; }
 
-        [InverseProperty("TransportationToRoutePoint")]
-        public virtual ICollection<TransportationType> TransportationToRoutePoints { get; set; }
+        //[InverseProperty("TransportationToRoutePoint")]
+        //public virtual ICollection<TransportationType> TransportationToRoutePoints { get; set; }
 
         [InverseProperty("FromRoutePoint")]
         public virtual ICollection<Request> FromRoutePoints { get; set; }
 
         [InverseProperty("ToRoutePoint")]
         public virtual ICollection<Request> ToRoutePoints { get; set; }
-        public virtual ICollection<Handling> HandlingRoutePoints { get; set; }
+
+        [InverseProperty("RoutePointIn")]
+        public virtual ICollection<RouteItem> RoutePointsIn { get; set; }
+
+        [InverseProperty("RoutePointOut")]
+        public virtual ICollection<RouteItem> RoutePointsOut { get; set; }
     }
 
     //public class Terminal : RoutePoint

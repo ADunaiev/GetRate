@@ -157,10 +157,26 @@
     <Compile Include="Migrations\202308231936142_RPTMUT deleted.designer.cs">
       <DependentUpon>202308231936142_RPTMUT deleted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308251854218_Update2508.cs" />
+    <Compile Include="Migrations\202308251854218_Update2508.designer.cs">
+      <DependentUpon>202308251854218_Update2508.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308251910402_Deleted RequestTT.cs" />
+    <Compile Include="Migrations\202308251910402_Deleted RequestTT.designer.cs">
+      <DependentUpon>202308251910402_Deleted RequestTT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308252019359_TransportationType deleted.cs" />
+    <Compile Include="Migrations\202308252019359_TransportationType deleted.designer.cs">
+      <DependentUpon>202308252019359_TransportationType deleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202308252048008_RouteItems2.cs" />
+    <Compile Include="Migrations\202308252048008_RouteItems2.designer.cs">
+      <DependentUpon>202308252048008_RouteItems2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Cargo.cs" />
     <Compile Include="Model\CargoPackage.cs" />
-    <Compile Include="Model\Handling.cs" />
+    <Compile Include="Model\RouteItem.cs" />
     <Compile Include="Model\Package.cs" />
     <Compile Include="Model\Request.cs" />
     <Compile Include="Model\RequestHandling.cs" />
@@ -183,8 +199,8 @@
     <Compile Include="View\AddCompanyWindow.xaml.cs">
       <DependentUpon>AddCompanyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddHandlingWindow.xaml.cs">
-      <DependentUpon>AddHandlingWindow.xaml</DependentUpon>
+    <Compile Include="View\AddRouteItemWindow.xaml.cs">
+      <DependentUpon>AddRouteItemWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddPackageWindow.xaml.cs">
       <DependentUpon>AddPackageWindow.xaml</DependentUpon>
@@ -237,8 +253,8 @@
     <Compile Include="View\EditCountryWindow.xaml.cs">
       <DependentUpon>EditCountryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EditHandlingWindow.xaml.cs">
-      <DependentUpon>EditHandlingWindow.xaml</DependentUpon>
+    <Compile Include="View\EditRouteItemWindow.xaml.cs">
+      <DependentUpon>EditRouteItemWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditPackageWindow.xaml.cs">
       <DependentUpon>EditPackageWindow.xaml</DependentUpon>
@@ -258,8 +274,8 @@
     <Compile Include="View\EditUnitTypeWindow.xaml.cs">
       <DependentUpon>EditUnitTypeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\HandlingsList.xaml.cs">
-      <DependentUpon>HandlingsList.xaml</DependentUpon>
+    <Compile Include="View\RouteItemsList.xaml.cs">
+      <DependentUpon>RouteItemsList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MessageView.xaml.cs">
       <DependentUpon>MessageView.xaml</DependentUpon>
@@ -310,7 +326,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddHandlingWindow.xaml">
+    <Page Include="View\AddRouteItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -402,7 +418,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EditHandlingWindow.xaml">
+    <Page Include="View\EditRouteItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -430,7 +446,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\HandlingsList.xaml">
+    <Page Include="View\RouteItemsList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -596,6 +612,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308231936142_RPTMUT deleted.resx">
       <DependentUpon>202308231936142_RPTMUT deleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308251854218_Update2508.resx">
+      <DependentUpon>202308251854218_Update2508.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308251910402_Deleted RequestTT.resx">
+      <DependentUpon>202308251910402_Deleted RequestTT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308252019359_TransportationType deleted.resx">
+      <DependentUpon>202308252019359_TransportationType deleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308252048008_RouteItems2.resx">
+      <DependentUpon>202308252048008_RouteItems2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

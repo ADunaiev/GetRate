@@ -8,13 +8,13 @@ namespace GetRate.View
     /// <summary>
     /// Interaction logic for EditHandlingWindow.xaml
     /// </summary>
-    public partial class EditHandlingWindow : Window
+    public partial class EditRouteItemWindow : Window
     {
-        public EditHandlingWindow(Handling handling)
+        public EditRouteItemWindow(RouteItem routeItem)
         {
             InitializeComponent();
             DataContext = new DataManageVM();
-            DataManageVM.HandlingId = handling.Id;
+            DataManageVM.RouteItemId = routeItem.Id;
         }
     }
 }
