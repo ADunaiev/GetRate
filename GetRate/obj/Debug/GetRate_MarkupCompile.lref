@@ -47,4 +47,7 @@ FC:\Users\ADunaev\source\repos\GetRate2\GetRate\View\TransportModesUnitTypesList
 FC:\Users\ADunaev\source\repos\GetRate2\GetRate\View\UnitTypesListWindow.xaml;;
 FC:\Users\ADunaev\source\repos\GetRate2\GetRate\View\EditTransportModeWindow.xaml;;
 FC:\Users\ADunaev\source\repos\GetRate2\GetRate\View\EditTransportationTypeWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate2\GetRate\View\RouteItemRatesList.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate2\GetRate\View\AddRouteItemRateWindow.xaml;;
+FC:\Users\ADunaev\source\repos\GetRate2\GetRate\View\EditRouteItemRateWindow.xaml;;
 

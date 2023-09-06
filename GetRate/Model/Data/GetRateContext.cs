@@ -31,5 +31,6 @@ namespace GetRate.Model.Data
         //public DbSet<RequestTransportationType> RequestTransportationTypes { get; set; }
         public DbSet<RouteItem> RouteItems { get; set; }
         //public DbSet<RequestHandling> RequestHandlings { get; set; }
+        public DbSet<RouteItemRate> RouteItemRates { get; set; }
     }
 }

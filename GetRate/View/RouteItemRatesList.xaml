@@ -1,0 +1,51 @@
+﻿<Window x:Class="GetRate.View.RouteItemRatesList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GetRate.View"
+        mc:Ignorable="d"
+        Title="RouteItemRatesList" Height="450" Width="800"
+        Name="RouteItemRatesListWnd">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="NewRouteItemRateBtn" Content="New" Width="60" Margin="10" 
+                    Command="{Binding OpenAddNewRouteItemRateWnd}"/>
+            <Button x:Name="EditRouteItemRateBtn" Content="Edit" 
+                    Width="60" Margin="10"
+                    Command="{Binding OpenEditRouteItemRateWnd}"/>
+            <Button x:Name="DeleteRouteItemRateBtn" Content="Delete" Width="60" Margin="10"
+                    Command="{Binding DeleteRouteItemRate}"/>
+        </StackPanel>
+        <ListView x:Name="RouteItemsListView" Grid.Row="1" Margin="10" 
+                  ItemsSource="{Binding AllRouteItemRates}"
+                  SelectedItem="{Binding SelectedRouteItemRate}"
+                  >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Date" Width="120" DisplayMemberBinding="{Binding Date}"/>
+                    <GridViewColumn Header="Supplier" Width="120" DisplayMemberBinding="{Binding RouteItemRateCompany.NameENG}"/>
+                    <GridViewColumn Header="Rate" Width="120" DisplayMemberBinding="{Binding Rate}"/>
+                    <GridViewColumn Header="Validity" Width="120" DisplayMemberBinding="{Binding Validity}"/>
+                    <GridViewColumn Header="From" Width="150" DisplayMemberBinding="{Binding RouteItemRateRouteItem.RouteItemRoutePointIn.RoutePointCompany.NameENG}"/>
+                    <GridViewColumn Header="To" Width="150" DisplayMemberBinding="{Binding RouteItemRateRouteItem.RouteItemRoutePointOut.RoutePointCompany.NameENG}"/>
+                    <GridViewColumn Header="TransportMode UnitType In" Width="150" DisplayMemberBinding="{Binding RouteItemRateRouteItem.RouteItemTMUT_In.NameENG}"/>
+                    <GridViewColumn Header="TransportMode UnitType Out" Width="150" DisplayMemberBinding="{Binding RouteItemRateRouteItem.RouteItemTMUT_Out.NameENG}"/>
+                    <GridViewColumn Header="CargoPackage In" Width="100" DisplayMemberBinding="{Binding RouteItemRateRouteItem.RouteItemCargoPackageIn.NameENG}"/>
+                    <GridViewColumn Header="CargoPackage Out" Width="100" DisplayMemberBinding="{Binding RouteItemRateRouteItem.RouteItemCargoPackageOut.NameENG}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="BackToMenuBtn" Grid.Row="2" 
+                Content="Back to Menu" Width="100" 
+                Margin="10" HorizontalAlignment="Right"
+                Command="{Binding CloseWnd}"
+                CommandParameter="{Binding ElementName=RouteItemRatesListWnd}"/>
+    </Grid>
+</Window>

@@ -1,0 +1,64 @@
+﻿<Window x:Class="GetRate.View.AddRouteItemRateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GetRate.View"
+        mc:Ignorable="d"
+        Title="AddRouteItemRateWindow" Height="410" Width="450"
+        Name="AddNewRouteItemRateWnd">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Date:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1"/>
+        <Label Content="Company:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2"/>
+        <Label Content="RouteItem:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3"/>
+        <Label Content="Rate:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
+        <Label Content="Validity:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5"/>
+        <Label Content="Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0"/>
+        <DatePicker Name="RateDateDataPicker" Grid.Row="1" 
+                    Grid.Column="1" Margin="10" Width="150" 
+                    HorizontalAlignment="Left" 
+                    SelectedDate="{Binding RouteItemRateDate}"
+                    VerticalContentAlignment="Center"/>
+        <DatePicker Name="RateValidityDataPicker" Grid.Row="5" 
+                    Grid.Column="1" Margin="10" Width="150" 
+                    HorizontalAlignment="Left" 
+                    SelectedDate="{Binding RouteItemRateValidity}"
+                    VerticalContentAlignment="Center"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" Margin="10"
+                  HorizontalContentAlignment="Left"
+                  VerticalContentAlignment="Center"
+                  ItemsSource="{Binding AllCompanies}"
+                  SelectedItem="{Binding RouteItemRateCompany}"
+                  DisplayMemberPath="NameENG"/>
+        <ComboBox Grid.Row="3" Grid.Column="1" Margin="10"
+                  HorizontalContentAlignment="Left"
+                  VerticalContentAlignment="Center"
+                  ItemsSource="{Binding AllRouteItems}"
+                  SelectedItem="{Binding RouteItemRateRouteItem}"
+                  DisplayMemberPath="NameENG"/>
+        <Label x:Name="RouteItemRateIdLabel" Grid.Row="0" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>
+        <TextBox Text="{Binding RouteItemRateRate}" Grid.Row="4" Grid.Column="1" Margin="10" VerticalContentAlignment="Center"/>
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="SavePackageBtn" Content="Save" Command="{Binding AddNewRouteItemRate}" 
+                    CommandParameter="{Binding ElementName=AddNewRouteItemRateWnd}"
+                    Margin="10" Width="60"/>
+            <Button Name="CancelPackageBtn" Content="Cancel" 
+                    Margin="10" Width="60"
+                    Command="{Binding CloseWnd}"
+                    CommandParameter="{Binding ElementName=AddNewRouteItemRateWnd}"/>
+        </StackPanel>
+    </Grid>
+</Window>

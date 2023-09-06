@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Web;
+using System.Windows.Documents;
 
 namespace GetRate.Model
 {
@@ -7,6 +11,7 @@ namespace GetRate.Model
         public RouteItem() 
         { 
             //RequestHandlings = new List<RequestHandling>();
+            RouteItemRates = new List<RouteItemRate>(); 
         }
         public int Id { get; set; }
         public int? TMUT_InId { get; set; }
@@ -74,7 +79,28 @@ namespace GetRate.Model
             }
         }
 
+        [NotMapped]
+        public string NameENG
+        {
+            get
+            {
+                string result = null;
+                RoutePoint rpIn = DataWorker.GetRoutePointById((int)RoutePointInId);
+                result += rpIn.RoutePointCompany.NameENG;
+                result += " - ";
+                RoutePoint rpOut = DataWorker.GetRoutePointById((int)RoutePointOutId);
+                result += rpOut.RoutePointCompany.NameENG;
+                result += " ";
+                result += DataWorker.GetTransportModeUnitTypeById((int)TMUT_InId).NameENG;
+                result += " ";
+                result += DataWorker.GetTransportModeUnitTypeById((int)TMUT_OutId).NameENG;
+
+                return result;
+            }
+        }
+
         //public virtual ICollection<RequestHandling> RequestHandlings { get; set; }
+        public virtual ICollection<RouteItemRate> RouteItemRates { get; set; }
 
     }
 }

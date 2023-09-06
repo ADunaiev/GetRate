@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Data.Entity;
 using System.Collections.ObjectModel;
+using System;
 
 namespace GetRate.Model
 {
@@ -1500,10 +1501,17 @@ namespace GetRate.Model
         {
             using (var db = new GetRateContext())
             {
-                var handlings = db.RouteItems;
+                var routeItems = db.RouteItems;
+                var routePoints = db.RoutePoints;
+                var companies = db.Companies;
 
-                var query = from handling in handlings
-                            select handling;
+                var query = from routeItem in routeItems
+                            join point in routePoints
+                            on routeItem.RoutePointInId equals point.Id
+                            join company in companies
+                            on point.CompanyId equals company.Id
+                            orderby company.NameENG
+                            select routeItem;
 
                 return query.ToList();
             }
@@ -1613,6 +1621,135 @@ namespace GetRate.Model
             using (var db = new GetRateContext())
             {
                 return db.RouteItems.FirstOrDefault(h => h.Id == id);
+            }
+        }
+        #endregion
+
+        #region ROUTEITEMS_RATE
+        //Get all RouteItemsRates
+        public static List<RouteItemRate> GetAllRouteItemRates()
+        {
+            using (var db = new GetRateContext())
+            {
+                var rates = db.RouteItemRates;
+                var items = db.RouteItems;
+                var routePoints = db.RoutePoints;
+                var companies = db.Companies;
+
+                var query = from rate in rates
+                            join item in items
+                            on rate.RouteItemId equals item.Id
+                            join point in routePoints
+                            on item.RoutePointInId equals point.Id
+                            join company in companies
+                            on point.CompanyId equals company.Id
+                            orderby company.NameENG
+                            select rate;
+
+                return query.ToList();
+            }
+        }
+
+        //create RouteItemRate
+        public static string CreateRouteItemRate(
+                    DateTime dateTime,
+                    Company company,
+                    RouteItem routeItem,
+                    decimal rate,
+                    DateTime validity
+            )
+        {
+            string result = "RouteItemRate is exists already!";
+
+            using (var db = new GetRateContext())
+            {
+                var items = db.RouteItemRates;
+
+                bool checkIsExist = items.Any(h => h.Date == dateTime
+                                                    && h.CompanyId == company.Id
+                                                    && h.RouteItemId == routeItem.Id
+                                                    && h.Rate == rate
+                                                    && h.Validity == validity
+                                                    );
+
+                if (!checkIsExist)
+                {
+                    RouteItemRate newRouteItemRate = new RouteItemRate();
+                    newRouteItemRate.Date = dateTime;
+                    newRouteItemRate.CompanyId = company.Id;
+                    newRouteItemRate.RouteItemId = routeItem.Id;
+                    newRouteItemRate.Rate = rate;
+                    newRouteItemRate.Validity = validity;
+
+                    items.Add(newRouteItemRate);
+                    db.SaveChanges();
+                    result = $"RouteItemRate added successfully!";
+                }
+
+                return result;
+            }
+        }
+
+        //edit RouteItemRate
+        public static string EditRouteItemRate(
+                    RouteItemRate oldRouteItemRate,
+                    DateTime newDateTime,
+                    Company newCompany,
+                    RouteItem newRouteItem,
+                    decimal newRate,
+                    DateTime newValidity
+                    )
+        {
+            string result = "There is no such RouteItemRate!";
+
+            using (var db = new GetRateContext())
+            {
+                RouteItemRate routeItemRate = db.RouteItemRates.FirstOrDefault(h => h.Id == oldRouteItemRate.Id);
+
+                if (routeItemRate != null)
+                {
+                    routeItemRate.Date = newDateTime;
+                    routeItemRate.CompanyId = newCompany.Id;
+                    routeItemRate.RouteItemId = newRouteItem.Id;
+                    routeItemRate.Rate = newRate;
+                    routeItemRate.Validity = newValidity;
+
+                    db.SaveChanges();
+                    result = "RouteItemRate is changed!";
+                }
+            }
+            return result;
+        }
+
+        //delete RouteItemRate
+        public static string DeleteRouteItemRate(RouteItemRate oldRouteItemRate)
+        {
+            string result = "There is no such RouteItemRate!";
+
+            using (var db = new GetRateContext())
+            {
+                var items = db.RouteItemRates;
+
+                var deletedRouteItemRate = (from h in items
+                                        where h.Id == oldRouteItemRate.Id
+                                        select h).FirstOrDefault();
+
+                if (deletedRouteItemRate != null)
+                {
+                    items.Remove(deletedRouteItemRate);
+                    db.SaveChanges();
+                    result = $"RouteItemRate is deleted!";
+                }
+            }
+            return result;
+        }
+
+        //get RouteItemRate by Id
+        public static RouteItemRate GetRouteItemRateById(int id)
+        {
+            using (var db = new GetRateContext())
+            {
+                return db.RouteItemRates.FirstOrDefault(h => h.Id == id);
             }
         }
         #endregion

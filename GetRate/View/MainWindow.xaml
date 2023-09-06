@@ -31,6 +31,7 @@
             <Button x:Name="RoutePointBtn" Content="RoutePoints" Margin="10" Command="{Binding OpenRoutePointsListWnd}"/>
             <!--<Button x:Name="TransportationTypeBtn" Content="Routes" Margin="10" Command="{Binding OpenTransportationTypesListWnd}"/>-->
             <Button x:Name="RouteItemsBtn" Content="RouteItems" Margin="10" Command="{Binding OpenRouteItemsListWnd}"/>
+            <Button x:Name="RouteItemRatesBtn" Content="SupplierRates" Margin="10" Command="{Binding OpenRouteItemRatesListWnd}"/>
         </WrapPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Quit" VerticalContentAlignment="Center" 

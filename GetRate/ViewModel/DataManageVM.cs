@@ -221,6 +221,21 @@ namespace GetRate.ViewModel
                 NotifyPropertyChanged("AllRouteItems");
             }
         }
+
+        //All RouteItemRates
+        private List<RouteItemRate> allRouteItemRates = DataWorker.GetAllRouteItemRates();
+        public List<RouteItemRate> AllRouteItemRates
+        {
+            get
+            {
+                return allRouteItemRates;
+            }
+            set
+            {
+                allRouteItemRates = value;
+                NotifyPropertyChanged("AllRouteItemRates");
+            }
+        }
         #endregion
 
         #region CLASS PROPERTIES
@@ -331,6 +346,14 @@ namespace GetRate.ViewModel
         public static CargoPackage RouteItemCargoPackageIn { get; set; }
         public static CargoPackage RouteItemCargoPackageOut { get; set; }
 
+        //RouteItemRates Properties
+        public static int RouteItemRateId { get; set; }
+        public static DateTime RouteItemRateDate { get; set; }
+        public static Company RouteItemRateCompany { get; set; }
+        public static RouteItem RouteItemRateRouteItem { get; set; }
+        public static decimal RouteItemRateRate { get; set; }
+        public static DateTime RouteItemRateValidity { get; set; }
+
         #endregion
 
         #region SELECTED ITEMS
@@ -351,6 +374,7 @@ namespace GetRate.ViewModel
         public static ObservableCollection<UnitType> RoutePointSelectedUnitTypes { get; set; }
         //public static TransportationType SelectedTransportationType { get; set; }
         public static RouteItem SelectedRouteItem { get; set; }
+        public static RouteItemRate SelectedRouteItemRate { get; set; }
         #endregion
 
         #region COMMANDS TO ADD
@@ -918,6 +942,49 @@ namespace GetRate.ViewModel
                         window.Close();
                     }
                     
+                });
+            }
+        }
+
+        //RouteItemRates
+        private RelayCommand addNewRouteItemRate;
+        public RelayCommand AddNewRouteItemRate
+        {
+            get
+            {
+                return addNewRouteItemRate ?? new RelayCommand (obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = string.Empty;
+
+                    if (RouteItemRateDate == DateTime.MinValue)
+                    {
+                        ShowMessageToUser("Please select rate date");
+                    }
+                    else if (RouteItemRateCompany == null)
+                    {
+                        ShowMessageToUser("Please select Company");
+                    }
+                    else if (RouteItemRateRouteItem == null)
+                    {
+                        ShowMessageToUser("Please select RouteItem");
+                    }
+                    else if (RouteItemRateRate == 0)
+                    {
+                        ShowMessageToUser("Please select Rate");
+                    }
+                    else if (RouteItemRateValidity == DateTime.MinValue)
+                    {
+                        ShowMessageToUser("Please select validity");
+                    }
+                    else
+                    {
+                        resultStr = DataWorker.CreateRouteItemRate(RouteItemRateDate, RouteItemRateCompany, RouteItemRateRouteItem, RouteItemRateRate, RouteItemRateValidity);
+                        UpdateRouteItemRatesListWiew();                        
+                        SetNullValuesToProperties();
+                        window.Close();
+                    }
+                    ShowMessageToUser(resultStr);
                 });
             }
         }
@@ -1514,6 +1581,43 @@ namespace GetRate.ViewModel
             }
         }
 
+        //RouteItemRates
+        private RelayCommand openAddNewRouteItemRateWnd;
+        public RelayCommand OpenAddNewRouteItemRateWnd
+        {
+            get
+            {
+                return openAddNewRouteItemRateWnd ?? new RelayCommand(obj =>
+                {
+                    OpenAddNewRouteItemRateWindowMethod();
+                });
+            }
+        }
+
+        private RelayCommand openEditRouteItemRateWnd;
+        public RelayCommand OpenEditRouteItemRateWnd
+        {
+            get
+            {
+                return openEditRouteItemRateWnd ?? new RelayCommand(obj =>
+                {
+                    OpenEditRouteItemRateWindowMethod();
+                });
+            }
+        }
+
+        private RelayCommand openRouteItemRatesListWnd;
+        public RelayCommand OpenRouteItemRatesListWnd
+        {
+            get
+            {
+                return openRouteItemRatesListWnd ?? new RelayCommand(obj =>
+                {
+                    OpenRouteItemRatesListWindowMethod();
+                });
+                    
+            }
+        }
         #endregion
 
         #region METHODS TO OPEN WINDOW
@@ -1852,6 +1956,31 @@ namespace GetRate.ViewModel
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.ShowDialog();
         }
+
+        //RouteItemRates
+        private void OpenAddNewRouteItemRateWindowMethod()
+        {
+            SetNullValuesToProperties();
+            AddRouteItemRateWindow addRouteItemRateWindow = new AddRouteItemRateWindow();
+            RouteItemRateDate = DateTime.Today;
+            RouteItemRateValidity = DateTime.Today.AddDays(30);
+            addRouteItemRateWindow.ShowDialog();
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        private void OpenEditRouteItemRateWindowMethod()
+        {
+            RouteItemRateCompany = DataWorker.GetCompanyById(SelectedRouteItemRate.CompanyId);
+            RouteItemRateRouteItem = DataWorker.GetRouteItemById(SelectedRouteItemRate.RouteItemId);
+            EditRouteItemRateWindow editRouteItemRateWindow = new EditRouteItemRateWindow(SelectedRouteItemRate);
+            editRouteItemRateWindow.CompaniesComboBox.SelectedIndex = AllCompanies.FindIndex(c => c.Id == RouteItemRateCompany.Id);
+            editRouteItemRateWindow.RouteItemsComboBox.SelectedIndex = AllRouteItems.FindIndex(c => c.Id == RouteItemRateRouteItem.Id);
+            editRouteItemRateWindow.ShowDialog();
+        }
+        private void OpenRouteItemRatesListWindowMethod()
+        {
+            RouteItemRatesList routeItemRatesList = new RouteItemRatesList();
+            routeItemRatesList.ShowDialog();
+        }
+
         #endregion
 
         #region COMMAND TO DELETE
@@ -2170,7 +2299,7 @@ namespace GetRate.ViewModel
         //    }
         //}
 
-        //Handlings
+        //RouteItems
         private RelayCommand deleteHRouteItem;
         public RelayCommand DeleteRouteItem
         {
@@ -2184,6 +2313,27 @@ namespace GetRate.ViewModel
                     {
                         resultStr = DataWorker.DeleteRouteItem(SelectedRouteItem);
                         UpdateRouteItemsListView();
+                        SetNullValuesToProperties();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
+        //RouteItemRates
+        private RelayCommand deleteRouteItemRate;
+        public RelayCommand DeleteRouteItemRate
+        {
+            get
+            {
+                return deleteRouteItemRate ?? new RelayCommand(obj =>
+                {
+                    string resultStr = "Please choose rate to delete";
+
+                    if ( SelectedRouteItemRate != null )
+                    {
+                        resultStr = DataWorker.DeleteRouteItemRate(SelectedRouteItemRate);
+                        UpdateRouteItemRatesListWiew();
                         SetNullValuesToProperties();
                     }
                     ShowMessageToUser(resultStr);
@@ -2610,7 +2760,7 @@ namespace GetRate.ViewModel
         //    }
         //}
 
-        //Handlings
+        //RouteItems
         private RelayCommand editRouteItem;
         public RelayCommand EditRouteItem
         {
@@ -2632,6 +2782,36 @@ namespace GetRate.ViewModel
                                     RouteItemCargoPackageIn,
                                     RouteItemCargoPackageOut);
                         UpdateRouteItemsListView();
+                        SetNullValuesToProperties();
+                        window.Close();
+                    }
+                    ShowMessageToUser(resultStr);
+                });
+            }
+        }
+
+        //RouteItemRates
+        private RelayCommand editRouteItemRate;
+        public RelayCommand EditRouteItemRate
+        {
+            get
+            {
+                return editRouteItemRate ?? new RelayCommand(obj =>
+                {
+                    Window window = obj as Window;
+                    string resultStr = "Please choose Rate to Edit";
+
+                    if (SelectedRouteItemRate != null)
+                    {
+                        resultStr = DataWorker.EditRouteItemRate(
+                            SelectedRouteItemRate,
+                            RouteItemRateDate,
+                            RouteItemRateCompany,
+                            RouteItemRateRouteItem,
+                            RouteItemRateRate,
+                            RouteItemRateValidity
+                            );
+                        UpdateRouteItemRatesListWiew();
                         SetNullValuesToProperties();
                         window.Close();
                     }
@@ -2797,6 +2977,14 @@ namespace GetRate.ViewModel
             RouteItemsList.AllRouteItemsView.ItemsSource = AllRouteItems;
             RouteItemsList.AllRouteItemsView.Items.Refresh();
         }
+        private void UpdateRouteItemRatesListWiew()
+        {
+            AllRouteItemRates = DataWorker.GetAllRouteItemRates();
+            RouteItemRatesList.AllRouteItemRates.ItemsSource = null;
+            RouteItemRatesList.AllRouteItemRates.Items.Clear();
+            RouteItemRatesList.AllRouteItemRates.ItemsSource = AllRouteItemRates;
+            RouteItemRatesList.AllRouteItemRates.Items.Refresh();
+        }
         private void UpdateRoutePointsView()
         {
             AllRoutePoints = DataWorker.GetAllRoutePoints();
@@ -2938,6 +3126,13 @@ namespace GetRate.ViewModel
             RouteItemTMUT_Out = null;
             RouteItemCargoPackageIn = null;
             RouteItemCargoPackageOut = null;
+
+            //RouteItemRate
+            RouteItemRateId = 0;
+            RouteItemRateDate = DateTime.MinValue;
+            RouteItemRateCompany = null;
+            RouteItemRateRate = 0;
+            RouteItemRateValidity = DateTime.MinValue;
         }
         private void SetRedBlockControl(Window window, string blockName)
         {

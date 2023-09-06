@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\ADunaev\source\repos\GetRate2\GetRate\App.xaml
-47-1340572839
+50200469938
 
-1281895540554
+134559212213
 16-796553695
-View\AddAddressWindow.xaml;View\AddCargoPackageWindow.xaml;View\AddCargoWindow.xaml;View\AddCompanyWindow.xaml;View\AddRouteItemWindow.xaml;View\AddPackageWindow.xaml;View\AddRequestWindow.xaml;View\AddressesList.xaml;View\AddRoutePointWindow.xaml;View\AddRPTMUTWindow.xaml;View\AddTransportationTypeWindow.xaml;View\AddTransportModeUnitTypeWindow.xaml;View\AddTransportModeWindow.xaml;View\AddUnitTypeWindow.xaml;View\CargoesList.xaml;View\CargoPackagesList.xaml;View\CitiesList.xaml;View\AddCityWindow.xaml;View\CompaniesList.xaml;View\CountriesList.xaml;View\AddCountryWindow.xaml;View\EditAddressWindow.xaml;View\EditCargoPackageWindow.xaml;View\EditCargoWindow.xaml;View\EditCityWindow.xaml;View\EditCompanyWindow.xaml;View\EditCountryWindow.xaml;View\EditRouteItemWindow.xaml;View\EditPackageWindow.xaml;View\EditRequestWindow.xaml;View\EditRoutePointWindow.xaml;View\EditRPTMUTWindow.xaml;View\EditTransportModeUnitTypeWindow.xaml;View\EditUnitTypeWindow.xaml;View\RouteItemsList.xaml;View\MainWindow.xaml;View\MessageView.xaml;View\PackagesList.xaml;View\RequestsList.xaml;View\RoutePointsList.xaml;View\RPTMUTList.xaml;View\TransporationTypesList.xaml;View\TransportModesListWindow.xaml;View\TransportModesUnitTypesListWindow.xaml;View\UnitTypesListWindow.xaml;View\EditTransportModeWindow.xaml;View\EditTransportationTypeWindow.xaml;
+View\AddAddressWindow.xaml;View\AddCargoPackageWindow.xaml;View\AddCargoWindow.xaml;View\AddCompanyWindow.xaml;View\AddRouteItemRateWindow.xaml;View\AddRouteItemWindow.xaml;View\AddPackageWindow.xaml;View\AddRequestWindow.xaml;View\AddressesList.xaml;View\AddRoutePointWindow.xaml;View\AddRPTMUTWindow.xaml;View\AddTransportationTypeWindow.xaml;View\AddTransportModeUnitTypeWindow.xaml;View\AddTransportModeWindow.xaml;View\AddUnitTypeWindow.xaml;View\CargoesList.xaml;View\CargoPackagesList.xaml;View\CitiesList.xaml;View\AddCityWindow.xaml;View\CompaniesList.xaml;View\CountriesList.xaml;View\AddCountryWindow.xaml;View\EditAddressWindow.xaml;View\EditCargoPackageWindow.xaml;View\EditCargoWindow.xaml;View\EditCityWindow.xaml;View\EditCompanyWindow.xaml;View\EditCountryWindow.xaml;View\EditRouteItemRateWindow.xaml;View\EditRouteItemWindow.xaml;View\EditPackageWindow.xaml;View\EditRequestWindow.xaml;View\EditRoutePointWindow.xaml;View\EditRPTMUTWindow.xaml;View\EditTransportModeUnitTypeWindow.xaml;View\EditUnitTypeWindow.xaml;View\RouteItemRatesList.xaml;View\RouteItemsList.xaml;View\MainWindow.xaml;View\MessageView.xaml;View\PackagesList.xaml;View\RequestsList.xaml;View\RoutePointsList.xaml;View\RPTMUTList.xaml;View\TransporationTypesList.xaml;View\TransportModesListWindow.xaml;View\TransportModesUnitTypesListWindow.xaml;View\UnitTypesListWindow.xaml;View\EditTransportModeWindow.xaml;View\EditTransportationTypeWindow.xaml;
 
 True
 

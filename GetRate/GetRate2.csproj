@@ -173,6 +173,10 @@
     <Compile Include="Migrations\202308252048008_RouteItems2.designer.cs">
       <DependentUpon>202308252048008_RouteItems2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202308312203213_RouteItemRate added.cs" />
+    <Compile Include="Migrations\202308312203213_RouteItemRate added.designer.cs">
+      <DependentUpon>202308312203213_RouteItemRate added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Cargo.cs" />
     <Compile Include="Model\CargoPackage.cs" />
@@ -181,6 +185,7 @@
     <Compile Include="Model\Request.cs" />
     <Compile Include="Model\RequestHandling.cs" />
     <Compile Include="Model\RequestTransportationType.cs" />
+    <Compile Include="Model\RouteItemRate.cs" />
     <Compile Include="Model\RoutePointTransportModeUnitType.cs" />
     <Compile Include="Model\TransportationType.cs" />
     <Compile Include="Model\TransportMode.cs" />
@@ -198,6 +203,9 @@
     </Compile>
     <Compile Include="View\AddCompanyWindow.xaml.cs">
       <DependentUpon>AddCompanyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddRouteItemRateWindow.xaml.cs">
+      <DependentUpon>AddRouteItemRateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddRouteItemWindow.xaml.cs">
       <DependentUpon>AddRouteItemWindow.xaml</DependentUpon>
@@ -253,6 +261,9 @@
     <Compile Include="View\EditCountryWindow.xaml.cs">
       <DependentUpon>EditCountryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditRouteItemRateWindow.xaml.cs">
+      <DependentUpon>EditRouteItemRateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditRouteItemWindow.xaml.cs">
       <DependentUpon>EditRouteItemWindow.xaml</DependentUpon>
     </Compile>
@@ -273,6 +284,9 @@
     </Compile>
     <Compile Include="View\EditUnitTypeWindow.xaml.cs">
       <DependentUpon>EditUnitTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RouteItemRatesList.xaml.cs">
+      <DependentUpon>RouteItemRatesList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RouteItemsList.xaml.cs">
       <DependentUpon>RouteItemsList.xaml</DependentUpon>
@@ -323,6 +337,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddCompanyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddRouteItemRateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -418,6 +436,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditRouteItemRateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditRouteItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -443,6 +465,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditUnitTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RouteItemRatesList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -624,6 +650,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202308252048008_RouteItems2.resx">
       <DependentUpon>202308252048008_RouteItems2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202308312203213_RouteItemRate added.resx">
+      <DependentUpon>202308312203213_RouteItemRate added.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

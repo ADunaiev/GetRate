@@ -15,6 +15,7 @@ namespace GetRate.Model
             Requests = new List<Request>();
             //Carriers = new List<RouteSupplierRate>();
             RoutePoints = new List<RoutePoint>();
+            RouteItemRates = new List<RouteItemRate>(); 
         }
         public int Id { get; set; }
         public string NameENG { get; set; }
@@ -34,5 +35,6 @@ namespace GetRate.Model
         public virtual ICollection<Request> Requests { get; set; }
         //public virtual ICollection<RouteSupplierRate> Carriers { get; set; }
         public virtual ICollection<RoutePoint> RoutePoints { get; set; }
+        public virtual ICollection<RouteItemRate> RouteItemRates { get; set; }
     }
 }
