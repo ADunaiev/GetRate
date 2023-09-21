@@ -24,6 +24,13 @@
                     Width="60" Margin="10"
                     Command="{Binding DeleteCity}"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
+            <TextBox x:Name="SearchRPTextBox" Width="300" Margin="10"
+                     Text="{Binding SearchedCityString}"
+                     VerticalContentAlignment="Center"/>
+            <Button Name="SearchRPButton" Width="60" Margin="10" Content="Find"
+                    Command="{Binding FindCities}"/>
+        </StackPanel>
         <ListView x:Name="CitiesListView" Grid.Row="1" 
                   Margin="10" HorizontalContentAlignment="Left" 
                   ItemsSource="{Binding AllCities}"

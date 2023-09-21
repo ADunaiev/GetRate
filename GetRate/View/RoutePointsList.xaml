@@ -22,6 +22,13 @@
             <Button x:Name="DeleteRoutePointBtn" Content="Delete" Width="60" Margin="10"
                     Command="{Binding DeleteRoutePoint}"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
+            <TextBox x:Name="SearchRPTextBox" Width="300" Margin="10"
+                     Text="{Binding SearchedRoutePointString}"
+                     VerticalContentAlignment="Center"/>
+            <Button Name="SearchRPButton" Width="60" Margin="10" Content="Find"
+                    Command="{Binding FindRoutePoints}"/>
+        </StackPanel>
         <ListView x:Name="RoutePointsListView" Grid.Row="1" Margin="10" 
                   ItemsSource="{Binding AllRoutePoints}"
                   SelectedItem="{Binding SelectedRoutePoint}">

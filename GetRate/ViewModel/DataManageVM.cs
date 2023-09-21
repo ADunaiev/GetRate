@@ -243,18 +243,21 @@ namespace GetRate.ViewModel
         public static string CountryNameENG { get; set; }
         public static string CountryNameUKR { get; set; }
         public static int CountryId { get; set; }
+        public static string SearchedCountryString { get; set; }
 
         //Cities properties
         public static int CityId { get; set; }
         public static string CityNameENG { get; set; }
         public static string CityNameUKR { get; set; }
         public static Country CityCountry { get; set; }
+        public static string SearchedCityString { get; set; }
 
         //Addresses properties
         public static int AddressId { get; set; }
         public static string AddressNameENG { get; set; }
         public static string AddressNameUKR { get; set; }
         public static City AddressCity { get; set; }
+        public static string SearchedAddressString { get; set; }
 
         //Companies properties
         public static int CompanyId { get; set; }
@@ -272,6 +275,7 @@ namespace GetRate.ViewModel
 
             }
         }
+        public static string SearchedCompanyString { get; set; }
 
         //UnitTypes Properties
         public static int UnitTypeId { get; set; }
@@ -315,6 +319,7 @@ namespace GetRate.ViewModel
         //RoutePoint Properties
         public static int RoutePointId { get; set; }
         public static Company RoutePointCompany { get; set; }
+        public static string SearchedRoutePointString { get; set; }
 
         //Request Properties
         public static int RequestId { get; set; }
@@ -2822,6 +2827,74 @@ namespace GetRate.ViewModel
 
         #endregion
 
+        #region COMMANDS TO FIND
+
+        //Countries
+        private RelayCommand findCountries;
+        public RelayCommand FindCountries
+        {
+            get
+            {
+                return findCountries ?? new RelayCommand(obj =>
+                {
+                    UpdateCountriesView();
+                });
+            }
+        }
+
+        //Cities
+        private RelayCommand findCities;
+        public RelayCommand FindCities
+        {
+            get
+            {
+                return findCities ?? new RelayCommand(obj =>
+                {
+                    UpdateCitiesView();
+                });
+            }
+        }
+
+        //Addresses
+        private RelayCommand findAddresses;
+        public RelayCommand FindAddresses
+        {
+            get
+            {
+                return findAddresses ?? new RelayCommand(obj =>
+                {
+                    UpdateAddressesView();
+                });
+            }
+        }
+
+        //Companies
+        private RelayCommand findCompanies;
+        public RelayCommand FindCompanies
+        {
+            get
+            {
+                return findCompanies ?? new RelayCommand(obj =>
+                {
+                    UpdateCompaniesView();
+                });
+            }
+        }
+
+        //RoutePoints
+        private RelayCommand findRoutePoints;
+        public RelayCommand FindRoutePoints
+        {
+            get
+            {
+                return findRoutePoints ?? new RelayCommand(obj =>
+                {
+                    UpdateRoutePointsView();
+                });
+            }
+        }
+        #endregion
+
         #region COMMAND TO CLOSE WINDOWS
 
         private RelayCommand closeWnd;
@@ -2864,7 +2937,8 @@ namespace GetRate.ViewModel
 
         private void UpdateCountriesView()
         {
-            AllCountries = DataWorker.GetAllCountries();
+            //AllCountries = DataWorker.GetAllCountries();
+            AllCountries = DataWorker.FindCountries(SearchedCountryString);
             CountriesList.AllCountriesView.ItemsSource = null;
             CountriesList.AllCountriesView.Items.Clear();
             CountriesList.AllCountriesView.ItemsSource = AllCountries;
@@ -2872,7 +2946,8 @@ namespace GetRate.ViewModel
         }
         private void UpdateCitiesView()
         {
-            AllCities = DataWorker.GetAllCities();
+            //AllCities = DataWorker.GetAllCities();
+            AllCities = DataWorker.FindCities(SearchedCityString);
             CitiesList.AllCitiesView.ItemsSource = null;
             CitiesList.AllCitiesView.Items.Clear();
             CitiesList.AllCitiesView.ItemsSource = AllCities;
@@ -2880,7 +2955,8 @@ namespace GetRate.ViewModel
         }
         private void UpdateAddressesView()
         {
-            AllAddresses = DataWorker.GetAlAddresses();
+            //AllAddresses = DataWorker.GetAlAddresses();
+            AllAddresses = DataWorker.FindAddresses(SearchedAddressString);
             AddressesList.AllAddressesView.ItemsSource = null;
             AddressesList.AllAddressesView.Items.Clear();
             AddressesList.AllAddressesView.ItemsSource = AllAddresses;
@@ -2889,7 +2965,8 @@ namespace GetRate.ViewModel
         }
         private void UpdateCompaniesView()
         {
-            AllCompanies = DataWorker.GetAllCompanies();
+            //AllCompanies = DataWorker.GetAllCompanies();
+            AllCompanies = DataWorker.FindCompanies(SearchedCompanyString);
             CompaniesList.AllCompaniesView.ItemsSource = null;
             CompaniesList.AllCompaniesView.Items.Clear();
             CompaniesList.AllCompaniesView.ItemsSource = AllCompanies;
@@ -2987,7 +3064,8 @@ namespace GetRate.ViewModel
         }
         private void UpdateRoutePointsView()
         {
-            AllRoutePoints = DataWorker.GetAllRoutePoints();
+            //AllRoutePoints = DataWorker.GetAllRoutePoints();
+            AllRoutePoints = DataWorker.FindRoutePoints(SearchedRoutePointString);
             RoutePointsList.AllRoutePointsView.ItemsSource = null;
             RoutePointsList.AllRoutePointsView.Items.Clear();
             RoutePointsList.AllRoutePointsView.ItemsSource = AllRoutePoints;

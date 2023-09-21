@@ -23,6 +23,13 @@
                     Width="60" Margin="10"
                     Command="{Binding DeleteCompany}"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
+            <TextBox x:Name="SearchRPTextBox" Width="300" Margin="10"
+                     Text="{Binding SearchedCompanyString}"
+                     VerticalContentAlignment="Center"/>
+            <Button Name="SearchRPButton" Width="60" Margin="10" Content="Find"
+                    Command="{Binding FindCompanies}"/>
+        </StackPanel>
         <ListView x:Name="CompamiesListView" Grid.Row="1" Margin="10"
                   ItemsSource="{Binding AllCompanies}"
                   SelectedItem="{Binding SelectedCompany}">

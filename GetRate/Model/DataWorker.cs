@@ -28,6 +28,21 @@ namespace GetRate.Model
             }
         }
 
+        public static List<Country> FindCountries (string findStr)
+        {
+            using (var db = new GetRateContext())
+            {
+                var countrys = db.Countries;
+
+                var query = from country in countrys
+                            where country.NameENG.Contains(findStr)
+                            orderby country.NameENG
+                            select country;
+
+                return query.ToList();
+            }
+        }
+
         //create Country
         public static string CreateCountry(string countryNameENG, string countryNameUKR)
         {
@@ -116,6 +131,21 @@ namespace GetRate.Model
             using (var db = new GetRateContext())
             {
                 var query = db.Cities.AsQueryable().OrderBy(c => c.NameENG);
+
+                return query.ToList();
+            }
+        }
+
+        public static List<City> FindCities(string searchStr)
+        {
+            using (var db = new GetRateContext())
+            {
+                var cities = db.Cities;
+
+                var query = from city in cities
+                            where city.NameENG.Contains(searchStr)
+                            orderby city.NameENG
+                            select city;
 
                 return query.ToList();
             }
@@ -212,6 +242,21 @@ namespace GetRate.Model
             }
         }
 
+        public static List<Address> FindAddresses(string searchStr)
+        {
+            using (var db = new GetRateContext())
+            {
+                var addresses = db.Addresss;
+
+                var query = from address in addresses
+                            where address.StreetBuildingENG.Contains(searchStr)
+                            orderby address.StreetBuildingENG
+                            select address;
+
+                return query.ToList();
+            }
+        }
+
         //create Address
         public static string CreateAddress(string NameENG, string NameUKR, City city)
         {
@@ -300,6 +345,20 @@ namespace GetRate.Model
             using (var db = new GetRateContext())
             {
                 var query = db.Companies.AsQueryable().OrderBy(a => a.NameENG);
+                return query.ToList();
+            }
+        }
+        public static List<Company> FindCompanies(string searchStr)
+        {
+            using (var db = new GetRateContext())
+            {
+                var companies = db.Companies;
+
+                var query = from company in companies
+                            where company.NameENG.Contains(searchStr)
+                            orderby company.NameENG
+                            select company;
+
                 return query.ToList();
             }
         }
@@ -480,6 +539,23 @@ namespace GetRate.Model
             }
         }
 
+        public static List<RoutePoint> FindRoutePoints(string findStr) 
+        { 
+            using (var db = new GetRateContext())
+            {
+                var routePoints = db.RoutePoints;
+                var companies = db.Companies;
+
+                var query = from routePoint in routePoints
+                            join company in companies
+                            on routePoint.CompanyId equals company.Id
+                            where company.NameENG.Contains(findStr)
+                            orderby company.NameENG
+                            select routePoint;
+
+                return query.ToList();
+            }
+        }
 
         #endregion
 
